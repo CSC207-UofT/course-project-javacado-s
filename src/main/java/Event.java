@@ -7,7 +7,7 @@ This class represents an Event that an outside user is requesting catering for.
 
 public class Event {
     // Ask Faith about employee wages??
-    private static final int WAGE = 10;
+    // private static final int WAGE = 10;
 
     private String name;
     private Date date;
@@ -61,12 +61,15 @@ public class Event {
         return employees;
     }
 
+    /*
     public int getEmployeesNeeded() {
         // use getter method for meal attribute #employees per # attendees
     }
 
     public float getPrice() {
         //Ask Faith about Employee wages???
-        return (mealType.price * numAttendees) + (getEmployeesNeeded() * WAGE);
+        // return (mealType.price * numAttendees) + (getEmployeesNeeded() * WAGE);
     }
+
+     */
 }
