@@ -1,4 +1,4 @@
-=== SCENARIO WALKTHROUGH === 
+##**SCENARIO WALKTHROUGH**
 
 - Using command line interface, a user makes a catering request for an event with the title of the event, 
 location, date, number of attendees, and type of meal (breakfast, lunch, or dinner)
