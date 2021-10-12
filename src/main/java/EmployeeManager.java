@@ -91,7 +91,10 @@ public class EmployeeManager {
     public ArrayList<Employee> getEmployeeList() {
         return this.employee_list;
     }
-
+    /**
+     * @param d Date d
+     * @return ArrayList of available Employees for specific Date d
+     */
     public ArrayList<Employee> availableEmployees(Date d){
         ArrayList<Employee> available = new ArrayList<>();
         for(Employee e:this.employee_list){
