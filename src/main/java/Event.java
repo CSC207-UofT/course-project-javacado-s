@@ -88,7 +88,7 @@ public class Event {
     @Override
     public String toString(){
         return "Event details: " + this.name + " on "+ this.date + " at " + this.location + " for " + this.mealType +
-                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of this event: " +  this.price;
+                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of catering: " +  this.price;
     }
 
     /*
