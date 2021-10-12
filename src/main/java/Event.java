@@ -2,10 +2,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
-This class represents an Event that an outside user is requesting catering for.
+ This class represents an Event that an outside user is requesting catering for.
  */
 
 public class Event {
+    // Ask Faith about employee wages??
+    // private static final int WAGE = 10;
+
     private String name;
     private Date date;
     private String location;
@@ -15,9 +18,8 @@ public class Event {
     private float price;
 
     /**
-    Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
+     Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
      of employees assigned to the event.
-
      @param name given name of the event
      @param date given date of the event
      @param location given location of the event
@@ -30,7 +32,7 @@ public class Event {
         this.location = location;
         this.numAttendees = numAttendees;
         this.mealType = mealType;
-        this.employees = new ArrayList<>();
+        this.employees = new ArrayList<String>();
         this.price = 0;
     }
 
@@ -58,15 +60,42 @@ public class Event {
         return employees;
     }
 
+    public void setName(String newName) {
+        name = newName;
+    }
+    public void setDate(Date newDate) {
+        date = newDate;
+    }
+
+    public void setLocation(String newLocation) {
+        location = newLocation;
+    }
+
+    public void setNumAttendees(int attendees) {
+        numAttendees = attendees;
+    }
+
+    public void setMealType(Meal newMealType) {
+        mealType = newMealType;
+    }
+
+    public void setEmployees(ArrayList<String> newEmployees) {
+        employees = newEmployees;
+    }
+
+    @Override
+    public String toString(){
+        return "Event details: " + this.name + " on "+ this.date + " at " + this.location + " for " + this.mealType +
+                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of this event: " +  this.price;
+    }
+}
     /*
     public int getEmployeesNeeded() {
         // use getter method for meal attribute #employees per # attendees
     }
-
+    public float getPrice() {
+        //Ask Faith about Employee wages???
+        // return (mealType.price * numAttendees) + (getEmployeesNeeded() * WAGE);
+    }
      */
 
-    public float getPrice() {
-        return mealType.price * numAttendees;
-    }
-
-}
