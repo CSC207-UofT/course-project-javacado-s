@@ -32,6 +32,9 @@ public class Employee {
     public ArrayList<Date> getUnavailableDates(){
         return unavailableDates;
     }
+    public int getWage(){
+        return Employee.WAGE;
+    }
 
     /**
      * Returns True if Employee is available on given date, False if unavailable
