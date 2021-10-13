@@ -59,6 +59,7 @@ public class Meal {
         for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){
             message = message + "\r\n" + dish;
         }
+
         return message;
     }
 
