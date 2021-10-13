@@ -2,13 +2,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- This class represents an Event that an outside user is requesting catering for.
+ This class represents an Event that a user is requesting catering for.
  */
 
 public class Event {
-    // Ask Faith about employee wages??
-    // private static final int WAGE = 10;
-
     private String name;
     private Date date;
     private String location;
@@ -32,8 +29,9 @@ public class Event {
         this.location = location;
         this.numAttendees = numAttendees;
         this.mealType = mealType;
-        this.employees = new ArrayList<String>();
-        this.price = 0;
+        this.employees = new ArrayList<>();
+        // Edit depending on what the meal price getter method is
+        this.price = mealType.getPrice() * numAttendees;
     }
 
     public String getName() {
@@ -58,6 +56,10 @@ public class Event {
 
     public ArrayList<String> getEmployees() {
         return employees;
+    }
+
+    public float getPrice() {
+        return price;
     }
 
     public void setName(String newName) {
@@ -86,16 +88,13 @@ public class Event {
     @Override
     public String toString(){
         return "Event details: " + this.name + " on "+ this.date + " at " + this.location + " for " + this.mealType +
-                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of this event: " +  this.price;
+                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of catering: " +  this.price;
     }
-}
+
     /*
     public int getEmployeesNeeded() {
-        // use getter method for meal attribute #employees per # attendees
+        // use getter method for Meal attribute # employees per # attendees
     }
-    public float getPrice() {
-        //Ask Faith about Employee wages???
-        // return (mealType.price * numAttendees) + (getEmployeesNeeded() * WAGE);
-    }
-     */
+    */
+}
 
