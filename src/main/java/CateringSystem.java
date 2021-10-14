@@ -36,10 +36,13 @@ public class CateringSystem {
         return checkAvailability(newEvent);
     }
 
+    /**
+     * Check availability of employees to see if event request can be accepted.
+     *
+     * @param newEvent New event being checked
+     * @return String message indicating whether request was accepted
+     */
     private String checkAvailability(Event newEvent) {
-        float price = newEvent.getPrice();
-        int numAttendees = newEvent.getNumAttendees();
-
         // TODO: create getEmployeesNeeded() in EmployeeManager Class
         boolean enoughEmployees = employeeManager.enoughEmployees(newEvent.getEmployeesNeeded(), newEvent.getDate());
 
