@@ -1,4 +1,3 @@
-/*
 import org.junit.Before;
 import org.junit.Test;
 
@@ -161,7 +160,7 @@ public class EventManagerTest {
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
                 "BA", 25, testMeal);
 
-        em.cancelEvent(eventA);
+        em.cancelEvent(eventA.getID());
         ArrayList<Event> expected = new ArrayList<>();
         expected.add(eventB);
         ArrayList<Event> eventList = em.getEventList();
@@ -184,8 +183,7 @@ public class EventManagerTest {
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, testMeal);
 
-        em.cancelEvent(eventA);
+        em.cancelEvent(eventA.getID());
         assert (em.getCancelledEvent(204)).equals(eventA);
     }
 }
-*/
