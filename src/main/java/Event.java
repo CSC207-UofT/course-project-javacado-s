@@ -34,61 +34,107 @@ public class Event {
         this.price = mealType.getPrice() * numAttendees;
     }
 
+    /**
+     * Event getter for event's name.
+     * @return String. Return the given name of this event.
+     */
     public String getName() {
         return name;
     }
-
+    /**
+     * Event getter for event's date.
+     * @return Date. Return the date of this event.
+     */
     public Date getDate() {
         return date;
     }
-
+    /**
+     * Event getter for event's location.
+     * @return String. Return the location of this event.
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Event getter for number of Attendees at this event.
+     * @return int. Return the given number of attendees of this event.
+     */
     public int getNumAttendees() {
         return numAttendees;
     }
 
+    /**
+     * Event getter for event's meal type.
+     * @return a meal object, the specified meal type for the event.
+     */
     public Meal getMealType() {
         return mealType;
     }
 
+    /**
+     * Event getter for list of employees assigned.
+     * @return Arraylist of employees assigned to this event.
+     */
     public ArrayList<String> getEmployees() {
         return employees;
     }
 
+    /**
+     * Event getter for event's price
+     * @return float for the event's total price.
+     */
     public float getPrice() {
         return price;
     }
-
+    /**
+     * Event setter for event's name.
+     */
     public void setName(String newName) {
         name = newName;
     }
+    /**
+     * Event setter for event's date.
+     */
     public void setDate(Date newDate) {
         date = newDate;
     }
-
+    /**
+     * Event setter for event's location.
+     */
     public void setLocation(String newLocation) {
         location = newLocation;
     }
-
+    /**
+     * Event setter for event's number of attendees.
+     */
     public void setNumAttendees(int attendees) {
         numAttendees = attendees;
     }
 
+    /**
+     * Event setter for event's meal type.
+     */
     public void setMealType(Meal newMealType) {
         mealType = newMealType;
     }
 
+    /**
+     * Event setter for employees assigned to this event.
+     */
     public void setEmployees(ArrayList<String> newEmployees) {
         employees = newEmployees;
     }
 
+    /**
+     Return a String representation of the Event class, including event details: name, date, location,
+     number of attendees and the total price for this event.
+     */
     @Override
     public String toString(){
-        return "Event details: " + this.name + " on "+ this.date + " at " + this.location + " for " + this.mealType +
-                " for " + this.numAttendees + " attendees." + "\r\n" + "Price of catering: " +  this.price;
+//        return "Event details: " + this.name + " on "+ this.date.toString() + " at " + this.location + " for " +
+//                this.mealType.toString() + " for " + this.numAttendees.toString() + " attendees." + "\r\n" +
+//                "Price of catering: " + this.price.toString();
     }
 
     /*
