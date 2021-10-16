@@ -10,6 +10,7 @@ the user will receive a confirmation message with event details and total price.
 
 
 ###CRC model 
+
 Our CRC model consists of three entity classes: Employee, Event, and Meal. 
 The two use cases are EventManager, and EmployeeManager. The controller is
 CateringSystem, and finally the command line interface is represented by the class
@@ -31,12 +32,14 @@ their request could not be accepted for that date.
 
 
 ###Skeleton Program 
+
 Our skeleton program covers our three entity classes, two use cases, controller, 
 and also provides a simple command line interface. Our skeleton program 
 also includes an txt file, stored_employees.txt, which is supposed to store employees by their 
 ID and name. 
 
 ###Other Notes
+
 To add: 
 - open questions your group is struggling with 
 - what has worked well so far with your design 
