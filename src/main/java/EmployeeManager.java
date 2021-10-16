@@ -91,6 +91,7 @@ public class EmployeeManager {
     public ArrayList<Employee> getEmployeeList() {
         return this.employee_list;
     }
+
     /**
      * @param d Date d
      * @return ArrayList of available Employees for specific Date d
@@ -103,6 +104,18 @@ public class EmployeeManager {
             }
         }
         return available;
+    }
+
+    /**
+     * @param list list of Employees
+     * @return Array containing the IDs of Employees in list
+     */
+    public int[] getID(ArrayList<Employee> list){
+        int[] id_list = new int[list.size()];
+        for(int i=0; i<list.size(); i++){
+            id_list[i]= list.get(i).getid();
+        }
+        return id_list;
     }
 
     /**
