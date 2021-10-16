@@ -11,10 +11,10 @@ the user will receive a confirmation message with event details and total price.
 
 ###CRC model 
 
-Our CRC model consists of three entity classes: Employee, Event, and Meal. 
-The two use cases are EventManager, and EmployeeManager. The controller is
-CateringSystem, and finally the command line interface is represented by the class
-Main. 
+Our CRC model consists of three entity classes: Employee(store name, ID, store availability, etc.), 
+Event (store name, date, num attendees, location, etc.), and Meal(store meal type, number employees needed, etc). 
+The two use cases are EventManager, and EmployeeManager. The controller is CateringSystem, and finally the command 
+line interface is represented by the class Main. 
 
 ###Scenario Walk-through 
 
@@ -40,7 +40,21 @@ ID and name.
 
 ###Other Notes
 
-To add: 
-- open questions your group is struggling with 
-- what has worked well so far with your design 
-- and a brief summary of what each group member has been working on and plans to work on next.
+Overall, what worked so far with our design was that we made sure that our code abided by the dependency rule, 
+which made editing/modifying classes an easier process; for instance, we made sure that our use cases
+(i.e. EmployeeManager, EventManager) did not directly interact with entities (i.e. Employee, Event).
+This also allowed for different team members to work on different classes at the same time. 
+
+Some open questions that our group has is that we are not sure how to implement 'time' into the Employee and Event 
+classes, as we want to have Employees be able to set different availabilities, and also have the Event class store 
+times as well. 
+
+Lastly, we have created a plan for what each team member is/will be working on in the coming weeks:
+
+- Rose: incorporate time in Employee and Event classes 
+- Lucas: implement User class, AccountManager, AccountSystem
+- Faith: extend Employee types, different wages for each
+- Zhengdong: extend different Meal types
+- Karen: extend CateringSystem functionality by recommending another available times for the event 
+- Maggie: implement rating system
+- Zi Xuan: implement payment system 
