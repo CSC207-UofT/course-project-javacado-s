@@ -132,15 +132,14 @@ public class Event {
      */
     @Override
     public String toString(){
-//        return "Event details: " + this.name + " on "+ this.date.toString() + " at " + this.location + " for " +
-//                this.mealType.toString() + " for " + this.numAttendees.toString() + " attendees." + "\r\n" +
-//                "Price of catering: " + this.price.toString();
+        return "Event details: " + this.name + " on "+ this.date.toString() + " at " + this.location + " for " +
+                this.mealType.toString() + " for " + this.numAttendees + " attendees." + "\r\n" +
+                "Price of catering: " + this.price;
     }
 
-    /*
+
     public int getEmployeesNeeded() {
         // use getter method for Meal attribute # employees per # attendees
     }
-    */
 }
 
