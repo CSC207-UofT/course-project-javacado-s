@@ -25,7 +25,7 @@ public class EventManager {
         this.eventList = new ArrayList<>();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
-        this.newId = 000000;
+        this.newId = 0;
     }
 
 
@@ -41,7 +41,7 @@ public class EventManager {
      */
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
-        Meal newMeal = new Meal(numAttendees, selectedMeal);
+        Meal newMeal = new Meal(selectedMeal);
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -62,7 +62,7 @@ public class EventManager {
      */
     public int createEvent(int id, String name, Date date, String location,
                            int numAttendees, String selectedMeal){
-        Meal newMeal = new Meal(numAttendees, selectedMeal);
+        Meal newMeal = new Meal(selectedMeal);
         Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);
@@ -75,8 +75,7 @@ public class EventManager {
      * @return      A clone of the eventList
      */
     public ArrayList<Event> getEventList(){
-        ArrayList<Event> result = new ArrayList<>(this.eventList);
-        return result;
+        return new ArrayList<>(this.eventList);
     }
 
     /**
@@ -100,6 +99,21 @@ public class EventManager {
         return this.idEventMap.get(id);
     }
 
+    /**
+     * Return the number of employees needed for the event with the given id.
+     *
+     * @param id        The required event's id
+     * @return          Return the number of employees needed for the event
+     */
+    public int getEmployeesNeeded(int id) { return getEventByID(id).getEmployeesNeeded();}
+
+    /**
+     * Return the date of the event with the given id.
+     *
+     * @param id        The required event's id
+     * @return          Return the date of the event
+     */
+    public Date getEventDate(int id) { return getEventByID(id).getDate();}
 
     // Some more getter methods, in case needed
 
@@ -157,12 +171,12 @@ public class EventManager {
     /**
      * Remove the event that has the given name
      *
-     * @param event      The name of the event that needs to be removed
+     * @param eventID      The name of the event that needs to be removed
      */
-    public void cancelEvent(Event event){
-        this.eventList.remove(event);
-        this.idEventMap.remove(event.getID());
-        this.cancelledEvent.put(event.getID(), event);
+    public void cancelEvent(int eventID){
+        this.eventList.remove(getEventByID(eventID));
+        this.idEventMap.remove(eventID);
+        this.cancelledEvent.put(eventID, getEventByID(eventID));
     }
 
     public String toString(int id) {

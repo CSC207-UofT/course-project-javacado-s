@@ -105,7 +105,7 @@ public class Event {
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return mealType.getNumEmployees() * numAttendees;
+        return (int) Math.ceil(mealType.getNumEmployee() * numAttendees);
     }
 
     /**
@@ -154,8 +154,8 @@ public class Event {
     @Override
     public String toString(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for " +
-                this.mealType.toString() + " for " + this.numAttendees + " attendees." + "\r\n" +
-                "Price of catering: " + this.price;
+        return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for "
+                + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() + "\r\n" +
+                "Price of catering: $" + this.price;
     }
 }
