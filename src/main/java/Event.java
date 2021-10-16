@@ -159,4 +159,3 @@ public class Event {
                 "Price of catering: " + this.price;
     }
 }
-
