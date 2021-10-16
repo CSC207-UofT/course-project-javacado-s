@@ -1,43 +1,36 @@
 
-
+import java.util.Hashtable;
 /**
  This class represents a Meal that sent specific meal information to Event Class.
  */
 
-//Let me know if anything is missing.
+//more UPDATED will include later.
 
 public class Meal {
     private String[] mealType = {"breakfast","lunch","dinner"};
-    private final int BASE_PRICE = 3;
-    private Hashtable<String, Integer> priceList = new Hashtable<String, Integer>();
+    private Hashtable<String, Float> priceList = new Hashtable<String, Float>();
     private Hashtable<String, String[]> menuList = new Hashtable<String, String[]>();
-    private final Hashtable<String, Integer> BASE_NUM_EMPLOYEE = new Hashtable<String, Integer>();
-    private Hashtable<String, Integer> addNumEmployee = new Hashtable<String, Integer>();
-    private int numAttendees;
-    private int totalMealPrice = 0;
-    private int numEmployee = 0;
+    private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<String, Float>();
     private String selectedMeal = "";
 
     /**
      Constructs a Meal with a number of attendees, and meal type requested.
-     @param numAttendees given number of attendees at the event
      @param selectedMeal given meal type requested
-     And Setup Meal Price List & Menu.
+     And Setup Meal Price List, Menu & NUM_EMPLOYEE List.
      */
 
-    public Meal (int numAttendees, String selectedMeal){
-        this.numAttendees = numAttendees;
+    public Meal (String selectedMeal){
         this.selectedMeal = selectedMeal;
         setMealPriceList();
         setMenu();
         setEmployee();
     }
 
-    // a private method which sets the Meal Price List
+    // a private method which sets the Meal Price List per attendee.
     private void setMealPriceList(){
-        this.priceList.put(mealType[0],2);
-        this.priceList.put(mealType[1],4);
-        this.priceList.put(mealType[2],7);
+        this.priceList.put(mealType[0],(float) 7.0);
+        this.priceList.put(mealType[1],(float) 14.0);
+        this.priceList.put(mealType[2],(float) 22.0);
     }
 
     // a private method which sets the General Menu
@@ -47,64 +40,38 @@ public class Meal {
         this.menuList.put(mealType[2],new String[]{"Grilled Steak","Grilled Salmon","Large Salad","Shrimp And Corn Chowder Soup","Apple Juice"});
     }
 
-    // a private method which sets the basic number Employee and additional number Employee needed.
+    // a private method which sets the number Employee per numAttendeeGroup attendees.
     private void setEmployee(){
-        this.BASE_NUM_EMPLOYEE.put(mealType[0],1);
-        this.BASE_NUM_EMPLOYEE.put(mealType[1],2);
-        this.BASE_NUM_EMPLOYEE.put(mealType[2],3);
-
-        // additional number Employee applied for numAttendees >= 12
-        this.addNumEmployee.put(mealType[0],1);
-        this.addNumEmployee.put(mealType[1],2);
-        this.addNumEmployee.put(mealType[2],2);
+        this.NUM_EMPLOYEE.put(mealType[0], (float) 0.2);
+        this.NUM_EMPLOYEE.put(mealType[1], (float) 0.4);
+        this.NUM_EMPLOYEE.put(mealType[2], (float) 0.6);
     }
 
     /**
-     * @return an integer represents the total price of this meal
-     * (the total meal price is based on basic price + specific price for different types of meal.)
+     * @return an integer represents the price of this meal per attendee.
      */
-    public int getTotalPrice(){
-        totalMealPrice = numAttendees * (BASE_PRICE + priceList.get(this.selectedMeal.toLowerCase()));
-        return totalMealPrice;
+    public float getMealPrice(){
+        return priceList.get(this.selectedMeal.toLowerCase());
     }
 
     /**
-     * @return an integer represents the total number Employee needed for this meal
-     * (the total number Employee is based on basic number Employee per Meal Type
-     * + specific additional number Employee for different types of meal, this
-     * only available for number Attendees >= 12)
+     * @return an integer represents the number Employee per numAttendeeGroup attendees.
      */
-    public int getNumEmployee(){
-        if (this.numAttendees >= 12){
-            this.numEmployee = this.numEmployee + addNumEmployee.get(this.selectedMeal.toLowerCase());
-        }
-        this.numEmployee = this.numEmployee + BASE_NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
-        return this.numEmployee;
+    public float getNumEmployee(){
+        return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
     }
 
+    @Override
     /**
      * @return a String represents the Menu (Dishes list) for requested Meal Type.
      */
-    public String getMenu(){
+    public String toString(){
         String message = "Menu of " + selectedMeal + ":";
         for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){
             message = message + "\r\n" + dish;
         }
 
         return message;
-    }
-
-    @Override
-    /**
-     * @return a String indicates the Menu (Dishes list) for requested Meal Type and Total Meal Price.
-     */
-    public String toString(){
-        String message = "Menu:";
-        for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){
-            message = message + "\r\n" + dish;
-        }
-
-        return message + "\nTotal Meal Price: " + this.totalMealPrice;
     }
 
 }
