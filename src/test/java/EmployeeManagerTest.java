@@ -1,9 +1,5 @@
 /*
- * This file contains JUnit test cases for Silly.java
- *
- * You should NOT modify this file! When you push Silly.java to
- * GitHub, it should run these tests. You can see the results in the
- * "Actions" tab of your repository.
+ * This file contains JUnit test cases for EmployeeManager.java
  */
 
 import org.junit.*;
@@ -25,7 +21,7 @@ public class EmployeeManagerTest {
 
     @Test(timeout = 50)
     public void testInitializer() {
-        ArrayList<Employee> expected = new ArrayLis<Employee>();
+        ArrayList<Employee> expected = new ArrayList<Employee>();
         expected.add(new Employee("Jane Doe", 12));
         expected.add(new Employee("John Doe", 13));
         assertEquals(expected, e_manager.getEmployeeList());
