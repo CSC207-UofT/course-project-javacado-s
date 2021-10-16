@@ -15,6 +15,7 @@ public class EventManager {
     private ArrayList<Event> eventList;
     private HashMap<Integer, Event> idEventMap;
     private HashMap<Integer, Event> cancelledEvent;
+    private int newId;
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -24,11 +25,32 @@ public class EventManager {
         this.eventList = new ArrayList<>();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
+        this.newId = 000000;
     }
 
 
     /**
      * Create a new Event from System input, and add it to the eventList
+     *
+     * @param name              The name of the Event
+     * @param date              The date of the Event
+     * @param location          The location of the Event
+     * @param numAttendees      The number of attendees of the Event
+     * @param selectedMeal      The selected meal type
+     * @return                  Return the created Event
+     */
+    public int createEvent(String name, Date date, String location,
+                          int numAttendees, String selectedMeal){
+        Meal newMeal = new Meal(numAttendees, selectedMeal);
+        Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
+        this.eventList.add(newEvent);
+        this.idEventMap.put(this.newId, newEvent);
+        this.newId ++;
+        return this.newId - 1;
+    }
+
+    /**
+     * Create a new Event from System input with specific id, and add it to the eventList
      *
      * @param id                The id of the Event
      * @param name              The name of the Event
@@ -39,9 +61,9 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(int id, String name, Date date, String location,
-                          int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal){
         Meal newMeal = new Meal(numAttendees, selectedMeal);
-        Event newEvent = new Event(name, date, location, numAttendees, newMeal);
+        Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);
         return id;
