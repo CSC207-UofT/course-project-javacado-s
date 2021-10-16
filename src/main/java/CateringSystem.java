@@ -30,10 +30,10 @@ public class CateringSystem {
      * @return a String message telling user if the event was successfully booked
      */
     public String createEvent(String name, Date date, String location,
-                            int numAttendees, Meal mealType) {
+                            int numAttendees, String mealType) {
         // TODO: the createEvent() in EventManager should return the created Event for ease of checking availability
-        Event newEvent = eventManager.creatEvent(name, date, location, numAttendees, mealType);
-        return checkAvailability(newEvent);
+        int newEventID = eventManager.createEvent(name, date, location, numAttendees, mealType);
+        return checkAvailability(newEventID);
     }
 
     /**
@@ -42,12 +42,14 @@ public class CateringSystem {
      * @param newEvent New event being checked
      * @return String message indicating whether request was accepted
      */
-    private String checkAvailability(Event newEvent) {
+    private String checkAvailability(int newEvent) {
         // TODO: create getEmployeesNeeded() in EmployeeManager Class
-        boolean enoughEmployees = employeeManager.enoughEmployees(newEvent.getEmployeesNeeded(), newEvent.getDate());
+        boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEvent),
+                eventManager.getEventDate(newEvent));
 
         if (enoughEmployees) {
-            return "Thank you for choosing Javacado's! Your catering request was accepted. " + newEvent;
+            return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
+                    eventManager.getEventByID(newEvent);
         }
         else {
             // TODO: create cancelEvent() in EventManager Class
