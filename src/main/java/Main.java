@@ -34,7 +34,7 @@ public class Main {
             System.out.println("\nAre we catering for breakfast, lunch, or dinner?: ");
             String mealType = input.next().toLowerCase(Locale.ROOT);
 
-            system.createEvent(name, eventDate, location, numAttendees, mealType);
+            System.out.println("\n"+system.createEvent(name, eventDate, location, numAttendees, mealType));
 
             System.out.println("\nIf you would like to finish and exit, please enter \"exit\": ");
             exit = input.next().toLowerCase(Locale.ROOT);
