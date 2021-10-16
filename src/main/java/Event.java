@@ -105,7 +105,7 @@ public class Event {
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return mealType.getNumEmployees() * numAttendees;
+        return (int)(mealType.getNumEmployee() * numAttendees);
     }
 
     /**
