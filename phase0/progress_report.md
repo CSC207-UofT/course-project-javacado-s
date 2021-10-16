@@ -33,9 +33,9 @@ their request could not be accepted for that date.
 
 ###Skeleton Program 
 
-Our skeleton program covers our three entity classes, two use cases, controller, 
-and also provides a simple command line interface. Our skeleton program 
-also includes an txt file, stored_employees.txt, which is supposed to store employees by their 
+Our skeleton program covers our three entity classes(Employee, Event, Meal), two use cases 
+(EventManager, EmployeeManager), controller (CateringSystem), and also provides a simple command line interface. 
+Our skeleton program also includes an txt file, stored_employees.txt, which is supposed to store employees by their 
 ID and name. 
 
 ###Other Notes
