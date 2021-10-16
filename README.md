@@ -1,6 +1,8 @@
-git## Replace this README.md!
+# Welcome to Javacado's!
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
-
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+## Using our System
+To make a catering request, run our program, and it will prompt you to enter some information about your event.
+This includes the event name, location, date, number of attendees, and meal to be catered. Our system will let
+you know if we have enough employees on that day to accept the request. Once your request is successfully
+processed, you will receive event confirmation details, our menu for the event, and the total price of
+catering.
