@@ -57,13 +57,13 @@ times as well.
 
 Currently, we have implemented the skeleton program from our CRC model and specification developed as a team, with
 each group member coding one class:
--Rose and Maggie: implemented Event class
--Lucas: implemented EventManager class 
--Faith: implemented Employee class 
--Zhengdong: implemented Meal class
--Karen: implemented CateringSystem class
--Zi Xuan: implemented EmployeeManager class
--all: Main class 
+- Rose and Maggie: implemented Event class
+- Lucas: implemented EventManager class 
+- Faith: implemented Employee class 
+- Zhengdong: implemented Meal class
+- Karen: implemented CateringSystem class
+- Zi Xuan: implemented EmployeeManager class
+- all: Main class 
 
 
 Lastly, we have created a plan for what each team member is/will be working on in the coming weeks:
