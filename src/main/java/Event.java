@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,6 +7,7 @@ import java.util.Date;
  */
 
 public class Event {
+    private int id;
     private String name;
     private Date date;
     private String location;
@@ -17,13 +19,15 @@ public class Event {
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
      of employees assigned to the event.
+     @param id unique id for the event
      @param name given name of the event
      @param date given date of the event
      @param location given location of the event
      @param numAttendees given number of attendees at the event
      @param mealType given meal type requested
      */
-    public Event(String name, Date date, String location, int numAttendees, Meal mealType) {
+    public Event(int id, String name, Date date, String location, int numAttendees, Meal mealType) {
+        this.id = id;
         this.name = name;
         this.date = date;
         this.location = location;
@@ -31,7 +35,15 @@ public class Event {
         this.mealType = mealType;
         this.employees = new ArrayList<>();
         // Edit depending on what the meal price getter method is
-        this.price = mealType.getPrice() * numAttendees;
+        this.price = mealType.getMealPrice() * numAttendees;
+    }
+
+    /**
+     * Event getter for event's ID.
+     * @return int. Return the ID of this event.
+     */
+    public int getID() {
+        return id;
     }
 
     /**
@@ -87,6 +99,15 @@ public class Event {
     public float getPrice() {
         return price;
     }
+
+    /**
+     * Getter for how many employees are needed to work at this event.
+     * @return int for total employees needed.
+     */
+    public int getEmployeesNeeded() {
+        return mealType.getNumEmployees() * numAttendees;
+    }
+
     /**
      * Event setter for event's name.
      */
@@ -132,14 +153,9 @@ public class Event {
      */
     @Override
     public String toString(){
-        return "Event details: " + this.name + " on "+ this.date.toString() + " at " + this.location + " for " +
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for " +
                 this.mealType.toString() + " for " + this.numAttendees + " attendees." + "\r\n" +
                 "Price of catering: " + this.price;
     }
-
-
-    public int getEmployeesNeeded() {
-        // use getter method for Meal attribute # employees per # attendees
-    }
 }
-
