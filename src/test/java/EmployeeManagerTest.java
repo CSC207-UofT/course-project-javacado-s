@@ -1,10 +1,4 @@
 /*
- * This file contains JUnit test cases for Silly.java
- *
- * You should NOT modify this file! When you push Silly.java to
- * GitHub, it should run these tests. You can see the results in the
- * "Actions" tab of your repository.
- *//*
 
 
 import org.junit.*;
