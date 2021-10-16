@@ -12,5 +12,5 @@ checks its internal list of employee availabilities, it will display one of two 
 accepted for this date. Please try requesting on a different date."
 2. If there are enough employees available to work on that date: "Thank you for choosing Javacado's! Your catering
 request was accepted. Event details: Halloween Party on 31/10/2021 at CN Tower for 200 attendees.
-Menu of dinner: Grilled Steak, Grilled Salmon, Large Salad, Shrimp and Corn Chowder Soup, Apple Juice
+Menu of dinner: Grilled Steak, Grilled Salmon, Large Salad, Shrimp and Corn Chowder Soup, Apple Juice.
 Price of catering: $4400.00."

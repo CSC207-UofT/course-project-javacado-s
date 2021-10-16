@@ -48,7 +48,8 @@ public class CateringSystem {
                 eventManager.getEventDate(newEvent));
 
         if (enoughEmployees) {
-            return "Thank you for choosing Javacado's! Your catering request was accepted. " + newEvent;
+            return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
+                    eventManager.getEventByID(newEvent);
         }
         else {
             // TODO: create cancelEvent() in EventManager Class
