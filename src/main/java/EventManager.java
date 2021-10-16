@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * This class is used as a manager for the events
@@ -12,6 +13,8 @@ public class EventManager {
      */
 
     private ArrayList<Event> eventList;
+    private HashMap<Integer, Event> idEventMap;
+    private HashMap<Integer, Event> cancelledEvent;
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -19,6 +22,8 @@ public class EventManager {
      */
     public EventManager(){
         this.eventList = new ArrayList<>();
+        this.idEventMap = new HashMap<>();
+        this.cancelledEvent = new HashMap<>();
     }
 
 
@@ -30,16 +35,16 @@ public class EventManager {
      * @param date              The date of the Event
      * @param location          The location of the Event
      * @param numAttendees      The number of attendees of the Event
-     * @param mealType          The meal type of the Event
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public Event creatEvent(int id, String name, Date date, String location,
+    public int creatEvent(int id, String name, Date date, String location,
                            int numAttendees, String selectedMeal){
         Meal newMeal = new Meal(numAttendees, selectedMeal);
         Event newEvent = new Event(name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
-        return newEvent.id;
+        this.idEventMap.put(id, newEvent);
+        return id;
     }
 
     /**
@@ -47,8 +52,9 @@ public class EventManager {
      *
      * @return      A clone of the eventList
      */
-    public Object getEventList(){
-        return this.eventList.clone();
+    public ArrayList<Event> getEventList(){
+        ArrayList<Event> result = new ArrayList<>(this.eventList);
+        return result;
     }
 
     /**
@@ -68,14 +74,8 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the required event
      */
-    public Event getEventByID(int id) throws EventNotFoundError{
-        for (Event e : this.eventList) {
-            if (e.getID().equals(id)) {
-                return e;
-            }
-        }
-
-        throw new EventNotFoundError("Event id " + id + " not found");
+    public Event getEventByID(int id) {
+        return this.idEventMap.get(id);
     }
 
 
@@ -105,14 +105,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(Date time){
+    public Object getEventByDate(Date time) throws EventNotFoundError {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
             }
         }
 
-        return "Event date not found.";
+        throw new EventNotFoundError("Event name " + time + " not found");
     }
 
     /**
@@ -122,33 +122,35 @@ public class EventManager {
      * @return          Return the required event. Return "Event location
      *                  not found." if there is not such event
      */
-    public Object getEventByLocation(String location){
+    public Object getEventByLocation(String location) throws EventNotFoundError {
         for (Event e : this.eventList){
             if (e.getLocation().equals(location)){
                 return e;
             }
         }
 
-        return "Event location not found.";
+        throw new EventNotFoundError("Event name " + location + " not found");
     }
 
     /**
      * Remove the event that has the given name
      *
-     * @param name      The name of the event that needs to be removed
+     * @param event      The name of the event that needs to be removed
      */
     public void cancelEvent(Event event){
         this.eventList.remove(event);
+        this.idEventMap.remove(event.getID());
+        this.cancelledEvent.put(event.getID(), event);
     }
 
-    public String toString(int id) throws EventNotFoundError {
-        try{
-            Event event = this.getEventByID(id);
-            return event.toString();
-        }catch (EventNotFoundError ex){
-            return "Event not found";
-        }
+    public String toString(int id) {
+        Event event = this.getEventByID(id);
+        return event.toString();
 
+    }
+
+    public Event getCancelledEvent(int id){
+        return this.cancelledEvent.get(id);
     }
 
 }
