@@ -38,8 +38,8 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int creatEvent(int id, String name, Date date, String location,
-                           int numAttendees, String selectedMeal){
+    public int createEvent(int id, String name, Date date, String location,
+                          int numAttendees, String selectedMeal){
         Meal newMeal = new Meal(numAttendees, selectedMeal);
         Event newEvent = new Event(name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
