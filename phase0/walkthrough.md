@@ -1,7 +1,7 @@
 ##**SCENARIO WALKTHROUGH**
 Using our program, a user makes a catering request for an event called "Halloween Party" at the CN
 Tower, which will occur on October 31, 2021. They input that they expect 200 attendees and request dinner to be 
-catered. Dinner is $22 per attendee, and (hidden from user) requiring 3 employees per 5 attendees.
+catered. Dinner is $22 per attendee, and (hidden from user) requires 3 employees per 5 attendees.
 
 The catering system employs a predetermined number of employees, and upon receiving the user's request, will check
 that there are enough employees available (in this case 120) to work at the event on October 31st, 2021. We assume
