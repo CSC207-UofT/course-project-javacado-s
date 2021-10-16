@@ -1,5 +1,5 @@
 
-
+import java.util.Hashtable;
 /**
  This class represents a Meal that sent specific meal information to Event Class.
  */
