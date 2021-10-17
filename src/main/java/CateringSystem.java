@@ -38,19 +38,19 @@ public class CateringSystem {
     /**
      * Check availability of employees to see if event request can be accepted.
      *
-     * @param newEvent New event being checked
+     * @param newEventID ID of new event being checked
      * @return String message indicating whether request was accepted
      */
-    private String checkAvailability(int newEvent) {
-        boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEvent),
-                eventManager.getEventDate(newEvent));
+    private String checkAvailability(int newEventID) {
+        boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEventID),
+                eventManager.getEventDate(newEventID));
 
         if (enoughEmployees) {
             return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
-                    eventManager.getEventByID(newEvent);
+                    eventManager.getEventByID(newEventID);
         }
         else {
-            eventManager.cancelEvent(newEvent);
+            eventManager.cancelEvent(newEventID);
             return "Sorry, your catering request could not be accepted for this date. " +
                     "Please try requesting on a different date.";
         }
