@@ -45,7 +45,7 @@ public class EventManager {
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
-        this.newId ++;
+        this.newId = this.newId + 1;
         return this.newId - 1;
     }
 
@@ -185,8 +185,45 @@ public class EventManager {
 
     }
 
+    /**
+     * Get a cancelled event by its id
+     *
+     * @param id        The id of the cancelled event
+     * @return          Return the cancelled event
+     */
     public Event getCancelledEvent(int id){
         return this.cancelledEvent.get(id);
+    }
+
+    /**
+     * Compare two given events
+     *
+     * @param eventA        The first event
+     * @param eventB        The second event
+     * @return              Return true iff the two events have the same details
+     */
+    public boolean equals(Event eventA, Event eventB){
+        if (eventA.getID() != eventB.getID()){
+            return false;
+        }
+        if (! eventA.getName().equals(eventB.getName())){
+            return false;
+        }
+        if (! eventA.getLocation().equals(eventB.getLocation())){
+            return false;
+        }
+        if (! eventA.getDate().equals(eventB.getDate())){
+            return false;
+        }
+        if (eventA.getNumAttendees() != eventB.getNumAttendees()){
+            return false;
+        }
+        if (eventA.getMealType() != eventB.getMealType()){
+            return false;
+        }
+
+        return true;
+
     }
 
 }
