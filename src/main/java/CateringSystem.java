@@ -31,7 +31,6 @@ public class CateringSystem {
      */
     public String createEvent(String name, Date date, String location,
                             int numAttendees, String mealType) {
-        // TODO: the createEvent() in EventManager should return the created Event for ease of checking availability
         int newEventID = eventManager.createEvent(name, date, location, numAttendees, mealType);
         return checkAvailability(newEventID);
     }
@@ -43,7 +42,6 @@ public class CateringSystem {
      * @return String message indicating whether request was accepted
      */
     private String checkAvailability(int newEvent) {
-        // TODO: create getEmployeesNeeded() in EmployeeManager Class
         boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEvent),
                 eventManager.getEventDate(newEvent));
 
@@ -52,7 +50,6 @@ public class CateringSystem {
                     eventManager.getEventByID(newEvent);
         }
         else {
-            // TODO: create cancelEvent() in EventManager Class
             eventManager.cancelEvent(newEvent);
             return "Sorry, your catering request could not be accepted for this date. " +
                     "Please try requesting on a different date.";
