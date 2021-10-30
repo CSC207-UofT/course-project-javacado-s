@@ -30,28 +30,27 @@ public class CateringSystem {
      * @return a String message telling user if the event was successfully booked
      */
     public String createEvent(String name, Date date, String location,
-                            int numAttendees, Meal mealType) {
-        // TODO: the createEvent() in EventManager should return the created Event for ease of checking availability
-        Event newEvent = eventManager.creatEvent(name, date, location, numAttendees, mealType);
-        return checkAvailability(newEvent);
+                            int numAttendees, String mealType) {
+        int newEventID = eventManager.createEvent(name, date, location, numAttendees, mealType);
+        return checkAvailability(newEventID);
     }
 
     /**
      * Check availability of employees to see if event request can be accepted.
      *
-     * @param newEvent New event being checked
+     * @param newEventID ID of new event being checked
      * @return String message indicating whether request was accepted
      */
-    private String checkAvailability(Event newEvent) {
-        // TODO: create getEmployeesNeeded() in EmployeeManager Class
-        boolean enoughEmployees = employeeManager.enoughEmployees(newEvent.getEmployeesNeeded(), newEvent.getDate());
+    private String checkAvailability(int newEventID) {
+        boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEventID),
+                eventManager.getEventDate(newEventID));
 
         if (enoughEmployees) {
-            return "Thank you for choosing Javacado's! Your catering request was accepted. " + newEvent;
+            return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
+                    eventManager.getEventByID(newEventID);
         }
         else {
-            // TODO: create cancelEvent() in EventManager Class
-            eventManager.cancelEvent(newEvent);
+            eventManager.cancelEvent(newEventID);
             return "Sorry, your catering request could not be accepted for this date. " +
                     "Please try requesting on a different date.";
         }

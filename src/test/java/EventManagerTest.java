@@ -18,27 +18,28 @@ public class EventManagerTest {
     public void creatEvent() {
         int eventID = em.createEvent(108, "Test Event",
                     new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                    "U of T", 20, "Dinner");
+                    "U of T", 20, "dinner");
         assert (eventID == 108);
     }
 
     @Test
     public void getEventList() {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
                                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                                "MY", 20, "Dinner");
+                                "MY", 20, testMeal);
 
         Event eventB = new Event(204, "Test Event B",
                                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                                "BA", 25, "Dinner");
+                                "BA", 25, testMeal);
 
         ArrayList<Event> expected = new ArrayList<>();
         expected.add(eventA);
@@ -49,17 +50,18 @@ public class EventManagerTest {
 
     @Test
     public void getEventByIndex() {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
         ArrayList<Event> eventList = em.getEventList();
         assert (eventList.get(1).equals(eventB));
@@ -67,93 +69,98 @@ public class EventManagerTest {
 
     @Test
     public void getEventByID() {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
         assert (em.getEventByID(204).equals(eventB));
     }
 
     @Test
     public void getEventByName() throws EventNotFoundError {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
         assert (em.getEventByName("Test Event B").equals(eventB));
     }
 
     @Test
     public void getEventByDate() throws EventNotFoundError {
+        Meal testMeal = new Meal("dinner");
         Date testedDate = new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24);
 
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
         assert (em.getEventByDate(testedDate).equals(eventB));
     }
 
     @Test
     public void getEventByLocation() throws EventNotFoundError {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
         assert (em.getEventByLocation("Ba").equals(eventB));
     }
 
     @Test
     public void cancelEvent() {
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, testMeal);
 
         Event eventB = new Event(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, testMeal);
 
-        em.cancelEvent(eventA);
+        em.cancelEvent(eventA.getID());
         ArrayList<Event> expected = new ArrayList<>();
         expected.add(eventB);
         ArrayList<Event> eventList = em.getEventList();
@@ -163,19 +170,20 @@ public class EventManagerTest {
 
     @Test
     public void getCancelledEvent(){
+        Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
-                "BA", 25, "Dinner");
+                "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                "MY", 20, "Dinner");
+                "MY", 20, testMeal);
 
-        em.cancelEvent(eventA);
+        em.cancelEvent(eventA.getID());
         assert (em.getCancelledEvent(204)).equals(eventA);
     }
 }
