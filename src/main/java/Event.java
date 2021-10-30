@@ -15,6 +15,8 @@ public class Event {
     private Meal mealType;
     private ArrayList<String> employees;
     private float price;
+    private String status;
+    private final String [] possibleStatus;
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
@@ -36,6 +38,8 @@ public class Event {
         this.employees = new ArrayList<>();
         // Edit depending on what the meal price getter method is
         this.price = mealType.getMealPrice() * numAttendees;
+        this.possibleStatus = new String[]{"Event is created", "Event is under preparation", "Event is finished"};
+        this.status = this.possibleStatus[0];
     }
 
     /**
@@ -105,8 +109,14 @@ public class Event {
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return (int)(mealType.getNumEmployee() * numAttendees);
+        return (int) Math.ceil(mealType.getNumEmployee() * numAttendees);
     }
+
+    /**
+     * Getter for current status of event requested by user.
+     * @return String for current status of event request.
+     */
+    public String getStatus(){return this.status;}
 
     /**
      * Event setter for event's name.
@@ -148,6 +158,18 @@ public class Event {
     }
 
     /**
+     * Event setter for event status. Can only set status to newStatus if the newStatus matches one of the status in
+     * this.possibleStatus.
+     */
+    public void setStatus(String newStatus) {
+        for (String state : possibleStatus) {
+            if (newStatus.equals(state)) {
+                status = newStatus;
+                break;
+            }
+        }
+    }
+    /**
      Return a String representation of the Event class, including event details: name, date, location,
      number of attendees and the total price for this event.
      */
@@ -157,5 +179,9 @@ public class Event {
         return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for " +
                 this.mealType.toString() + " for " + this.numAttendees + " attendees." + "\r\n" +
                 "Price of catering: " + this.price;
+    }
+
+    public boolean equals(Event event2){
+        return(this == event2);
     }
 }
