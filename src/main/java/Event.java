@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 public class Event {
-    private int id;
+    private final int id;
     private String name;
     private Date date;
     private String location;
@@ -16,7 +16,7 @@ public class Event {
     private ArrayList<String> employees;
     private float price;
     private String status;
-    private final String [] possibleStatus;
+    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed", "Cancelled"};
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
@@ -38,8 +38,8 @@ public class Event {
         this.employees = new ArrayList<>();
         // Edit depending on what the meal price getter method is
         this.price = mealType.getMealPrice() * numAttendees;
-        this.possibleStatus = new String[]{"Event is created", "Event is under preparation", "Event is finished"};
-        this.status = this.possibleStatus[0];
+        this.status = possibleStatus[0];
+
     }
 
     /**
@@ -178,10 +178,26 @@ public class Event {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for "
                 + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() + "\r\n" +
-                "Price of catering: $" + this.price;
+                "Price of catering: $" + this.price + "\r\n The current event status is: " + this.status;
     }
 
-    public boolean equals(Event event2){
-        return(this == event2);
+    /**
+     Return whether two events are equal (are the same events). Two events are considered equal if they share the same
+     id, since ids are unique for each event.
+     */
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+        Event event2 = (Event) obj;
+        return(this.id == event2.id);
     }
 }
