@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class EventNotFoundError extends Exception{
 
     public EventNotFoundError(String message){
