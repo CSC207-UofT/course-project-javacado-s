@@ -6,6 +6,7 @@ public class Dinner extends Meal{
      * @param selectedMeal given meal type requested
      *                     And Setup Meal Price List, Menu & NUM_EMPLOYEE List.
      */
+
     public Dinner(String selectedMeal) {
         super(selectedMeal);
     }
