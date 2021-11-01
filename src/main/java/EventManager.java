@@ -226,4 +226,8 @@ public class EventManager {
 
     }
 
+    public void setEventStatus(int id, String status){
+        getEventByID(id).setStatus(status);
+    }
+
 }
