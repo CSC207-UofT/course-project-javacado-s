@@ -1,5 +1,4 @@
 public class Breakfast extends Meal{
-
     /**
      * Constructs a Meal with a number of attendees, and meal type requested.
      *
