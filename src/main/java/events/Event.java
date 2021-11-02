@@ -2,6 +2,7 @@ package events;
 
 import meals.Meal;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
  This class represents an Event that a user is requesting catering for.
  */
 
-public class Event {
+public class Event implements Serializable {
     private final int id;
     private String name;
     private Date date;
