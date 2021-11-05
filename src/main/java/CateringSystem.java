@@ -8,19 +8,20 @@ import java.util.Date;
 
 public class CateringSystem {
     EmployeeManager employeeManager;
-    EventManager eventManager ;
+    EventManager eventManager;
 
     /**
      * Constructor for CateringSystem
+     * @param employeeManager Employee manager for system
+     * @param eventManager Event manager for system
      */
-    public CateringSystem() {
-        this.employeeManager = new EmployeeManager();
-        this.eventManager = new EventManager();
+    public CateringSystem(EmployeeManager employeeManager, EventManager eventManager) {
+        this.employeeManager = employeeManager;
+        this.eventManager = eventManager;
     }
 
     /**
-     * Pass event info to EventManager's createEvent method to create a new event.
-     * Also returns a message about whether event request was accepted.
+     * Create a new event and return a message about whether event request was accepted.
      *
      * @param name              The name of the Event
      * @param date              The date of the Event
@@ -29,31 +30,9 @@ public class CateringSystem {
      * @param mealType          The meal type of the Event
      * @return a String message telling user if the event was successfully booked
      */
-    public String createEvent(String name, Date date, String location,
-                            int numAttendees, String mealType) {
-        int newEventID = eventManager.createEvent(name, date, location, numAttendees, mealType);
-        return checkAvailability(newEventID);
-    }
-
-    /**
-     * Check availability of employees to see if event request can be accepted.
-     *
-     * @param newEventID ID of new event being checked
-     * @return String message indicating whether request was accepted
-     */
-    private String checkAvailability(int newEventID) {
-        boolean enoughEmployees = employeeManager.enoughEmployees(eventManager.getEmployeesNeeded(newEventID),
-                eventManager.getEventDate(newEventID));
-
-        if (enoughEmployees) {
-            return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
-                    eventManager.getEventByID(newEventID);
-        }
-        else {
-            eventManager.cancelEvent(newEventID);
-            return "Sorry, your catering request could not be accepted for this date. " +
-                    "Please try requesting on a different date.";
-        }
-
+    public String createEvent(String name, Date date, String location, int numAttendees, String mealType) {
+        CreateEventCommand cmd = new CreateEventCommand(eventManager, employeeManager, name, date, location,
+                                                        numAttendees, mealType);
+        return cmd.execute();
     }
 }
