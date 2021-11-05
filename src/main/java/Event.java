@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 public class Event {
-    private int id;
+    private final int id;
     private String name;
     private Date date;
     private String location;
@@ -15,6 +15,8 @@ public class Event {
     private Meal mealType;
     private ArrayList<String> employees;
     private float price;
+    private String status;
+    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed", "Cancelled"};
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
@@ -36,6 +38,8 @@ public class Event {
         this.employees = new ArrayList<>();
         // Edit depending on what the meal price getter method is
         this.price = mealType.getMealPrice() * numAttendees;
+        this.status = possibleStatus[0];
+
     }
 
     /**
@@ -109,6 +113,12 @@ public class Event {
     }
 
     /**
+     * Getter for current status of event requested by user.
+     * @return String for current status of event request.
+     */
+    public String getStatus(){return this.status;}
+
+    /**
      * Event setter for event's name.
      */
     public void setName(String newName) {
@@ -148,6 +158,18 @@ public class Event {
     }
 
     /**
+     * Event setter for event status. Can only set status to newStatus if the newStatus matches one of the status in
+     * this.possibleStatus.
+     */
+    public void setStatus(String newStatus) {
+        for (String state : possibleStatus) {
+            if (newStatus.equals(state)) {
+                status = newStatus;
+                break;
+            }
+        }
+    }
+    /**
      Return a String representation of the Event class, including event details: name, date, location,
      number of attendees and the total price for this event.
      */
@@ -156,6 +178,26 @@ public class Event {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return "Event details: " + this.name + " on " + sdf.format(this.date) + " at " + this.location + " for "
                 + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() + "\r\n" +
-                "Price of catering: $" + this.price;
+                "Price of catering: $" + this.price + "\r\n The current event status is: " + this.status;
+    }
+
+    /**
+     Return whether two events are equal (are the same events). Two events are considered equal if they share the same
+     id, since ids are unique for each event.
+     */
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+        Event event2 = (Event) obj;
+        return(this.id == event2.id);
     }
 }
