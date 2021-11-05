@@ -11,7 +11,8 @@ public class UserManager {
      * folder called "users".
      * users is a list of said files as File objects.
      */
-    final File USER_DIRECTORY = new File("users");
+    final File USER_DIRECTORY = new File("src/data/users");
+    final String USER_DIRECTORY_PATH = "src/data/users/";
     private File[] users = USER_DIRECTORY.listFiles();
 
     /**
@@ -40,7 +41,7 @@ public class UserManager {
                 throw new Exception("Username already exists. Please choose another username.");
             }
         }
-        FileWriter new_user = new FileWriter("users/" + username + ".txt");
+        FileWriter new_user = new FileWriter(USER_DIRECTORY_PATH + username + ".txt");
         /*
         A new user file will contain only one line, the password, as they have no Events.
          */
@@ -76,7 +77,7 @@ public class UserManager {
                 BufferedReader reads from a character-input stream, whereas FileReader reads chars at a time
                 so BufferedReader is both more efficient and easier to work with.
                  */
-                FileReader fr = new FileReader(username+".txt");
+                FileReader fr = new FileReader(USER_DIRECTORY_PATH + username+".txt");
                 BufferedReader br = new BufferedReader(fr);
                 /*
                 BufferedReader moves onto the next line in the file after each call of readLine(), I trim to make
