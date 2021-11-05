@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 /*
 This class represents an Employee of the company
@@ -47,5 +48,16 @@ public class Employee {
     public void setUnavailability(Date unavailableDate){
         unavailableDates.add(unavailableDate);
     }
+
+    @Override
+    public boolean equals(Object e) {
+        if (!(e instanceof Employee employee)) {
+            return false;
+        }
+        return (Objects.equals(this.name, employee.name) &&
+                this.id == employee.id &&
+                this.unavailableDates == employee.unavailableDates);
+    }
+
 }
 
