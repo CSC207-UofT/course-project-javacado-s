@@ -1,3 +1,5 @@
+import Exceptions.EventNotFoundError;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -90,7 +92,7 @@ public class EventManager {
 
 
     /**
-     * Return the event that has the given id. Throws EventNotFoundError
+     * Return the event that has the given id. Throws Exceptions.EventNotFoundError
      *
      * @param id        The required event's id
      * @return          Return the required event
