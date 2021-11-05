@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EmployeeManagerTest {
 
-    EmployeeManager e_manager = new EmployeeManager();
+    Managers.EmployeeManager e_manager = new Managers.EmployeeManager();
 
     @Before
     public void setUp() {
@@ -20,19 +20,19 @@ public class EmployeeManagerTest {
 
     @Test(timeout = 50)
     public void testInitializer() {
-        ArrayList<Employee> expected = new ArrayList<Employee>();
-        expected.add(new Employee("Jane Doe", 12));
-        expected.add(new Employee("John Doe", 13));
+        ArrayList<Employees.Employee> expected = new ArrayList<Employees.Employee>();
+        expected.add(new Employees.Employee("Jane Doe", 12));
+        expected.add(new Employees.Employee("John Doe", 13));
         assertEquals(expected, e_manager.getEmployeeList());
     }
 
     @Test(timeout = 50)
     public void testAddEmployee() {
-        ArrayList<Employee> expected = new ArrayList<>();
+        ArrayList<Employees.Employee> expected = new ArrayList<>();
         e_manager.addEmployee("Joshua Doe", 14);
-        expected.add(new Employee("Jane Doe", 12));
-        expected.add(new Employee("John Doe", 13));
-        expected.add(new Employee("Joshua Doe", 14));
+        expected.add(new Employees.Employee("Jane Doe", 12));
+        expected.add(new Employees.Employee("John Doe", 13));
+        expected.add(new Employees.Employee("Joshua Doe", 14));
         assertEquals(expected, e_manager.getEmployeeList());
     }
 }*/

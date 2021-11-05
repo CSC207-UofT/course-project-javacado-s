@@ -1,7 +1,12 @@
+package commands;
+
+import managers.EmployeeManager;
+import managers.EventManager;
+
 import java.util.Date;
 
 /*
-Command class that creates a new Event class
+Command class that creates a new Events.Event class
  */
 
 public class CreateEventCommand implements ICommand<String>{
@@ -14,9 +19,9 @@ public class CreateEventCommand implements ICommand<String>{
     private final String MEAL_TYPE;
 
     /**
-     * Constructor for CreateEventCommand.
-     * @param eventManager Event manager that'll create the new Event
-     * @param employee_manager Employee manager that'll check employees' availabilities
+     * Constructor for Commands.CreateEventCommand.
+     * @param eventManager Events.Event manager that'll create the new Events.Event
+     * @param employee_manager Employees.Employee manager that'll check employees' availabilities
      * @param name name of event
      * @param date date of event
      * @param location location of event

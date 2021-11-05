@@ -1,9 +1,11 @@
+package employees;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
 /*
-This class represents an Employee of the company
+This class represents an Employees.Employee of the company
  */
 
 public class Employee {
@@ -13,8 +15,8 @@ public class Employee {
     private static final int WAGE = 10;
 
     /**
-     Constructs instance of Employee, given employee name and ID
-     * @param name given name of Employee
+     Constructs instance of Employees.Employee, given employee name and ID
+     * @param name given name of Employees.Employee
      * @param id given ID of employee
      */
 
@@ -38,9 +40,9 @@ public class Employee {
     }
 
     /**
-     * Returns True if Employee is available on given date, False if unavailable
+     * Returns True if Employees.Employee is available on given date, False if unavailable
      * @param date given date
-     * @return boolean, True if Employee is avaialble on that date
+     * @return boolean, True if Employees.Employee is avaialble on that date
      */
     public boolean isAvailable(Date date){
         return !(this.unavailableDates.contains(date));
