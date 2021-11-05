@@ -1,3 +1,5 @@
+package employees;
+
 public class Cleaner extends Employee{
     /**
      * Constructs instance of Cleaner, given employee name and ID

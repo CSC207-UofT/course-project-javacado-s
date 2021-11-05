@@ -1,8 +1,12 @@
-/*
+package front_end;/*
 This class is instantiated upon startup of program and is in charge of
 communicating/sending information between EmployeeManager, EventManager,
 and the command line/user.
  */
+
+import commands.CreateEventCommand;
+import managers.EmployeeManager;
+import managers.EventManager;
 
 import java.util.Date;
 

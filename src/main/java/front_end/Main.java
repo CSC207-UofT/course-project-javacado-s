@@ -1,6 +1,9 @@
-/*
+package front_end;/*
 Command line interface that takes in user input
  */
+
+import managers.EmployeeManager;
+import managers.EventManager;
 
 import java.util.Locale;
 import java.util.Scanner;

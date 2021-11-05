@@ -1,3 +1,5 @@
+package employees;
+
 public class Supervisor extends Employee{
     /**
      * Constructs instance of Supervisor, given employee name and ID

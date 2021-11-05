@@ -1,3 +1,4 @@
+package meals;
 
 import java.util.Hashtable;
 /**
@@ -8,10 +9,10 @@ import java.util.Hashtable;
 
 public class Meal {
     private String[] mealType = {"breakfast","lunch","dinner"};
-    private Hashtable<String, Float> priceList = new Hashtable<String, Float>();
-    private Hashtable<String, String[]> menuList = new Hashtable<String, String[]>();
-    private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<String, Float>();
-    private String selectedMeal = "";
+    private Hashtable<String, Float> priceList = new Hashtable<>();
+    private Hashtable<String, String[]> menuList = new Hashtable<>();
+    private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<>();
+    private String selectedMeal;
 
     /**
      Constructs a Meal with a number of attendees, and meal type requested.
@@ -62,9 +63,6 @@ public class Meal {
     }
 
     @Override
-    /**
-     * @return a String represents the Menu (Dishes list) for requested Meal Type.
-     */
     public String toString(){
         String message = "Menu of " + selectedMeal + ":";
         for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){

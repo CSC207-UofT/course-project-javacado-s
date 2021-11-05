@@ -1,4 +1,8 @@
-import Exceptions.EventNotFoundError;
+package managers;
+
+import events.Event;
+import exceptions.EventNotFoundError;
+import meals.Meal;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -220,11 +224,7 @@ public class EventManager {
         if (eventA.getNumAttendees() != eventB.getNumAttendees()){
             return false;
         }
-        if (eventA.getMealType() != eventB.getMealType()){
-            return false;
-        }
-
-        return true;
+        return eventA.getMealType() == eventB.getMealType();
 
     }
 

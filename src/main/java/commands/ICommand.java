@@ -1,3 +1,4 @@
+package commands;
 /*
 Interface for all Command classes
  */
