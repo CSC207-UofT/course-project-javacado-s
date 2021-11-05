@@ -1,8 +1,10 @@
+package employees;
+
 public class Cleaner extends Employee{
     /**
-     * Constructs instance of Cleaner, given employee name and ID
+     * Constructs instance of Employees.Cleaner, given employee name and ID
      *
-     * @param name given name of Employee
+     * @param name given name of Employees.Employee
      * @param id   given ID of employee
      */
     public Cleaner(String name, int id) {

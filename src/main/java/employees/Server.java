@@ -1,8 +1,10 @@
+package employees;
+
 public class Server extends Employee{
     /**
-     * Constructs instance of Server, given employee name and ID
+     * Constructs instance of Employees.Server, given employee name and ID
      *
-     * @param name given name of Employee
+     * @param name given name of Employees.Employee
      * @param id   given ID of employee
      */
     public Server(String name, int id) {

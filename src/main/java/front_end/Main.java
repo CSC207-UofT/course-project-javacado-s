@@ -1,6 +1,10 @@
+package front_end;
 /*
 Command line interface that takes in user input
  */
+
+import managers.EmployeeManager;
+import managers.EventManager;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -30,7 +34,7 @@ public class Main {
     /**
      * Prompt user for info to create new event and print whether request was successful.
      * @param input Scanner object
-     * @param system CateringSystem object
+     * @param system front_end.CateringSystem object
      */
     private static void newEventCommand(Scanner input, CateringSystem system) {
         System.out.println("Please enter the name of your event: ");

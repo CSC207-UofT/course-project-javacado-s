@@ -1,4 +1,8 @@
-import Exceptions.EventNotFoundError;
+package managers;
+
+import events.Event;
+import exceptions.EventNotFoundError;
+import meals.Meal;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +24,7 @@ public class EventManager {
     private int newId;
 
     /**
-     * Construct a new EventManager, with an empty eventList
+     * Construct a new Managers.EventManager, with an empty eventList
      *
      */
     public EventManager(){
@@ -32,14 +36,14 @@ public class EventManager {
 
 
     /**
-     * Create a new Event from System input, and add it to the eventList
+     * Create a new Events.Event from System input, and add it to the eventList
      *
-     * @param name              The name of the Event
-     * @param date              The date of the Event
-     * @param location          The location of the Event
-     * @param numAttendees      The number of attendees of the Event
+     * @param name              The name of the Events.Event
+     * @param date              The date of the Events.Event
+     * @param location          The location of the Events.Event
+     * @param numAttendees      The number of attendees of the Events.Event
      * @param selectedMeal      The selected meal type
-     * @return                  Return the created Event
+     * @return                  Return the created Events.Event
      */
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
@@ -52,15 +56,15 @@ public class EventManager {
     }
 
     /**
-     * Create a new Event from System input with specific id, and add it to the eventList
+     * Create a new Events.Event from System input with specific id, and add it to the eventList
      *
-     * @param id                The id of the Event
-     * @param name              The name of the Event
-     * @param date              The date of the Event
-     * @param location          The location of the Event
-     * @param numAttendees      The number of attendees of the Event
+     * @param id                The id of the Events.Event
+     * @param name              The name of the Events.Event
+     * @param date              The date of the Events.Event
+     * @param location          The location of the Events.Event
+     * @param numAttendees      The number of attendees of the Events.Event
      * @param selectedMeal      The selected meal type
-     * @return                  Return the created Event
+     * @return                  Return the created Events.Event
      */
     public int createEvent(int id, String name, Date date, String location,
                            int numAttendees, String selectedMeal){
@@ -123,7 +127,7 @@ public class EventManager {
      * Return the event that has the given name
      *
      * @param name      The required event's name
-     * @return          Return the required event. Return "Event name
+     * @return          Return the required event. Return "Events.Event name
      *      *                  not found." if there is not such event
      */
     public Event getEventByName(String name) throws EventNotFoundError{
@@ -133,14 +137,14 @@ public class EventManager {
             }
         }
 
-        throw new EventNotFoundError("Event name " + name + " not found");
+        throw new EventNotFoundError("Events.Event name " + name + " not found");
     }
 
     /**
      * Return the event that happens on the given time
      *
      * @param time      The required event's time
-     * @return          Return the required event. Return "Event date
+     * @return          Return the required event. Return "Events.Event date
      *                  not found." if there is not such event
      */
     public Object getEventByDate(Date time) throws EventNotFoundError {
@@ -150,14 +154,14 @@ public class EventManager {
             }
         }
 
-        throw new EventNotFoundError("Event name " + time + " not found");
+        throw new EventNotFoundError("Events.Event name " + time + " not found");
     }
 
     /**
      * Return the event that happens at the given location
      *
      * @param location  The required event's location
-     * @return          Return the required event. Return "Event location
+     * @return          Return the required event. Return "Events.Event location
      *                  not found." if there is not such event
      */
     public Object getEventByLocation(String location) throws EventNotFoundError {
@@ -167,7 +171,7 @@ public class EventManager {
             }
         }
 
-        throw new EventNotFoundError("Event name " + location + " not found");
+        throw new EventNotFoundError("Events.Event name " + location + " not found");
     }
 
     /**
@@ -220,11 +224,7 @@ public class EventManager {
         if (eventA.getNumAttendees() != eventB.getNumAttendees()){
             return false;
         }
-        if (eventA.getMealType() != eventB.getMealType()){
-            return false;
-        }
-
-        return true;
+        return eventA.getMealType() == eventB.getMealType();
 
     }
 

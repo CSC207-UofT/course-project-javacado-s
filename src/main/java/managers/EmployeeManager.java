@@ -1,3 +1,7 @@
+package managers;
+
+import employees.Employee;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,15 +12,15 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 /*
-This class represents the EmployeeManager part of our system, which is in charge of most, if not all,
-Employee management faculties.
+This class represents the Managers.EmployeeManager part of our system, which is in charge of most, if not all,
+Employees.Employee management faculties.
  */
 public class EmployeeManager {
 
     private ArrayList<Employee> employee_list;
 
     /**
-     * Constructs an instance of EmployeeManager.
+     * Constructs an instance of Managers.EmployeeManager.
      * employee_list is initialized as an empty ArrayList, and Employees are added from text from
      * "stored_employees.txt". If "stored_employees.txt" does not exist, it will be created, and employee_list
      * For now, we assume each line in "stored_employees.txt" is in the following format:
@@ -29,7 +33,7 @@ public class EmployeeManager {
 
         String name;
         int id;
-        File list = new File("stored_employees.txt");
+        File list = new File("data_files/stored_employees.txt");
         try {
             Scanner reader = new Scanner(list);
             while (reader.hasNextLine()) {
@@ -53,16 +57,16 @@ public class EmployeeManager {
     }
 
     /**
-     * Adds a new Employee to employee_list (and writes it to stored_employees.txt).
-     * @param id id of new Employee
-     * @param name name of new Employee
+     * Adds a new Employees.Employee to employee_list (and writes it to stored_employees.txt).
+     * @param id id of new Employees.Employee
+     * @param name name of new Employees.Employee
      * For now, we assume any input id is unique and valid.
      */
     public void addEmployee(String name, int id){
         Employee e = new Employee(name, id);
         this.employee_list.add(e);
         try{
-            FileWriter fw = new FileWriter("stored_employees.txt", true);
+            FileWriter fw = new FileWriter("data_files/stored_employees.txt", true);
             fw.write(id + ", " + name + "\n");
             fw.close();
         }
@@ -73,8 +77,8 @@ public class EmployeeManager {
     }
 
     /**
-     * @param id id of Employee
-     * @return Employee if an Employee with given id exists, null if no such Employee exists
+     * @param id id of Employees.Employee
+     * @return Employees.Employee if an Employees.Employee with given id exists, null if no such Employees.Employee exists
      */
     public Employee getEmployee(int id){
         for(Employee e:this.employee_list){
@@ -119,7 +123,7 @@ public class EmployeeManager {
     }
 
     /**
-     * Employee getter for a given id.
+     * Employees.Employee getter for a given id.
      * @param num number of employees required
      * @param d given Date
      * @return boolean True if there are enough available Employees on given Date, False otherwise.
@@ -129,12 +133,12 @@ public class EmployeeManager {
     }
 
     /**
-     * Changes Employee availability (from available to unavailable) on a specific Date.
+     * Changes Employees.Employee availability (from available to unavailable) on a specific Date.
      * @param employees Employees to be assigned to work on a specific Date. Subject to change;
      *                  may be modified to accept an array of integers instead.
      * @param d the specific Date
      *
-     * I believe we agreed that EventManager should be in charge of assigning Employees to
+     * I believe we agreed that Managers.EventManager should be in charge of assigning Employees to
      * Events, specifically, so for now, this will just set specific dates to unavailable.
      */
     public void setUnavailable(ArrayList<Employee> employees, Date d){

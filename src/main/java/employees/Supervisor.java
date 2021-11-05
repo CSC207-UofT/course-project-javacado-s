@@ -1,8 +1,10 @@
+package employees;
+
 public class Supervisor extends Employee{
     /**
-     * Constructs instance of Supervisor, given employee name and ID
+     * Constructs instance of Employees.Supervisor, given employee name and ID
      *
-     * @param name given name of Employee
+     * @param name given name of Employees.Employee
      * @param id   given ID of employee
      */
     public Supervisor(String name, int id) {
