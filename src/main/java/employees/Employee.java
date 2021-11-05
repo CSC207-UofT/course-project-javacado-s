@@ -53,13 +53,16 @@ public class Employee {
 
     @Override
     public boolean equals(Object e) {
-        if (!(e instanceof Employee employee)) {
+        if (!(e instanceof Employee)) {
             return false;
         }
-        return (Objects.equals(this.name, employee.name) &&
-                this.id == employee.id &&
-                this.unavailableDates == employee.unavailableDates);
+
+
+        return (Objects.equals(this.name, ((Employee) e).name) &&
+                this.id == ((Employee) e).id &&
+                this.unavailableDates == ((Employee) e).unavailableDates);
     }
+
 
 }
 
