@@ -177,8 +177,8 @@ public class EventManager {
      */
     public void cancelEvent(int eventID){
         this.eventList.remove(getEventByID(eventID));
-        this.idEventMap.remove(eventID);
         this.cancelledEvent.put(eventID, getEventByID(eventID));
+        this.idEventMap.remove(eventID);
     }
 
     public String toString(int id) {
@@ -198,38 +198,12 @@ public class EventManager {
     }
 
     /**
-     * Compare two given events
+     * Set the status of the event by id and given status.
      *
-     * @param eventA        The first event
-     * @param eventB        The second event
-     * @return              Return true iff the two events have the same details
+     * @param id The id of the event.
+     * @param status The new status of the event.
      */
-    public boolean equals(Event eventA, Event eventB){
-        if (eventA.getID() != eventB.getID()){
-            return false;
-        }
-        if (! eventA.getName().equals(eventB.getName())){
-            return false;
-        }
-        if (! eventA.getLocation().equals(eventB.getLocation())){
-            return false;
-        }
-        if (! eventA.getDate().equals(eventB.getDate())){
-            return false;
-        }
-        if (eventA.getNumAttendees() != eventB.getNumAttendees()){
-            return false;
-        }
-        if (eventA.getMealType() != eventB.getMealType()){
-            return false;
-        }
-
-        return true;
-
-    }
-
     public void setEventStatus(int id, String status){
         getEventByID(id).setStatus(status);
     }
-
 }
