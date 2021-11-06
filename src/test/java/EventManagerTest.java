@@ -1,3 +1,4 @@
+import Exceptions.EventNotFoundError;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,7 +105,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByDate() throws EventNotFoundError {
+    public void getEventByDate(){
         Meal testMeal = new Meal("dinner");
         Date testedDate = new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24);
 
@@ -124,7 +125,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByLocation() throws EventNotFoundError {
+    public void getEventByLocation(){
         Meal testMeal = new Meal("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),

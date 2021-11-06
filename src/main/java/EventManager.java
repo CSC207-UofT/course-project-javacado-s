@@ -3,6 +3,7 @@ import Exceptions.EventNotFoundError;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class is used as a manager for the events
@@ -140,34 +141,32 @@ public class EventManager {
      * Return the event that happens on the given time
      *
      * @param time      The required event's time
-     * @return          Return the required event. Return "Event date
-     *                  not found." if there is not such event
+     * @return          Return the required event. Return empty arraylist if no such event is found
      */
-    public Object getEventByDate(Date time) throws EventNotFoundError {
+    public Object getEventByDate(Date time){
+        ArrayList<Event> result = new ArrayList<>();
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
-                return e;
+                result.add(e);
             }
         }
-
-        throw new EventNotFoundError("Event name " + time + " not found");
+        return result;
     }
 
     /**
      * Return the event that happens at the given location
      *
      * @param location  The required event's location
-     * @return          Return the required event. Return "Event location
-     *                  not found." if there is not such event
+     * @return          Return the required event. Return empty arraylist if no such event is found
      */
-    public Object getEventByLocation(String location) throws EventNotFoundError {
+    public Object getEventByLocation(String location){
+        ArrayList<Event> result = new ArrayList<>();
         for (Event e : this.eventList){
             if (e.getLocation().equals(location)){
-                return e;
+                result.add(e);
             }
         }
-
-        throw new EventNotFoundError("Event name " + location + " not found");
+        return result;
     }
 
     /**
