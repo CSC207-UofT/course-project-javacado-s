@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import Exceptions.EventNotFoundError;
 
 public class EventManagerTest {
 

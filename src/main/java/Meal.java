@@ -1,5 +1,7 @@
 
 import java.util.Hashtable;
+import java.util.Objects;
+
 /**
  This class represents a Meal that sent specific meal information to Event Class.
  */
@@ -7,7 +9,7 @@ import java.util.Hashtable;
 //more UPDATED will include later.
 
 public class Meal {
-    private String[] mealType = {"breakfast","lunch","dinner"};
+    private final String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<String, Float>();
     private Hashtable<String, String[]> menuList = new Hashtable<String, String[]>();
     private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<String, Float>();
@@ -61,10 +63,11 @@ public class Meal {
         return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
     }
 
-    @Override
     /**
+     * Prints the menu of the selected meal type.
      * @return a String represents the Menu (Dishes list) for requested Meal Type.
      */
+    @Override
     public String toString(){
         String message = "Menu of " + selectedMeal + ":";
         for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){
@@ -74,5 +77,24 @@ public class Meal {
         return message;
     }
 
+    /**
+     * Equals method to determine if two meal objects are equal. Two meal objects are equal if they have the same
+     * input for all attributes.
+     * @return a Boolean indicating if two meal objects are equal.
+     */
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+        Meal meal2 = (Meal) obj;
+        return (Objects.equals(this.selectedMeal, meal2.selectedMeal));
+    }
 }
 
