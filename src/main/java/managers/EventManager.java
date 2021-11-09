@@ -178,6 +178,7 @@ public class EventManager {
      * Remove the event that has the given ID
      *
      * @param eventID      The ID of the event that needs to be removed
+     * @return             Return true if event was removed from eventList
      */
     public boolean cancelEvent(int eventID){
         boolean removed = this.eventList.remove(getEventByID(eventID));
