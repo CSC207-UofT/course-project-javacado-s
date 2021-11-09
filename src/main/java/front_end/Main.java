@@ -18,25 +18,46 @@ public class Main {
         Scanner input = new Scanner(System.in);
         String exit = "";
 
+        System.out.println("********************************************" +
+                "********************************************");
+        System.out.println("Hello! Welcome to Javacado's, your #1 catering service.");
+
         while (!exit.equals("exit")) {
-            System.out.println("Hello! Welcome to Javacado's, your #1 catering service. " +
-                    "Please enter your request below:\n");
+            actionPrompt(input, system);
 
-            newEventCommand(input, system);
-
-            System.out.println("\nIf you would like to finish and exit, please enter \"exit\": ");
+            System.out.println("\nIf you would like to finish and exit, please enter \"exit\", " +
+                    "otherwise, press \"enter\": ");
             exit = input.nextLine().toLowerCase(Locale.ROOT);
+        }
+
+        System.out.println("\n******************************************" +
+                "**********************************************");
+        System.out.println("Thank you for choosing Javacado's! Have a nice day :)");
+    }
+
+    private static void actionPrompt(Scanner input, CateringSystem system) {
+        System.out.println("****************************************************************************************");
+        System.out.println("\nWhich action would you like to perform?");
+        System.out.println("\t1 Create new event");
+        System.out.println("\t2 Cancel event");
+        System.out.println("\nPlease enter the action (Press \"enter\" if you do not wish to perform an action):");
+        String action = input.nextLine();
+
+        if (action.equals("1")) {
+            newEventPrompt(input, system);
+        }
+        else if (action.equals("2")) {
+            cancelEventPrompt(input, system);
         }
     }
 
-    // TODO: This method can be turned into a Command
     /**
      * Prompt user for info to create new event and print whether request was successful.
      * @param input Scanner object
      * @param system CateringSystem object
      */
-    private static void newEventCommand(Scanner input, CateringSystem system) {
-        System.out.println("Please enter the name of your event: ");
+    private static void newEventPrompt(Scanner input, CateringSystem system) {
+        System.out.println("\nPlease enter the name of your event: ");
         String name = input.nextLine();
 
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
@@ -55,5 +76,18 @@ public class Main {
         String mealType = input.nextLine();
 
         System.out.println("\n"+system.createEvent(name, eventDate, location, numAttendees, mealType));
+    }
+
+    /**
+     * Prompt user for event ID to cancel event and print whether cancellation was successful.
+     * @param input Scanner object
+     * @param system CateringSystem object
+     */
+    private static void cancelEventPrompt(Scanner input, CateringSystem system) {
+        System.out.println("\nPlease enter the ID of the event you would like to cancel: ");
+        String str_id = input.nextLine();
+        int id = Integer.parseInt(str_id);
+
+        System.out.println("\n"+system.cancelEvent(id));
     }
 }

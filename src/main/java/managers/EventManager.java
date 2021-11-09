@@ -96,7 +96,7 @@ public class EventManager {
 
 
     /**
-     * Return the event that has the given id. Throws Exceptions.EventNotFoundError
+     * Return the event that has the given id. Throws exceptions.EventNotFoundError
      *
      * @param id        The required event's id
      * @return          Return the required event
@@ -175,14 +175,16 @@ public class EventManager {
     }
 
     /**
-     * Remove the event that has the given name
+     * Remove the event that has the given ID
      *
-     * @param eventID      The name of the event that needs to be removed
+     * @param eventID      The ID of the event that needs to be removed
      */
-    public void cancelEvent(int eventID){
-        this.eventList.remove(getEventByID(eventID));
+    public boolean cancelEvent(int eventID){
+        boolean removed = this.eventList.remove(getEventByID(eventID));
         this.idEventMap.remove(eventID);
         this.cancelledEvent.put(eventID, getEventByID(eventID));
+
+        return removed;
     }
 
     public String toString(int id) {
