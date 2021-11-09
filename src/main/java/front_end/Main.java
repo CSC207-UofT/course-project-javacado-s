@@ -35,6 +35,11 @@ public class Main {
         System.out.println("Thank you for choosing Javacado's! Have a nice day :)");
     }
 
+    /**
+     * Prompt user to choose an action to perform
+     * @param input Scanner object
+     * @param system CateringSystem object
+     */
     private static void actionPrompt(Scanner input, CateringSystem system) {
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
