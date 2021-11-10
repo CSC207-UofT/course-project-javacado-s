@@ -29,7 +29,7 @@ public class EmployeeManager {
 
         String name;
         int id;
-        File list = new File("stored_employees.txt");
+        File list = new File("src/data/employees.txt");
         try {
             Scanner reader = new Scanner(list);
             while (reader.hasNextLine()) {
@@ -43,7 +43,7 @@ public class EmployeeManager {
         catch(FileNotFoundException e){
             try{
                 if(list.createNewFile()) {
-                    System.out.println("stored_employees.txt was not found and a new file has been created.");
+                    System.out.println("employees.txt was not found and a new file has been created.");
                 }
             }
             catch(IOException io){
@@ -62,7 +62,7 @@ public class EmployeeManager {
         Employee e = new Employee(name, id);
         this.employee_list.add(e);
         try{
-            FileWriter fw = new FileWriter("stored_employees.txt", true);
+            FileWriter fw = new FileWriter("src/data/employees.txt", true);
             fw.write(id + ", " + name + "\n");
             fw.close();
         }
@@ -120,7 +120,7 @@ public class EmployeeManager {
 
     /**
      * Employee getter for a given id.
-     * @param num number of employees required
+     * @param num number of employees.txt required
      * @param d given Date
      * @return boolean True if there are enough available Employees on given Date, False otherwise.
      */

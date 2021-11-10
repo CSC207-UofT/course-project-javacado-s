@@ -1,6 +1,3 @@
-/*
-
-
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;
@@ -20,7 +17,7 @@ public class EmployeeManagerTest {
 
     @Test(timeout = 50)
     public void testInitializer() {
-        ArrayList<Employee> expected = new ArrayList<Employee>();
+        ArrayList<Employee> expected = new ArrayList<>();
         expected.add(new Employee("Jane Doe", 12));
         expected.add(new Employee("John Doe", 13));
         assertEquals(expected, e_manager.getEmployeeList());
@@ -35,4 +32,4 @@ public class EmployeeManagerTest {
         expected.add(new Employee("Joshua Doe", 14));
         assertEquals(expected, e_manager.getEmployeeList());
     }
-}*/
+}

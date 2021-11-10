@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,9 +13,9 @@ public class EventManager {
     let me know if any functionalities are still needed
      */
 
-    private ArrayList<Event> eventList;
-    private HashMap<Integer, Event> idEventMap;
-    private HashMap<Integer, Event> cancelledEvent;
+    private final ArrayList<Event> eventList;
+    private final HashMap<Integer, Event> idEventMap;
+    private final HashMap<Integer, Event> cancelledEvent;
     private int newId;
 
     /**
@@ -100,10 +101,10 @@ public class EventManager {
     }
 
     /**
-     * Return the number of employees needed for the event with the given id.
+     * Return the number of employees.txt needed for the event with the given id.
      *
      * @param id        The required event's id
-     * @return          Return the number of employees needed for the event
+     * @return          Return the number of employees.txt needed for the event
      */
     public int getEmployeesNeeded(int id) { return getEventByID(id).getEmployeesNeeded();}
 
@@ -203,27 +204,28 @@ public class EventManager {
      * @return              Return true iff the two events have the same details
      */
     public boolean equals(Event eventA, Event eventB){
-        if (eventA.getID() != eventB.getID()){
-            return false;
-        }
-        if (! eventA.getName().equals(eventB.getName())){
-            return false;
-        }
-        if (! eventA.getLocation().equals(eventB.getLocation())){
-            return false;
-        }
-        if (! eventA.getDate().equals(eventB.getDate())){
-            return false;
-        }
-        if (eventA.getNumAttendees() != eventB.getNumAttendees()){
-            return false;
-        }
-        if (eventA.getMealType() != eventB.getMealType()){
-            return false;
-        }
-
-        return true;
-
+        return eventA.getID() == eventB.getID() &&
+                eventA.getName().equals(eventB.getName()) &&
+                eventA.getLocation().equals(eventB.getLocation()) &&
+                eventA.getDate().equals(eventB.getDate()) &&
+                eventA.getNumAttendees() == eventB.getNumAttendees() &&
+                eventA.getMealType() == eventB.getMealType();
     }
 
+    /**
+     * Serializes events_list to "checkout.ser" file.
+     */
+    public void checkout(){
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/data/checkout.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.eventList);
+            out.flush();
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i){
+            i.printStackTrace();
+        }
+    }
 }
