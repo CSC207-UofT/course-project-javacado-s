@@ -1,3 +1,5 @@
+package employees;
+
 public class Chef extends Employee{
     /**
      * Constructs instance of Chef, given employee name and ID

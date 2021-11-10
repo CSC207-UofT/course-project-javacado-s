@@ -1,6 +1,8 @@
 /*
 
 
+import employees.Employee;
+import managers.EmployeeManager;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;

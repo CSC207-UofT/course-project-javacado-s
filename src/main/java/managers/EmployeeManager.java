@@ -1,3 +1,7 @@
+package managers;
+
+import employees.Employee;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,7 +33,7 @@ public class EmployeeManager {
 
         String name;
         int id;
-        File list = new File("stored_employees.txt");
+        File list = new File("data_files/stored_employees.txt");
         try {
             Scanner reader = new Scanner(list);
             while (reader.hasNextLine()) {
@@ -62,7 +66,7 @@ public class EmployeeManager {
         Employee e = new Employee(name, id);
         this.employee_list.add(e);
         try{
-            FileWriter fw = new FileWriter("stored_employees.txt", true);
+            FileWriter fw = new FileWriter("data_files/stored_employees.txt", true);
             fw.write(id + ", " + name + "\n");
             fw.close();
         }

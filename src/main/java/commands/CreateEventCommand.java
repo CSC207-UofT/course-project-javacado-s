@@ -1,3 +1,8 @@
+package commands;
+
+import managers.EmployeeManager;
+import managers.EventManager;
+
 import java.util.Date;
 
 /*

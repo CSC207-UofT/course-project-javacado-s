@@ -1,3 +1,4 @@
+import meals.Meal;
 import org.junit.*;
 
 import static org.junit.Assert.*;

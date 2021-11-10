@@ -1,3 +1,5 @@
+package meals;
+
 public class Dish implements Ingredient {
         public Dish(){
 

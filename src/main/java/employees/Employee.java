@@ -1,3 +1,5 @@
+package employees;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -40,7 +42,7 @@ public class Employee {
     /**
      * Returns True if Employee is available on given date, False if unavailable
      * @param date given date
-     * @return boolean, True if Employee is avaialble on that date
+     * @return boolean, True if Employee is available on that date
      */
     public boolean isAvailable(Date date){
         return !(this.unavailableDates.contains(date));
