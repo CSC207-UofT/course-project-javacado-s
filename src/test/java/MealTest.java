@@ -16,5 +16,10 @@ public class MealTest {
         assertEquals(0.2, e_meal.getNumEmployee(),3);
     }
 
+    @Test
+    public void Testequals(){
+        Meal meal2 = new Meal("breakfast");
+        assert(e_meal.equals(meal2));
+    }
 
 }
