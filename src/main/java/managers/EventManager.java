@@ -22,6 +22,7 @@ public class EventManager {
     private HashMap<Integer, Event> idEventMap;
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
+    private final EventNotFoundError eventNotFoundError;
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -32,6 +33,7 @@ public class EventManager {
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
+        this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
     }
 
 
@@ -97,6 +99,7 @@ public class EventManager {
 
     /**
      * Return the event that has the given id. Throws exceptions.EventNotFoundError
+     * if the event cannot be found
      *
      * @param id        The required event's id
      * @return          Return the required event
