@@ -159,4 +159,19 @@ public class Event implements Serializable {
                 + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() + "\r\n" +
                 "Price of catering: $" + this.price;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (this.getClass() != obj.getClass()){
+            return false;
+        }
+        Event event2 = (Event) obj;
+        return(this.id == event2.id);
+    }
 }

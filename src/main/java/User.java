@@ -20,4 +20,18 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public FileInputStream getSerialized_events() {
+        return serialized_events;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof User u)){
+            return false;
+        }
+        return this.getUSERNAME().equals(u.getUSERNAME())
+                && this.getPassword().equals(u.getPassword())
+                && this.getSerialized_events().equals(u.getSerialized_events());
+    }
 }

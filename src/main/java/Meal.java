@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.Hashtable;
 /**
  This class represents a Meal that sent specific meal information to Event Class.
@@ -6,7 +7,7 @@ import java.util.Hashtable;
 
 //more UPDATED will include later.
 
-public class Meal {
+public class Meal implements Serializable {
     private String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<String, Float>();
     private Hashtable<String, String[]> menuList = new Hashtable<String, String[]>();

@@ -217,11 +217,11 @@ public class EventManager {
     }
 
     /**
-     * Serializes events_list to "checkout.ser" file.
+     * Serializes events_list to "_checkout.ser" file.
      */
     public void checkout(){
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/data/checkout.ser");
+            FileOutputStream fileOut = new FileOutputStream("src/data/users/_checkout.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this.eventList);
             out.flush();
