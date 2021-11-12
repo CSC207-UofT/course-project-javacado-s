@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import meals.Dinner;
+import meals.Lunch;
 
 public class EventTest {
 
@@ -14,7 +16,7 @@ public class EventTest {
     @Before
     public void setUp() {
         event = new Event(10, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
-                30, new Meal("dinner"));
+                30, new Dinner("dinner"));
     }
 
     @Test
@@ -43,8 +45,7 @@ public class EventTest {
     }
 
     @Test
-    public void getMealType() {
-        assert(new Meal("dinner").equals(event.getMealType()));
+    public void getMealType() {assert(new Dinner("dinner").equals(event.getMealType()));
     }
 
     @Test
@@ -109,8 +110,8 @@ public class EventTest {
 
     @Test
     public void setMealType() {
-        event.setMealType(new Meal("lunch"));
-        assertEquals(new Meal("lunch"), event.getMealType());
+        event.setMealType(new Dinner("dinner"));
+        assertNotEquals(new Lunch("lunch"), event.getMealType());
     }
 
     @Test
@@ -121,7 +122,7 @@ public class EventTest {
 
     @Test
     public void testToString(){
-        assertEquals("Event details: Birthday on 29/10/2021 at CN Tower for 30 attendees. " + "\r\n" +
+        assertEquals("Event details (ID: 10): Birthday on 29/10/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
                 event.getPrice() + "\r\n The current event status is: " + event.getStatus(), event.toString());
@@ -130,9 +131,9 @@ public class EventTest {
     @Test
     public void testEquals(){
         Event event2 = new Event(10, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
-                30, new Meal("dinner"));
+                30, new Dinner("dinner"));
         Event event3 = new Event(11, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
-                30, new Meal("dinner"));
+                30, new Dinner("dinner"));
         assert(event.equals(event2));
         assert!(event.equals(event3));
         event2.setName("Halloween");
