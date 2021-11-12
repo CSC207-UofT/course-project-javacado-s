@@ -18,7 +18,7 @@ architecture principles, such as the dependency rule, as well as maintaining a c
 This hierarchy was maintained as we followed the single responsibility principle (each class only has 
 one responsibility), the dependency rule, and the open/closed principle. Furthermore, we were able to use packaging 
 strategies in order to organize our code. We were also able to add complexity to use cases such as EventManager, as 
-well we were able to extend entities such as Employee class, which helped extend the functionality and scope of the 
+well we were able to extend entities such as Employee class and Meal class, which helped extend the functionality and scope of the 
 program. Another design that worked well as our decision to serialize Event objects, as this allowed for our program 
 to have an account system for its users.
 
@@ -28,7 +28,7 @@ We have provided a summary of what each group member worked on:
 - Rose: Implemented User class, command classes, design document + specification  
 - Lucas: Modified EventManager, event tests, exceptions package 
 - Faith: Implemented Employee subclasses, employee file, progress report 
-- Zhengdong: Added Meal types, user rating system 
+- Zhengdong: Implemented MealType subclasses, modified Meal Classes 
 - Karen: Implemented command classes, Command interface, packaging, style warnings
 - Maggie: Implemented Progress status in Event, event override equals method 
 - Zi Xuan: Implemented UserManager, fixing EmployeeManager, EventManager + tests
