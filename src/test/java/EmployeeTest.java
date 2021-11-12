@@ -40,4 +40,15 @@ public class EmployeeTest {
     public void TestisAvailable(){assertTrue(e.isAvailable(new Date(2021,
                 Calendar.NOVEMBER, 8, 18, 30, 24)));}
 
+//  Todo: pass the TestEquals() method
+
+//    @Test(timeout = 50)
+//    public void TestEquals(){
+//        Employee e1 = new Employee("Carly", 1234);
+//        e1.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+//        Employee e2 = new Employee("Carly", 1234);
+//        e2.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+//        assertEquals(e1, e2);
+//    }
+
 }

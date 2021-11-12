@@ -40,7 +40,7 @@ public class Employee {
     /**
      * Returns True if Employee is available on given date, False if unavailable
      * @param date given date
-     * @return boolean, True if Employee is avaialble on that date
+     * @return boolean, True if Employee is available on that date
      */
     public boolean isAvailable(Date date){
         return !(this.unavailableDates.contains(date));
@@ -49,12 +49,16 @@ public class Employee {
         unavailableDates.add(unavailableDate);
     }
 
+    /**
+     * Return True if two Employees are equal to one another, meaning they have the same name, id, and unavailable dates.
+     * @param e given object
+     * @return boolean, True if the two Employee instances are equal.
+     */
     @Override
     public boolean equals(Object e) {
         if (!(e instanceof Employee)) {
             return false;
         }
-
 
         return (Objects.equals(this.name, ((Employee) e).name) &&
                 this.id == ((Employee) e).id &&
