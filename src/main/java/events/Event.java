@@ -1,9 +1,6 @@
 package events;
 
 import meals.Meal;
-import meals.Breakfast;
-import meals.Lunch;
-import meals.Dinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,9 +88,7 @@ public class Event {
      * Event getter for event's meal type.
      * @return a meal object, the specified meal type for the event.
      */
-    public Meal getMealType() {
-            return mealType;
-    }
+    public Meal getMealType() {return mealType;}
 
     /**
      * Event getter for list of employees assigned.
