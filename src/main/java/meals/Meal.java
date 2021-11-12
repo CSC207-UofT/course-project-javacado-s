@@ -1,5 +1,7 @@
 package meals;
 
+import events.Event;
+
 import java.util.Hashtable;
 import java.util.ArrayList;
 
@@ -89,5 +91,19 @@ public abstract class Meal implements Ingredient{
         return message.toString();
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj){
+            return true;
+            }
+        if (obj == null){
+            return false;
+            }
+        if (this.getClass() != obj.getClass()){
+            return false;
+            }
+        Meal meal2 = (Meal) obj;
+        return(this.selectedMeal == meal2.selectedMeal);
+    }
 }
 
