@@ -106,7 +106,7 @@ employees and the saved User data, so those would be packaged into one folder as
 ---
 ## Design Patterns
 - Command design pattern
-- Factory design pattern (For Meal?)
+- Composite design pattern (For Meal)
 - Anything else we plan to implement in Phase 2?
 
 
