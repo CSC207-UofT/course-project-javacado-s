@@ -3,10 +3,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import static org.junit.Assert.*;
 import java.util.Date;
-import java.util.ArrayList;
 
 
 public class EmployeeTest {
@@ -15,6 +12,7 @@ public class EmployeeTest {
     @Before
     public void setUp() throws Exception {
         e = new Employee("Carly", 1234);
+        e.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
     }
     @Test(timeout = 50)
     public void TestGetName() {

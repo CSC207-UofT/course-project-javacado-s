@@ -1,6 +1,9 @@
 package events;
 
 import meals.Meal;
+import meals.Breakfast;
+import meals.Lunch;
+import meals.Dinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,7 +92,18 @@ public class Event {
      * @return a meal object, the specified meal type for the event.
      */
     public Meal getMealType() {
-        return mealType;
+        if(mealType instanceof Breakfast){
+            return (Breakfast)mealType;
+        }
+        if(mealType instanceof Lunch){
+            return (Lunch)mealType;
+        }
+        if(mealType instanceof Dinner){
+            return (Dinner)mealType;
+        }
+        else {
+            return mealType;
+        }
     }
 
     /**
