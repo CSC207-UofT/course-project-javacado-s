@@ -1,8 +1,12 @@
-/*
+package front_end;/*
 This class is instantiated upon startup of program and is in charge of
 communicating/sending information between EmployeeManager, EventManager,
 and the command line/user.
  */
+
+import commands.*;
+import managers.EmployeeManager;
+import managers.EventManager;
 
 import java.util.Date;
 
@@ -22,7 +26,6 @@ public class CateringSystem {
 
     /**
      * Create a new event and return a message about whether event request was accepted.
-     *
      * @param name              The name of the Event
      * @param date              The date of the Event
      * @param location          The location of the Event
@@ -33,6 +36,16 @@ public class CateringSystem {
     public String createEvent(String name, Date date, String location, int numAttendees, String mealType) {
         CreateEventCommand cmd = new CreateEventCommand(eventManager, employeeManager, name, date, location,
                                                         numAttendees, mealType);
+        return cmd.execute();
+    }
+
+    /**
+     * Cancel event specified by ID.
+     * @param id ID of event
+     * @return a String message telling user if cancellation was successful
+     */
+    public String cancelEvent(int id) {
+        CancelEventCommand cmd = new CancelEventCommand(eventManager, id);
         return cmd.execute();
     }
 }

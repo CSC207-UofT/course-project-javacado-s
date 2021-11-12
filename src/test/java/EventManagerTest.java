@@ -1,3 +1,7 @@
+import events.Event;
+import exceptions.EventNotFoundError;
+import managers.EventManager;
+import meals.Meal;
 import org.junit.Before;
 import org.junit.Test;
 
