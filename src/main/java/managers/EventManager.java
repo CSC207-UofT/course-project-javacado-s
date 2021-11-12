@@ -1,9 +1,4 @@
-package managers;
-
-import events.Event;
-import exceptions.EventNotFoundError;
-import meals.*;
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,9 +13,9 @@ public class EventManager {
     let me know if any functionalities are still needed
      */
 
-    private ArrayList<Event> eventList;
-    private HashMap<Integer, Event> idEventMap;
-    private HashMap<Integer, Event> cancelledEvent;
+    private final ArrayList<Event> eventList;
+    private final HashMap<Integer, Event> idEventMap;
+    private final HashMap<Integer, Event> cancelledEvent;
     private int newId;
     private final EventNotFoundError eventNotFoundError;
 
@@ -28,12 +23,16 @@ public class EventManager {
      * Construct a new EventManager, with an empty eventList
      *
      */
-    public EventManager(){
-        this.eventList = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(input);
+        this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
         this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
+        in.close();
+        input.close();
     }
 
 
@@ -259,4 +258,20 @@ public class EventManager {
         getEventByID(id).setEmployees(newEmployees);
     }
 
+    /**
+     * Serializes events_list to "checkout.ser" file.
+     */
+    public void checkout(){
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/data/checkout.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.eventList);
+            out.flush();
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i){
+            i.printStackTrace();
+        }
+    }
 }

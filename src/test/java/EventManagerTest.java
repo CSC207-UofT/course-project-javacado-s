@@ -5,6 +5,8 @@ import meals.Meal;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,8 +16,9 @@ public class EventManagerTest {
     EventManager em;
 
     @Before
-    public void setUp(){
-        em = new EventManager();
+    public void setUp() throws IOException, ClassNotFoundException {
+        String user = "Tester";
+        em = new EventManager(new FileInputStream("src/data/users/" + user + "/events.txt"));
     }
 
     @Test
