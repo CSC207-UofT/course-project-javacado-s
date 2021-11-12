@@ -2,7 +2,7 @@ package managers;
 
 import events.Event;
 import exceptions.EventNotFoundError;
-import meals.Meal;
+import meals.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +47,7 @@ public class EventManager {
      */
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
-        Meal newMeal = new Meal(selectedMeal);
+        Meal newMeal = new Dinner(selectedMeal);
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -68,7 +68,8 @@ public class EventManager {
      */
     public int createEvent(int id, String name, Date date, String location,
                            int numAttendees, String selectedMeal){
-        Meal newMeal = new Meal(selectedMeal);
+       MealSetter setMeal = new MealSetter(selectedMeal);
+       Meal newMeal = setMeal.getMeal();
         Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);

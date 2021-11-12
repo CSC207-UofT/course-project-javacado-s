@@ -1,16 +1,17 @@
 package meals;
 
 import java.util.Hashtable;
+import java.util.ArrayList;
 /**
  This class represents a Meal that sent specific meal information to Event Class.
  */
 
-//more UPDATED will include later.
 
-public class Meal {
+public abstract class Meal implements Ingredient{
     private String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
+    private Hashtable<String, Ingredient[]> IngredientList = new Hashtable<>();
     private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<>();
     private String selectedMeal;
 
@@ -46,6 +47,16 @@ public class Meal {
         this.NUM_EMPLOYEE.put(mealType[0], (float) 0.2);
         this.NUM_EMPLOYEE.put(mealType[1], (float) 0.4);
         this.NUM_EMPLOYEE.put(mealType[2], (float) 0.6);
+    }
+
+    //a private method leave for phase 2 update.
+    private void addMenu(Ingredient Ig){
+        Ingredient[] Ig_breakfast = new Ingredient[100];
+        Ingredient[] Ig_lunch = new Ingredient[100];
+        Ingredient[] Ig_Dinner = new Ingredient[100];
+        this.IngredientList.put(mealType[0], Ig_breakfast);
+        this.IngredientList.put(mealType[1], Ig_breakfast);
+        this.IngredientList.put(mealType[2], Ig_breakfast);
     }
 
     /**
