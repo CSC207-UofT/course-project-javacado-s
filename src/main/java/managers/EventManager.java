@@ -104,8 +104,21 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the required event
      */
-    public Event getEventByID(int id) {
-        return this.idEventMap.get(id);
+    public Event getEventByIDWithException(int id) throws EventNotFoundError {
+        Event result = this.idEventMap.get(id);
+        if (result == null){
+            throw new EventNotFoundError("The event with the given id is not found");
+        }
+        return result;
+    }
+
+    public Event getEventByID(int id){
+        try {
+            return getEventByIDWithException(id);
+        } catch (EventNotFoundError notFoundError) {
+            notFoundError.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -213,6 +226,35 @@ public class EventManager {
      */
     public void setEventStatus(int id, String status){
         getEventByID(id).setStatus(status);
+    }
+
+    public void setEventName(int id, String name){
+        getEventByID(id).setName(name);
+    }
+
+    public void setEventLocation(int id, String location){
+        getEventByID(id).setLocation(location);
+    }
+
+    /**
+     * Event setter for event's number of attendees.
+     */
+    public void setNumAttendees(int id, int attendees) {
+        getEventByID(id).setNumAttendees(attendees);
+    }
+
+    /**
+     * Event setter for event's meal type.
+     */
+    public void setMealType(int id, Meal newMealType) {
+        getEventByID(id).setMealType(newMealType);
+    }
+
+    /**
+     * Event setter for employees assigned to this event.
+     */
+    public void setEmployees(int id, ArrayList<String> newEmployees) {
+        getEventByID(id).setEmployees(newEmployees);
     }
 
 }
