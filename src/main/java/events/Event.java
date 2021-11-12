@@ -92,18 +92,7 @@ public class Event {
      * @return a meal object, the specified meal type for the event.
      */
     public Meal getMealType() {
-        if(mealType instanceof Breakfast){
-            return (Breakfast)mealType;
-        }
-        if(mealType instanceof Lunch){
-            return (Lunch)mealType;
-        }
-        if(mealType instanceof Dinner){
-            return (Dinner)mealType;
-        }
-        else {
             return mealType;
-        }
     }
 
     /**
