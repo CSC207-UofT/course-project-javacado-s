@@ -73,7 +73,6 @@ public class UserManager {
      * belonging to the client.
      */
     public User getUser(String username, String password) throws Exception{
-        ArrayList<String> user_events = new ArrayList<>();
         for(File f: users){
             /*
             May replace with a try-catch. Probably should, in fact.
@@ -90,28 +89,21 @@ public class UserManager {
                 sure newline characters don't mess up the equality. This may be an issue later on depending on
                 whether we allow spaces at the beginning and end of passwords.
                  */
-                if(br.readLine().trim().equals(password)){
-                    String curr;
-                    while((curr=br.readLine())!=null){
-                        user_events.add(curr);
-                    }
-                }
-                else{
+                if(!br.readLine().trim().equals(password)){
                     throw new Exception("Password does not match.");
                 }
                 br.close();
                 fr.close();
-            }
-            else{
-                throw new Exception("No User found.");
+                return new User(username, password, new FileInputStream(USER_DIRECTORY_PATH+username+"/events.txt"));
+
             }
         }
-        return new User(username, password, user_events);
+        throw new Exception("No user found.");
     }
 
     /**
      * Updates client information in file. Will be called on client session end.
-     * Writes whatever is in "checkout.ser" into "(username)/info.txt"
+     * Writes whatever is in "checkout.ser" into "(username)/events.txt"
      *
      * Included comments on how code works for easier checking.
      * @param u active User
@@ -119,7 +111,7 @@ public class UserManager {
     public void updateUser(User u){
         try{
             FileInputStream checkout = new FileInputStream("src/data/checkout.ser");
-            Path user_events_path = Paths.get("src/data/users" + u.getUSERNAME());
+            Path user_events_path = Paths.get(USER_DIRECTORY_PATH + u.getUSERNAME()+"/events.txt");
             Files.copy(checkout, user_events_path, StandardCopyOption.REPLACE_EXISTING);
         }
         catch(IOException io){

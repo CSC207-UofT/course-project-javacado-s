@@ -22,11 +22,15 @@ public class EventManager {
      * Construct a new EventManager, with an empty eventList
      *
      */
-    public EventManager(){
-        this.eventList = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(input);
+        this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
+        in.close();
+        input.close();
     }
 
 

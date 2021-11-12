@@ -14,8 +14,6 @@ public class CateringSystem {
      * Constructor for CateringSystem
      */
     public CateringSystem() {
-        this.employeeManager = new EmployeeManager();
-        this.eventManager = new EventManager();
     }
 
     /**
