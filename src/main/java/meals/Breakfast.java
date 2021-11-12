@@ -1,14 +1,26 @@
 package meals;
 
 public class Breakfast extends Meal{
-    /**
-     * Constructs a Meal with a number of attendees, and meal type requested.
-     *
+
+    /** Construct the Breakfast.
      * @param selectedMeal given meal type requested
-     *                     And Setup Meal Price List, Menu & NUM_EMPLOYEE List.
+     *  send the selectedMeal to the Meal class to set the Breakfast.
      */
 
     public Breakfast(String selectedMeal) {
         super(selectedMeal);
+    }
+
+    public float getMealPrice(){
+        return super.getMealPrice();
+    }
+
+    public float getNumEmployee(){
+        return super.getNumEmployee();
+    }
+
+    @Override
+    public String toString(){
+        return super.toString();
     }
 }
