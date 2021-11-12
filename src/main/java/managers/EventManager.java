@@ -22,6 +22,7 @@ public class EventManager {
     private HashMap<Integer, Event> idEventMap;
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
+    private final EventNotFoundError eventNotFoundError;
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -32,6 +33,7 @@ public class EventManager {
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
+        this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
     }
 
 
@@ -97,6 +99,7 @@ public class EventManager {
 
     /**
      * Return the event that has the given id. Throws exceptions.EventNotFoundError
+     * if the event cannot be found
      *
      * @param id        The required event's id
      * @return          Return the required event
@@ -181,11 +184,10 @@ public class EventManager {
      * @return             Return true if event was removed from eventList
      */
     public boolean cancelEvent(int eventID){
-        boolean removed = this.eventList.remove(getEventByID(eventID));
-        this.idEventMap.remove(eventID);
+        boolean result = this.eventList.remove(getEventByID(eventID));
         this.cancelledEvent.put(eventID, getEventByID(eventID));
-
-        return removed;
+        this.idEventMap.remove(eventID);
+        return result;
     }
 
     public String toString(int id) {
@@ -205,32 +207,10 @@ public class EventManager {
     }
 
     /**
-     * Compare two given events
-     *
-     * @param eventA        The first event
-     * @param eventB        The second event
-     * @return              Return true iff the two events have the same details
+     * Set the status of the event by id and given status.
+     * @param id        The id of the Event
+     * @param status    The new status of the Event
      */
-    public boolean equals(Event eventA, Event eventB){
-        if (eventA.getID() != eventB.getID()){
-            return false;
-        }
-        if (! eventA.getName().equals(eventB.getName())){
-            return false;
-        }
-        if (! eventA.getLocation().equals(eventB.getLocation())){
-            return false;
-        }
-        if (! eventA.getDate().equals(eventB.getDate())){
-            return false;
-        }
-        if (eventA.getNumAttendees() != eventB.getNumAttendees()){
-            return false;
-        }
-        return eventA.getMealType() == eventB.getMealType();
-
-    }
-
     public void setEventStatus(int id, String status){
         getEventByID(id).setStatus(status);
     }

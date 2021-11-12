@@ -12,7 +12,7 @@ public class EventTest {
 
     Event event;
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         event = new Event(10, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
                 30, new Meal("dinner"));
     }
@@ -44,7 +44,7 @@ public class EventTest {
 
     @Test
     public void getMealType() {
-        assertEquals(new Meal("dinner"), event.getMealType());
+        assert(new Meal("dinner").equals(event.getMealType()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class EventTest {
     @Test
     public void setDate() {
         event.setDate(new Date(121, Calendar.OCTOBER, 30, 18, 30, 30));
-        assertEquals("test name", event.getName());
+        assertEquals(new Date(121, Calendar.OCTOBER, 30, 18, 30, 30), event.getDate());
     }
 
     @Test

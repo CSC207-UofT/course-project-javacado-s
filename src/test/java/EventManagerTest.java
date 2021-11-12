@@ -110,7 +110,7 @@ public class EventManagerTest {
     @Test
     public void getEventByDate() throws EventNotFoundError {
         Meal testMeal = new Meal("dinner");
-        Date testedDate = new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24);
+        Date testedDate = new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31);
 
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
@@ -142,7 +142,7 @@ public class EventManagerTest {
                 new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
                 "BA", 25, testMeal);
 
-        assert (em.getEventByLocation("Ba").equals(eventB));
+        assert (em.getEventByLocation("BA").equals(eventB));
     }
 
     @Test
@@ -175,6 +175,7 @@ public class EventManagerTest {
     @Test
     public void getCancelledEvent(){
         Meal testMeal = new Meal("dinner");
+
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -188,6 +189,6 @@ public class EventManagerTest {
                 "MY", 20, testMeal);
 
         em.cancelEvent(eventA.getID());
-        assert (em.getCancelledEvent(204)).equals(eventA);
+        assert (em.getCancelledEvent(108).equals(eventA));
     }
 }

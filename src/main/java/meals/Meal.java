@@ -1,6 +1,8 @@
 package meals;
 
 import java.util.Hashtable;
+import java.util.Objects;
+
 /**
  This class represents a Meal that sent specific meal information to Event Class.
  */
@@ -8,7 +10,7 @@ import java.util.Hashtable;
 //more UPDATED will include later.
 
 public class Meal {
-    private String[] mealType = {"breakfast","lunch","dinner"};
+    private final String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
     private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<>();
@@ -62,14 +64,18 @@ public class Meal {
         return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
     }
 
+    /**
+     * Prints the menu of the selected meal type.
+     * @return a String represents the Menu (Dishes list) for requested Meal Type.
+     */
     @Override
     public String toString(){
-        String message = "Menu of " + selectedMeal + ":";
+        StringBuilder message = new StringBuilder("Menu of " + selectedMeal + ":");
         for(String dish :this.menuList.get(this.selectedMeal.toLowerCase())){
-            message = message + "\r\n" + dish;
+            message.append("\r\n").append(dish);
         }
 
-        return message;
+        return message.toString();
     }
 
 }
