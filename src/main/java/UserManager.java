@@ -45,11 +45,16 @@ public class UserManager {
                 throw new Exception("Username already exists. Please choose another username.");
             }
         }
+        File folder = new File(USER_DIRECTORY_PATH + username);
+        if(!folder.mkdir()){
+            System.out.print("Something went wrong with creating a new folder.");
+        }
         FileWriter pw = new FileWriter(USER_DIRECTORY_PATH + username + "/password.txt");
         /*
         A new user file will contain only one line, the password, as they have no Events.
          */
         pw.write(password);
+        pw.flush();
         pw.close();
         File file = new File(USER_DIRECTORY_PATH + username + "/events.txt");
         if(!file.createNewFile()){ throw new Exception("Could not create new file. Something went wrong.");}
@@ -103,19 +108,21 @@ public class UserManager {
 
     /**
      * Updates client information in file. Will be called on client session end.
-     * Writes whatever is in "checkout.ser" into "(username)/events.txt"
+     * Writes whatever is in "_checkout.ser" into "(username)/events.txt"
      *
      * Included comments on how code works for easier checking.
      * @param u active User
      */
     public void updateUser(User u){
         try{
-            FileInputStream checkout = new FileInputStream("src/data/checkout.ser");
+            u.getSerialized_events().close();
+            FileInputStream checkout = new FileInputStream("src/data/users/_checkout.ser");
             Path user_events_path = Paths.get(USER_DIRECTORY_PATH + u.getUSERNAME()+"/events.txt");
             Files.copy(checkout, user_events_path, StandardCopyOption.REPLACE_EXISTING);
+            checkout.close();
         }
         catch(IOException io){
-            System.out.println("Something went wrong while writing to file.");
+            io.printStackTrace();
         }
     }
 }
