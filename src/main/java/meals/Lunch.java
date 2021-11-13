@@ -18,6 +18,10 @@ public class Lunch extends Meal{
         return super.getNumEmployee();
     }
 
+    public String getMealName(){
+        return super.getMealName();
+    }
+
     @Override
     public String toString(){
         return super.toString();
