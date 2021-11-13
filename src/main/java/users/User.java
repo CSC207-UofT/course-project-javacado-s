@@ -1,5 +1,6 @@
 package users;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 /**
@@ -9,16 +10,18 @@ import java.util.ArrayList;
 public class User {
     private final String username;
     private String password;
-
+    private FileInputStream serialized_events;
     /**
      Constructs instance of User, given a username and password
      * @param username the unique username of the User
      * @param password the User's account password
+     * @param serialized_events FileInputStream of User's existing Events in serialized form
      */
 
-    public User(String username, String password){
+    public User(String username, String password, FileInputStream serialized_events){
         this.username = username;
         this.password = password;
+        this.serialized_events = serialized_events;
     }
 
     /**
@@ -40,5 +43,19 @@ public class User {
      */
     public void changePassword(String newPassword) {
         password = newPassword;
+    }
+
+    public FileInputStream getSerialized_events() {
+        return serialized_events;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof User u)){
+            return false;
+        }
+        return this.getUsername().equals(u.getUsername())
+                && this.getPassword().equals(u.getPassword())
+                && this.getSerialized_events().equals(u.getSerialized_events());
     }
 }
