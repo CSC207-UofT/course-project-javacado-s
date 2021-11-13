@@ -15,8 +15,8 @@ public class UserManager {
      * folder called "users".
      * users is a list of said files as File objects.
      */
-    final File USER_DIRECTORY = new File("src/data/users");
-    final String USER_DIRECTORY_PATH = "src/data/users/";
+    final File USER_DIRECTORY = new File("src/main/java/data_files/users");
+    final String USER_DIRECTORY_PATH = "src/main/java/data_files/users";
     private File[] users = USER_DIRECTORY.listFiles();
 
     /**
@@ -78,6 +78,7 @@ public class UserManager {
      * belonging to the client.
      */
     public User getUser(String username, String password) throws Exception{
+        ArrayList<String> user_events = new ArrayList<>();
         for(File f: users){
             /*
             May replace with a try-catch. Probably should, in fact.

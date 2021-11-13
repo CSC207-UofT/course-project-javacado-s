@@ -1,3 +1,6 @@
+import events.Event;
+import meals.Meal;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;
@@ -26,28 +29,28 @@ public class UserManagerTest {
 
     @Test(timeout=50)
     public void testInitializer(){
-        File expected = new File("src/data/users");
+        File expected = new File("src/main/java/data_files/users");
         assertEquals(expected.listFiles(),u.USER_DIRECTORY.listFiles());
     }
 
     @Test(timeout = 50)
     public void testCreateUserNew() throws Exception {
         u.createUser("testNew", "testpassword");
-        File test_file = new File("src/data/users/testNew");
-        File[] expected_directory = {new File("src/data/users/jane_doe"),
-                new File("src/data/users/john_doe"),
-                new File("src/data/users/testNew"),
-                new File("src/data/users/_checkout.ser")};
+        File test_file = new File("src/main/java/data_files/users/testNew");
+        File[] expected_directory = {new File("src/main/java/data_files/users/jane_doe"),
+                new File("src/main/java/data_files/users/john_doe"),
+                new File("src/main/java/data_files/users/testNew"),
+                new File("src/main/java/data_files/users/_checkout.ser")};
         assertEquals(expected_directory, u.USER_DIRECTORY.listFiles());
-        File[] expected_contents = {new File("src/data/users/testNew/events.txt"),
-                new File("src/data/users/testNew/password.txt")};
+        File[] expected_contents = {new File("src/main/java/data_files/users/testNew/events.txt"),
+                new File("src/main/java/data_files/users/testNew/password.txt")};
         assertEquals(expected_contents, test_file.listFiles());
-        FileReader fr1 = new FileReader("src/data/users/testNew/password.txt");
+        FileReader fr1 = new FileReader("src/main/java/data_files/users/testNew/password.txt");
         BufferedReader br1 = new BufferedReader(fr1);
         assertEquals("testpassword", br1.readLine());
         fr1.close();
         br1.close();
-        FileReader fr2 = new FileReader("src/data/users/testNew/events.txt");
+        FileReader fr2 = new FileReader("src/main/java/data_files/users/testNew/events.txt");
         BufferedReader br2 = new BufferedReader(fr2);
         assertNull(br2.readLine());
         fr2.close();
