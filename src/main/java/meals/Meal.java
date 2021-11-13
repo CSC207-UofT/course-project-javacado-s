@@ -4,6 +4,7 @@ import events.Event;
 
 import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  This class represents a Meal that sent specific meal information to Event Class.
@@ -43,7 +44,8 @@ public abstract class Meal implements Ingredient{
     private void setMenu(){
         this.menuList.put(mealType[0],new String[]{"White Bread","Scrambled Egg", "Orange Juice", "Muffin"});
         this.menuList.put(mealType[1],new String[]{"Fried Rice", "Beef Soup", "Green Salad", "Apple Juice", "Fries"});
-        this.menuList.put(mealType[2],new String[]{"Grilled Steak","Grilled Salmon","Large Salad","Shrimp And Corn Chowder Soup","Apple Juice"});
+        this.menuList.put(mealType[2],new String[]{"Grilled Steak","Grilled Salmon","Large Salad",
+                "Shrimp And Corn Chowder Soup","Apple Juice"});
     }
 
     // a private method which sets the number Employee per numAttendeeGroup attendees.
@@ -91,6 +93,11 @@ public abstract class Meal implements Ingredient{
         return message.toString();
     }
 
+    /**
+     * Return true if two given meal objects are equal, considered equal if they have the same mealtype.
+     * @param obj the meal object to be compared.
+     * @return True if the two meal objects are equal.
+     */
     @Override
     public boolean equals(Object obj){
         if (this == obj){
@@ -103,7 +110,7 @@ public abstract class Meal implements Ingredient{
             return false;
             }
         Meal meal2 = (Meal) obj;
-        return(this.selectedMeal == meal2.selectedMeal);
+        return(Objects.equals(this.selectedMeal, meal2.selectedMeal));
     }
 }
 
