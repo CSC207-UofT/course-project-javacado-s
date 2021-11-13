@@ -11,8 +11,8 @@ import java.util.Date;
  This class represents an Event that a user is requesting catering for.
  */
 
-public class Event implements Serializable {
-    private final int id;
+public class Event {
+    private int id;
     private String name;
     private Date date;
     private String location;
@@ -190,21 +190,6 @@ public class Event implements Serializable {
      Return whether two events are equal (are the same events). Two events are considered equal if they share the same
      id, since ids are unique for each event.
      */
-
-    @Override
-    public boolean equals(Object obj){
-        if (this == obj){
-            return true;
-        }
-        if (obj == null){
-            return false;
-        }
-        if (this.getClass() != obj.getClass()){
-            return false;
-        }
-        Event event2 = (Event) obj;
-        return(this.id == event2.id);
-    }
 
     @Override
     public boolean equals(Object obj){

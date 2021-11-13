@@ -13,9 +13,9 @@ public class EventManager {
     let me know if any functionalities are still needed
      */
 
-    private final ArrayList<Event> eventList;
-    private final HashMap<Integer, Event> idEventMap;
-    private final HashMap<Integer, Event> cancelledEvent;
+    private ArrayList<Event> eventList;
+    private HashMap<Integer, Event> idEventMap;
+    private HashMap<Integer, Event> cancelledEvent;
     private int newId;
     private final EventNotFoundError eventNotFoundError;
 
@@ -48,8 +48,7 @@ public class EventManager {
      */
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
+        Meal newMeal = new Meal(selectedMeal);
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -274,4 +273,5 @@ public class EventManager {
             i.printStackTrace();
         }
     }
+
 }
