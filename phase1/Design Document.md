@@ -4,20 +4,19 @@
 ## Major Design Decisions
 Below are some major design decisions our group has made for our project:
 
-### 1. Our Login System with Serialization/Data Persistence
+### Our Login System with Serialization/Data Persistence
 For Phase 1, we wanted to incorporate a user login system to expand the scope of our project. This new functionality
 would allow users to log in with their unique username and password combination, and _only_ access events that _they_
-have requested. They would also be able to modify events (i.e change number of attendees, meal type) that have not 
+have requested. They would also be able to modify events (i.e. change number of attendees, meal type) that have not 
 happened yet, and request new events. For this to function as an actual account system, our program needed a way to
 save all the events of a user (with any modifications from the user), store it somewhere, and load it once a user logs
 into their account again.
 
-In order to adhere to clean architecture and the SOLID design principles, we decided to serialize the Event objects 
-corresponding to a User and store that serialized information in the User objects themselves. Once a user logs in, this
-serialized information is passed to a newly constructed EventManager who will deserialize the events and store the
-actual Event objects. Essentially, a new EventManager is constructed with each new user login. After all information is 
-"loaded", the functionality of our program is similar to that in Phase 0 but specific to a user (and with more user 
-commands). 
+In order to adhere to clean architecture and the SOLID design principles, we made 2 major design decisions: (1) we 
+chose to serialize the Event objects corresponding to a User and store that serialized information in the User objects 
+themselves, and (2) we chose to let EventManager _only_ access the events of the User currently logged in, rather than
+act as a centralized manager for all events in the Catering System. (Essentially, a new EventManager is constructed 
+with each user login.)
 
 Another option we had was to have users store a list of unique event IDs corresponding to their own events, and having
 a centralized EventManager who has access to events from all users but only allows a user to access their own (based
@@ -27,19 +26,28 @@ required us to modify our program a lot rather than just extend it. For example,
 would either have to loop through a long master list of events, or we would need to modify EventManager to store both a
 master list of events along with a list of events of the user currently logged in. Also, users never need to access 
 events of another user, and the scheduling process of our system depends on employee availability rather than the 
-timing of other events.
+timing of other events, so there is not much of a need to always store a list of _all_ events in our system.
 
+With our current design decision we have that once a user logs in, their serialized event information is passed to a 
+newly constructed the EventManager who will deserialize the events and store the actual Event objects. After all 
+information is "loaded", the functionality of our program is very similar to that in Phase 0 but specific to a user 
+(and with more user commands).
 
-### 2. Using unique IDs for our entity classes
+### Using unique IDs for entity classes
 In classes Event, Employee, and User, we have unique IDs (in the case of User, it's a username) to identify different
 instances of our entity classes. We decided to use these to minimize coupling within our program.
+
 For example, when creating an event, EmployeeManager needs to determine if there are enough available employees. This
 requires a lot of information from the event object itself, but both CateringSystem and EmployeeManager should not
-directly interact with event objects, so instead they have access to the event ID and pass that to EventManager to get
-the required information. Similarly, we wanted to be able to know which employees were assigned to which events, but
-events themselves did not need to call any methods of the employees, so we stored employee IDs in Event instead.
+directly interact with event objects. Thus, we decided that they would have access to an event ID (integer) and pass 
+that to EventManager to get any required information of an event.
 
-### 3. Using the Command design pattern (?)
+Another example is that we wanted to be able to know which employees were assigned to which events, but
+events themselves did not need to call any methods of the employees. To minimize coupling here, we also used the fact
+that employees have unique IDs and decided to store a list of employee IDs in an Event. This way, if there is ever a
+need to access information of an employee for a certain event, the employee ID can be passed to the EmployeeManager to
+get the needed information, rather than directly calling methods from an Employee object (which would not be consistent
+with clean architecture).
 
 ---
 ## Clean Architecture
@@ -105,9 +113,13 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
-- Command design pattern
-- Factory design pattern (For Meal?)
-- Anything else we plan to implement in Phase 2?
+We used the Command design pattern in our code to have our program more efficiently execute the various commands a 
+user can input into our command line. Users can create a new event, or view, modify, or cancel an existing event. They 
+are also able to log in and log out of our program. (We also anticipate adding more commands in Phase2.) Most of these 
+requests require several steps in our program, so using this design pattern, we can turn these requests into single 
+objects that contain information about all those steps.
 
-
-## Class Diagram (Optional)?
+We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
+subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
+In the future we hope to determine meal prices based on ingredients, so implementing this tree structure using this
+design pattern seems suitable. Additionally, it would make extending our Meal classes easier.

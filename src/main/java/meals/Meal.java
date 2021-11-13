@@ -1,7 +1,5 @@
 package meals;
 
-import events.Event;
-
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,11 +10,10 @@ import java.util.Objects;
 
 
 public abstract class Meal implements Ingredient{
-    private final String[] mealType = {"breakfast","lunch","dinner"};
-
+    private String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
-    private Hashtable<String, Ingredient[]> IngredientList = new Hashtable<>();
+    private Hashtable<String, ArrayList<Ingredient>> IngredientList = new Hashtable<>();
     private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<>();
     private String selectedMeal;
 
@@ -24,6 +21,7 @@ public abstract class Meal implements Ingredient{
      Constructs a Meal with a number of attendees, and meal type requested.
      @param selectedMeal given meal type requested
      And Setup Meal Price List, Menu & NUM_EMPLOYEE List.
+     Add Ingredient List (for phase 2)
      */
 
     public Meal (String selectedMeal){
@@ -31,6 +29,7 @@ public abstract class Meal implements Ingredient{
         setMealPriceList();
         setMenu();
         setEmployee();
+        setIgMenu();
     }
 
     // a private method which sets the Meal Price List per attendee.
@@ -40,7 +39,7 @@ public abstract class Meal implements Ingredient{
         this.priceList.put(mealType[2],(float) 22.0);
     }
 
-    // a private method which sets the General Menu
+    // a private method which sets the General Menu (default table which will replaced in phase 2)
     private void setMenu(){
         this.menuList.put(mealType[0],new String[]{"White Bread","Scrambled Egg", "Orange Juice", "Muffin"});
         this.menuList.put(mealType[1],new String[]{"Fried Rice", "Beef Soup", "Green Salad", "Apple Juice", "Fries"});
@@ -55,14 +54,19 @@ public abstract class Meal implements Ingredient{
         this.NUM_EMPLOYEE.put(mealType[2], (float) 0.6);
     }
 
-    //a private method leave for phase 2 update.
-    private void addMenu(Ingredient Ig){
-        Ingredient[] Ig_breakfast = new Ingredient[100];
-        Ingredient[] Ig_lunch = new Ingredient[100];
-        Ingredient[] Ig_Dinner = new Ingredient[100];
+    //a private method which initialize a Menu of Ingredient objects (leave for phase 2 update).
+    private void setIgMenu(){
+        ArrayList<Ingredient> Ig_breakfast = new ArrayList<>();
+        ArrayList<Ingredient> Ig_lunch = new ArrayList<>();
+        ArrayList<Ingredient> Ig_dinner = new ArrayList<>();
         this.IngredientList.put(mealType[0], Ig_breakfast);
-        this.IngredientList.put(mealType[1], Ig_breakfast);
-        this.IngredientList.put(mealType[2], Ig_breakfast);
+        this.IngredientList.put(mealType[1], Ig_lunch);
+        this.IngredientList.put(mealType[2], Ig_dinner);
+    }
+
+    //a private (so far) method which will add more ingredient to the List
+    private void addIg(Ingredient Ig){
+        this.IngredientList.get(Ig.getMealName().toLowerCase()).add(Ig);
     }
 
     /**
@@ -78,6 +82,25 @@ public abstract class Meal implements Ingredient{
     public float getNumEmployee(){
         return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
     }
+
+    /**
+     * @return the Meal type name of the Meal which user requested.
+     */
+    public String getMealName(){
+        return this.selectedMeal;
+    }
+
+    /**
+     * @return the Ingredient (Dishes) of the Meal which user requested.
+     */
+    public String getIgName(){
+        String message = "Menu of " + selectedMeal + ":";
+        for(Ingredient Ig :this.IngredientList.get(this.selectedMeal.toLowerCase())){
+            message = message + "\r\n" + Ig.getIgName();
+        }
+        return message;
+    }
+
 
     /**
      * Prints the menu of the selected meal type.

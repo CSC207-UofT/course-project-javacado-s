@@ -14,9 +14,18 @@ public class MealSetter {
      */
     public MealSetter(String selectedMeal){
         switch (selectedMeal.toLowerCase()) {
-            case "breakfast": newMeal = new Breakfast(selectedMeal);
-            case "lunch": newMeal = new Lunch(selectedMeal);
-            case "dinner": newMeal = new Dinner(selectedMeal);
+            case "breakfast" : {
+                newMeal = new Breakfast(selectedMeal);
+                break;
+            }
+            case "lunch" : {
+                newMeal = new Lunch(selectedMeal);
+                break;
+            }
+            case "dinner" : {
+                newMeal = new Dinner(selectedMeal);
+                break;
+            }
         }
 
     }

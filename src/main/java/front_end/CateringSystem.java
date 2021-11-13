@@ -9,6 +9,7 @@ import managers.EmployeeManager;
 import managers.EventManager;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class CateringSystem {
     EmployeeManager employeeManager;
@@ -46,6 +47,17 @@ public class CateringSystem {
      */
     public String cancelEvent(int id) {
         CancelEventCommand cmd = new CancelEventCommand(eventManager, id);
+        return cmd.execute();
+    }
+
+    /**
+     * Modify event specified by ID.
+     * @param id ID of event
+     * @param action Action corresponding to attribute of Event to modify
+     * @return a String message telling user if modification was successful
+     */
+    public String modifyEvent(Scanner input, int id, String action) {
+        ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action);
         return cmd.execute();
     }
 }

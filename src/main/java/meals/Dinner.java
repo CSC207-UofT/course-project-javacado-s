@@ -17,6 +17,10 @@ public class Dinner extends Meal{
     public float getNumEmployee(){
         return super.getNumEmployee();
     }
+    
+    public String getMealName(){
+        return super.getMealName();
+    }
 
     @Override
     public String toString(){

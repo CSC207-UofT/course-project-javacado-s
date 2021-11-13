@@ -4,6 +4,7 @@ import events.Event;
 import exceptions.EventNotFoundError;
 import meals.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,12 +29,16 @@ public class EventManager {
      * Construct a new EventManager, with an empty eventList
      *
      */
-    public EventManager(){
-        this.eventList = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(input);
+        this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
         this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
+        in.close();
+        input.close();
     }
 
 
@@ -50,7 +55,7 @@ public class EventManager {
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
         MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
+        Meal newMeal = setMeal.getMeal();        
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -106,8 +111,21 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the required event
      */
-    public Event getEventByID(int id) {
-        return this.idEventMap.get(id);
+    public Event getEventByIDWithException(int id) throws EventNotFoundError {
+        Event result = this.idEventMap.get(id);
+        if (result == null){
+            throw new EventNotFoundError("The event with the given id is not found");
+        }
+        return result;
+    }
+
+    public Event getEventByID(int id){
+        try {
+            return getEventByIDWithException(id);
+        } catch (EventNotFoundError notFoundError) {
+            notFoundError.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -215,6 +233,52 @@ public class EventManager {
      */
     public void setEventStatus(int id, String status){
         getEventByID(id).setStatus(status);
+    }
+
+    public void setEventName(int id, String name){
+        getEventByID(id).setName(name);
+    }
+
+    public void setEventLocation(int id, String location){
+        getEventByID(id).setLocation(location);
+    }
+
+    /**
+     * Event setter for event's number of attendees.
+     */
+    public void setNumAttendees(int id, int attendees) {
+        getEventByID(id).setNumAttendees(attendees);
+    }
+
+    /**
+     * Event setter for event's meal type.
+     */
+    public void setMealType(int id, Meal newMealType) {
+        getEventByID(id).setMealType(newMealType);
+    }
+
+    /**
+     * Event setter for employees assigned to this event.
+     */
+    public void setEmployees(int id, ArrayList<String> newEmployees) {
+        getEventByID(id).setEmployees(newEmployees);
+    }
+
+    /**
+     * Serializes events_list to "_checkout.ser" file.
+     */
+    public void checkout(){
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/data/users/_checkout.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.eventList);
+            out.flush();
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i){
+            i.printStackTrace();
+        }
     }
 
 }
