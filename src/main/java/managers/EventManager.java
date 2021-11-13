@@ -1,3 +1,9 @@
+package managers;
+
+import events.Event;
+import exceptions.EventNotFoundError;
+import meals.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
