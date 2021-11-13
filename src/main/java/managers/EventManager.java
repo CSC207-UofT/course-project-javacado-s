@@ -4,6 +4,7 @@ import events.Event;
 import exceptions.EventNotFoundError;
 import meals.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,12 +29,16 @@ public class EventManager {
      * Construct a new EventManager, with an empty eventList
      *
      */
-    public EventManager(){
-        this.eventList = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(input);
+        this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
         this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
+        in.close();
+        input.close();
     }
 
 
@@ -50,7 +55,7 @@ public class EventManager {
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
         MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
+        Meal newMeal = setMeal.getMeal();        
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -257,6 +262,23 @@ public class EventManager {
      */
     public void setEmployees(int id, ArrayList<String> newEmployees) {
         getEventByID(id).setEmployees(newEmployees);
+    }
+
+    /**
+     * Serializes events_list to "_checkout.ser" file.
+     */
+    public void checkout(){
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/data/users/_checkout.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.eventList);
+            out.flush();
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i){
+            i.printStackTrace();
+        }
     }
 
 }

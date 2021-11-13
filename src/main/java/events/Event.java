@@ -2,6 +2,7 @@ package events;
 
 import meals.Meal;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,9 +89,7 @@ public class Event {
      * Event getter for event's meal type.
      * @return a meal object, the specified meal type for the event.
      */
-    public Meal getMealType() {
-        return mealType;
-    }
+    public Meal getMealType() {return mealType;}
 
     /**
      * Event getter for list of employees assigned.
@@ -141,17 +140,19 @@ public class Event {
         location = newLocation;
     }
     /**
-     * Event setter for event's number of attendees.
+     * Event setter for event's number of attendees. Also updates price.
      */
     public void setNumAttendees(int attendees) {
         numAttendees = attendees;
+        price = mealType.getMealPrice() * attendees;
     }
 
     /**
-     * Event setter for event's meal type.
+     * Event setter for event's meal type. Also updates price.
      */
     public void setMealType(Meal newMealType) {
         mealType = newMealType;
+        price = mealType.getMealPrice() * numAttendees;
     }
 
     /**

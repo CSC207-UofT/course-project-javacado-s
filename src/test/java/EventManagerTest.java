@@ -2,9 +2,12 @@ import events.Event;
 import exceptions.EventNotFoundError;
 import managers.EventManager;
 import meals.Meal;
+import meals.Dinner;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,8 +17,9 @@ public class EventManagerTest {
     EventManager em;
 
     @Before
-    public void setUp(){
-        em = new EventManager();
+    public void setUp() throws IOException, ClassNotFoundException {
+        String user = "Tester";
+        em = new EventManager(new FileInputStream("src/data/users/" + user + "/events.txt"));
     }
 
     @Test
@@ -28,7 +32,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventList() {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -54,7 +58,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventByIndex() {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -73,7 +77,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventByID() {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -91,7 +95,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventByName() throws EventNotFoundError {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -109,7 +113,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventByDate() throws EventNotFoundError {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         Date testedDate = new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31);
 
         em.createEvent(108, "Test Event A",
@@ -129,7 +133,7 @@ public class EventManagerTest {
 
     @Test
     public void getEventByLocation() throws EventNotFoundError {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -147,7 +151,7 @@ public class EventManagerTest {
 
     @Test
     public void cancelEvent() {
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -174,7 +178,7 @@ public class EventManagerTest {
 
     @Test
     public void getCancelledEvent(){
-        Meal testMeal = new Meal("dinner");
+        Meal testMeal = new Dinner("dinner");
 
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
