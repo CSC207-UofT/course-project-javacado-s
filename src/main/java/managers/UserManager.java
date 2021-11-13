@@ -1,3 +1,7 @@
+package managers;
+
+import users.User;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -6,7 +10,7 @@ import java.util.ArrayList;
 import java.nio.file.Files;
 
 /**
- * This class represents the UserManager branch of our system. The UserManager does not store any instance variables
+ * This class represents the managers.UserManager branch of our system. The managers.UserManager does not store any instance variables
  * (subject to change), and reads and writes client information to files inside the users folder.
  */
 public class UserManager {
@@ -20,8 +24,8 @@ public class UserManager {
     private File[] users = USER_DIRECTORY.listFiles();
 
     /**
-     * Constructs an instance of UserManager.
-     * No instance variables are needed as UserManager does not directly store User, but rather acts as a tool
+     * Constructs an instance of managers.UserManager.
+     * No instance variables are needed as managers.UserManager does not directly store User, but rather acts as a tool
      * to retrieve and operate on Users.
      */
     public UserManager(){}
@@ -118,7 +122,7 @@ public class UserManager {
         try{
             u.getSerialized_events().close();
             FileInputStream checkout = new FileInputStream("src/data/users/_checkout.ser");
-            Path user_events_path = Paths.get(USER_DIRECTORY_PATH + u.getUSERNAME()+"/events.txt");
+            Path user_events_path = Paths.get(USER_DIRECTORY_PATH + u.getUsername()+"/events.txt");
             Files.copy(checkout, user_events_path, StandardCopyOption.REPLACE_EXISTING);
             checkout.close();
         }
