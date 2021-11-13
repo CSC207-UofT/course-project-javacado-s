@@ -54,7 +54,8 @@ public class EventManager {
      */
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
-        Meal newMeal = new Meal(selectedMeal);
+        MealSetter setMeal = new MealSetter(selectedMeal);
+        Meal newMeal = setMeal.getMeal();        
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
