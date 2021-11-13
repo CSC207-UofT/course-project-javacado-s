@@ -30,7 +30,7 @@ We have provided a summary of what each group member worked on:
 - Faith: Implemented Employee subclasses, employee file, progress report 
 - Zhengdong: Implemented MealType subclasses, modified Meal Classes 
 - Karen: Implemented command classes, Command interface, packaging, style warnings
-- Maggie: Implemented Progress status in Event, event override equals method 
+- Maggie: Implemented Progress status in Event, event override equals method, testing coverage 
 - Zi Xuan: Implemented UserManager, fixing EmployeeManager, EventManager + tests
 - All: testing, progress report
 

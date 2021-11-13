@@ -1,5 +1,7 @@
 package users;
 
+import events.Event;
+
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
@@ -51,9 +53,10 @@ public class User {
 
     @Override
     public boolean equals(Object o){
-        if(!(o instanceof User u)){
+        if (this.getClass() != o.getClass()){
             return false;
         }
+        User u = (User)o;
         return this.getUsername().equals(u.getUsername())
                 && this.getPassword().equals(u.getPassword())
                 && this.getSerialized_events().equals(u.getSerialized_events());
