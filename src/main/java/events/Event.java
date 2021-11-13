@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 public class Event {
-    private int id;
+    private final int id;
     private String name;
     private Date date;
     private String location;
