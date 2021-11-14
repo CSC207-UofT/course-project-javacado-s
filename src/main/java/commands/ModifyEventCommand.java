@@ -1,5 +1,6 @@
 package commands;
 
+import managers.EmployeeManager;
 import managers.EventManager;
 import meals.Meal;
 import meals.MealSetter;
@@ -11,15 +12,18 @@ public class ModifyEventCommand implements ICommand<String>{
     private final EventManager EVENT_MANAGER;
     private final String ACTION;
     private final Scanner INPUT;
+    private final EmployeeManager EMPLOYEE_MANAGER;
 
     /**
      * Contructor for CancelEventCommand
      * @param eventManager Event manager that'll modify the event
      * @param id ID of event to modify
      */
-    public ModifyEventCommand(Scanner input, EventManager eventManager, int id, String action) {
+    public ModifyEventCommand(Scanner input, EventManager eventManager, int id, String action,
+                              EmployeeManager employeeManager) {
         ID = id;
         EVENT_MANAGER = eventManager;
+        EMPLOYEE_MANAGER = employeeManager;
         ACTION = action;
         INPUT = input;
     }
@@ -47,7 +51,7 @@ public class ModifyEventCommand implements ICommand<String>{
                 System.out.println("\nPlease enter the new number of attendees for your event: ");
                 int numAttendees = INPUT.nextInt();
                 INPUT.nextLine();
-                EVENT_MANAGER.setNumAttendees(ID, numAttendees);
+                EVENT_MANAGER.setEventNumAttendees(ID, numAttendees, EMPLOYEE_MANAGER);
                 break;
             }
             case "4": {
@@ -55,7 +59,7 @@ public class ModifyEventCommand implements ICommand<String>{
                 String mealType = INPUT.nextLine();
                 MealSetter setMeal = new MealSetter(mealType);
                 Meal newMeal = setMeal.getMeal();
-                EVENT_MANAGER.setMealType(ID, newMeal);
+                EVENT_MANAGER.setEventMeal(ID, newMeal);
                 break;
             }
         }
