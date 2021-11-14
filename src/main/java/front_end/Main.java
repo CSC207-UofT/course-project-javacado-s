@@ -2,19 +2,21 @@ package front_end;/*
 Command line interface that takes in user input
  */
 
-import managers.EmployeeManager;
-import managers.EventManager;
+import managers.*;
+import users.User;
 
+import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.Date;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        UserManager userManager = new UserManager();
         EmployeeManager employeeManager = new EmployeeManager();
-        EventManager eventManager = new EventManager();
-        CateringSystem system = new CateringSystem(employeeManager, eventManager);
+        CateringSystem system = new CateringSystem(employeeManager);
         Scanner input = new Scanner(System.in);
+        FileInputStream loggedInFile = null;
         String exit = "";
 
         System.out.println("********************************************" +
@@ -22,9 +24,16 @@ public class Main {
         System.out.println("Hello! Welcome to Javacado's, your #1 catering service.");
 
         while (!exit.equals("exit")) {
+            while (loggedInFile == null) {
+                loggedInFile = loginPrompt(input, userManager);
+                EventManager eventManager = new EventManager(loggedInFile);
+                system.setEventManager(eventManager);
+
+            }
+
             actionPrompt(input, system);
 
-            System.out.println("\nIf you would like to finish and exit, please enter \"exit\", " +
+            System.out.println("\nIf you would like to finish and log out, please enter \"x\", " +
                     "otherwise, press \"enter\": ");
             exit = input.nextLine().toLowerCase();
         }
@@ -32,6 +41,41 @@ public class Main {
         System.out.println("\n******************************************" +
                 "**********************************************");
         System.out.println("Thank you for choosing Javacado's! Have a nice day :)");
+    }
+
+    /**
+     * Prompt user to log in or create new account
+     * @param input Scanner object
+     * @param userManager UserManager object
+     * @return FileInputStream of User's existing Events in serialized form
+     */
+    private static FileInputStream loginPrompt(Scanner input, UserManager userManager) throws Exception {
+        System.out.println("****************************************************************************************");
+        System.out.println("\nWhich action would you like to perform?");
+        System.out.println("\t1 Login in");
+        System.out.println("\t2 Create a new account");
+        System.out.println("\nPlease enter the action:");
+        String action = input.nextLine();
+
+        if (action.equals("1")) {
+                System.out.println("\nUsername: ");
+                String username = input.nextLine();
+                System.out.println("Password: ");
+                String password = input.nextLine();
+                User user = userManager.getUser(username, password);
+                System.out.println("\nWelcome, " + username + "!");
+                return user.getSerialized_events();
+        }
+        else if (action.equals("2"))  {
+            System.out.println("\nNew username: ");
+            String username = input.nextLine();
+            System.out.println("New password: ");
+            String password = input.nextLine();
+            userManager.createUser(username, password);
+            System.out.println("\nSuccess! You may now log in with your new account.");
+            return null;
+        }
+        return null;
     }
 
     /**
