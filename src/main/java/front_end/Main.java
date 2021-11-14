@@ -16,7 +16,9 @@ public class Main {
         EmployeeManager employeeManager = new EmployeeManager();
         CateringSystem system = new CateringSystem(employeeManager);
         Scanner input = new Scanner(System.in);
-        FileInputStream loggedInFile = null;
+        Tuple<User, Boolean> logInResult = new Tuple<>(null, false);
+        boolean loggedIn = false;
+        String logout = "";
         String exit = "";
 
         System.out.println("********************************************" +
@@ -24,17 +26,25 @@ public class Main {
         System.out.println("Hello! Welcome to Javacado's, your #1 catering service.");
 
         while (!exit.equals("exit")) {
-            while (loggedInFile == null) {
-                loggedInFile = loginPrompt(input, userManager);
-                EventManager eventManager = new EventManager(loggedInFile);
-                system.setEventManager(eventManager);
+            while (!logout.equals("x")) {
+                while (!loggedIn) {
+                    logInResult = loginPrompt(input, userManager);
+                    FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
+                    loggedIn = logInResult.getSecond();
 
+                    EventManager eventManager = new EventManager(loggedInFile);
+                    system.setEventManager(eventManager);
+                }
+
+                actionPrompt(input, system);
+
+                System.out.println("\nIf you would like to log out, please enter \"x\", otherwise, press \"enter\": ");
+                logout = input.nextLine().toLowerCase();
             }
+            logout = "";
+            userManager.updateUser(logInResult.getFirst());
 
-            actionPrompt(input, system);
-
-            System.out.println("\nIf you would like to finish and log out, please enter \"x\", " +
-                    "otherwise, press \"enter\": ");
+            System.out.println("\nIf you would like to exit, please enter \"exit\", otherwise, press \"enter\": ");
             exit = input.nextLine().toLowerCase();
         }
 
@@ -49,7 +59,9 @@ public class Main {
      * @param userManager UserManager object
      * @return FileInputStream of User's existing Events in serialized form
      */
-    private static FileInputStream loginPrompt(Scanner input, UserManager userManager) throws Exception {
+    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager) throws Exception {
+        Tuple<User, Boolean> tuple;
+
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
         System.out.println("\t1 Login in");
@@ -64,7 +76,8 @@ public class Main {
                 String password = input.nextLine();
                 User user = userManager.getUser(username, password);
                 System.out.println("\nWelcome, " + username + "!");
-                return user.getSerialized_events();
+                tuple = new Tuple<>(user, true);
+                return tuple;
         }
         else if (action.equals("2"))  {
             System.out.println("\nNew username: ");
@@ -73,9 +86,9 @@ public class Main {
             String password = input.nextLine();
             userManager.createUser(username, password);
             System.out.println("\nSuccess! You may now log in with your new account.");
-            return null;
         }
-        return null;
+        tuple = new Tuple<>(null, false);
+        return tuple;
     }
 
     /**
