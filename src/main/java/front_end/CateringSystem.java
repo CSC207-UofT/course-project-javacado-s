@@ -64,8 +64,7 @@ public class CateringSystem {
      * @return a String message telling user if modification was successful
      */
     public String modifyEvent(Scanner input, int id, String action) {
-        // TODO: This part is modified by Yifang. Can someone else check if this works?
-        ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action, employeeManager);
+        ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action);
         return cmd.execute();
     }
 }
