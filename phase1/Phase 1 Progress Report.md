@@ -32,7 +32,7 @@ We have provided a summary of what each group member worked on:
 - Karen: Implemented command classes, Command interface, packaging, style warnings
 - Maggie: Implemented Progress status in Event, event override equals method, testing coverage 
 - Zi Xuan: Implemented UserManager, fixing EmployeeManager, EventManager + tests
-- All: testing, progress report
+- All: testing
 
 Here is a summary of what each group member is planning on working on next:
 
