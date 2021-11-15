@@ -124,9 +124,8 @@ public class EventManager {
         try {
             return getEventByIDWithException(id);
         } catch (EventNotFoundError notFoundError) {
-            notFoundError.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
