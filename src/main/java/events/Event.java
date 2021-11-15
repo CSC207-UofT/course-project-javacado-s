@@ -11,7 +11,7 @@ import java.util.Date;
  This class represents an Event that a user is requesting catering for.
  */
 
-public class Event {
+public class Event implements Serializable{
     private final int id;
     private String name;
     private Date date;
@@ -175,7 +175,7 @@ public class Event {
         }
     }
     /**
-     Return a String representation of the Event class, including event details: name, date, location,
+     * @return a String representation of the Event class, including event details: name, date, location,
      number of attendees and the total price for this event.
      */
     @Override
@@ -193,12 +193,6 @@ public class Event {
 
     @Override
     public boolean equals(Object obj){
-        if (this == obj){
-            return true;
-        }
-        if (obj == null){
-            return false;
-        }
         if (this.getClass() != obj.getClass()){
             return false;
         }
