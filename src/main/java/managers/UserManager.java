@@ -1,6 +1,7 @@
 package managers;
 
 import users.User;
+import events.Event;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -60,8 +61,13 @@ public class UserManager {
         pw.write(password);
         pw.flush();
         pw.close();
-        File file = new File(USER_DIRECTORY_PATH + username + "/events.txt");
-        if(!file.createNewFile()){ throw new Exception("Could not create new file. Something went wrong.");}
+
+        ArrayList<Event> empty_events = new ArrayList<>();
+        FileOutputStream fos = new FileOutputStream(USER_DIRECTORY_PATH + username + "/events.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(empty_events);
+        oos.close();
+        fos.close();
         this.users = USER_DIRECTORY.listFiles();
         /*
          * the list of users has to be updated again after creating a new account; login is separate from account
