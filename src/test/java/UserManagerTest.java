@@ -1,5 +1,7 @@
 import events.Event;
-import meals.Meal;
+import meals.Breakfast;
+import managers.UserManager;
+import users.User;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -7,6 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 public class UserManagerTest {
     UserManager u = new UserManager();
@@ -17,9 +20,9 @@ public class UserManagerTest {
 
     @After
     public void tearDown(){
-        for(File f:u.USER_DIRECTORY.listFiles()){
+        for(File f: Objects.requireNonNull(u.USER_DIRECTORY.listFiles())){
             if(f.getName().contains("test")){
-                for(File c: f.listFiles()){
+                for(File c: Objects.requireNonNull(f.listFiles())){
                     c.delete();
                 }
                 f.delete();
@@ -95,20 +98,20 @@ public class UserManagerTest {
                 new Date(),
                 "test_location",
                 0,
-                new Meal("Breakfast"));
+                new Breakfast("Breakfast"));
         test.add(test_event);
-        FileOutputStream a = new FileOutputStream("src/data/users/_checkout.ser");
+        FileOutputStream a = new FileOutputStream("src/main/java/data_files/users/_checkout.ser");
         ObjectOutputStream o = new ObjectOutputStream(a);
         o.writeObject(test);
         o.flush();
         o.close();
         a.close();
         u.updateUser(u.getUser("john_doe", "12345678"));
-        FileInputStream i = new FileInputStream("src/data/users/_checkout.ser");
+        FileInputStream i = new FileInputStream("src/main/java/data_files/users/_checkout.ser");
         ObjectInputStream s = new ObjectInputStream(i);
         ArrayList<Event> expected = (ArrayList<Event>) s.readObject();
         assertArrayEquals(expected.toArray(), test.toArray());
-        FileWriter fw = new FileWriter("src/data/users/john_doe/events.txt");
+        FileWriter fw = new FileWriter("src/main/java/data_files/users/john_doe/events.txt");
         fw.write("");
         fw.close();
     }

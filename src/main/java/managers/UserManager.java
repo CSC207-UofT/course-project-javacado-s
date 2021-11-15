@@ -19,7 +19,7 @@ public class UserManager {
      * folder called "users".
      * users is a list of said files as File objects.
      */
-    final File USER_DIRECTORY = new File("src/main/java/data_files/users/");
+    public final File USER_DIRECTORY = new File("src/main/java/data_files/users/");
     final String USER_DIRECTORY_PATH = "src/main/java/data_files/users/";
     private File[] users = USER_DIRECTORY.listFiles();
 

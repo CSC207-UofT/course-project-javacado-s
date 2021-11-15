@@ -2,12 +2,14 @@ import meals.Meal;
 import org.junit.*;
 import meals.Breakfast;
 import meals.Lunch;
+import meals.Dinner;
 
 import static org.junit.Assert.*;
 
 public class MealTest {
     Meal e_meal = new Breakfast("breakfast");
     Meal meal2 = new Lunch("lunch");
+    Meal meal3 = new Dinner("dinner");
 
     @Test(timeout = 50)
     public void TestGetMealPrice(){
@@ -21,6 +23,12 @@ public class MealTest {
         assertEquals(0.4, meal2.getNumEmployee(), 3);
     }
 
+    @Test(timeout = 50)
+    public void TestGetName(){
+        assertEquals(e_meal.getMealName(), "breakfast");
+        assertEquals(meal2.getMealName(), "lunch");
+        assertEquals(meal3.getMealName(), "dinner");
+    }
     @Test(timeout = 100)
     public void TestToString() {
         assertEquals("Menu of breakfast:\r\nWhite Bread\r\nScrambled Egg\r\nOrange Juice\r\nMuffin",

@@ -1,5 +1,6 @@
 package meals;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -9,7 +10,7 @@ import java.util.Objects;
  */
 
 
-public abstract class Meal implements Ingredient{
+public abstract class Meal implements Ingredient, Serializable {
     private String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
@@ -75,21 +76,16 @@ public abstract class Meal implements Ingredient{
     public float getMealPrice(){
         return priceList.get(this.selectedMeal.toLowerCase());
     }
-
     /**
      * @return an integer represents the number Employee per numAttendeeGroup attendees.
      */
     public float getNumEmployee(){
         return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
     }
-
     /**
      * @return the Meal type name of the Meal which user requested.
      */
-    public String getMealName(){
-        return this.selectedMeal;
-    }
-
+    public String getMealName(){return this.selectedMeal;}
     /**
      * @return the Ingredient (Dishes) of the Meal which user requested.
      */
@@ -100,7 +96,6 @@ public abstract class Meal implements Ingredient{
         }
         return message;
     }
-
 
     /**
      * Prints the menu of the selected meal type.
@@ -123,12 +118,6 @@ public abstract class Meal implements Ingredient{
      */
     @Override
     public boolean equals(Object obj){
-        if (this == obj){
-            return true;
-            }
-        if (obj == null){
-            return false;
-            }
         if (this.getClass() != obj.getClass()){
             return false;
             }
@@ -136,4 +125,3 @@ public abstract class Meal implements Ingredient{
         return(Objects.equals(this.selectedMeal, meal2.selectedMeal));
     }
 }
-
