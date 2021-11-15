@@ -181,7 +181,7 @@ public class Main {
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
         String[] newDate = date.split("/");
-        Date eventDate = new Date(2021, Integer.parseInt(newDate[0]), Integer.parseInt(newDate[1]));
+        Date eventDate = new Date(121, Integer.parseInt(newDate[0]) - 1, Integer.parseInt(newDate[1]));
 
         System.out.println("\nPlease enter the location of your event: ");
         String location = input.nextLine();
