@@ -18,8 +18,8 @@ public class EventManagerTest {
 
     @Before
     public void setUp() throws IOException, ClassNotFoundException {
-        String user = "Tester";
-        em = new EventManager(new FileInputStream("src/data/users/" + user + "/events.txt"));
+        String user = "testNew";
+        em = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
     }
 
     @Test
