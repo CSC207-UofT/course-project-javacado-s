@@ -66,7 +66,7 @@ public class Main {
 
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
-        System.out.println("\t1 Login in");
+        System.out.println("\t1 Log in");
         System.out.println("\t2 Create a new account");
         System.out.println("\nPlease enter the action:");
         String action = input.nextLine();
