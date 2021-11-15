@@ -31,19 +31,22 @@ public class Main {
             while (!logout.equals("x")) {
                 while (!loggedIn) {
                     logInResult = loginPrompt(input, userManager);
-                    FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                     loggedIn = logInResult.getSecond();
 
-                    EventManager eventManager = new EventManager(loggedInFile);
-                    system.setEventManager(eventManager);
+                    if (loggedIn) {
+                        FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
+                        EventManager eventManager = new EventManager(loggedInFile);
+                        system.setEventManager(eventManager);
+                    }
                 }
-
                 actionPrompt(input, system);
 
                 System.out.println("\nIf you would like to log out, please enter \"x\", otherwise, press \"enter\": ");
                 logout = input.nextLine().toLowerCase();
             }
             logout = "";
+            loggedIn = false;
+
             /* EXTREMELY BAND-AID FIX HERE; CHANGE LATER */
             system.getEventManager().checkout();
             userManager.updateUser(logInResult.getFirst());
@@ -68,7 +71,7 @@ public class Main {
 
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
-        System.out.println("\t1 Login in");
+        System.out.println("\t1 Log in");
         System.out.println("\t2 Create a new account");
         System.out.println("\nPlease enter the action:");
         String action = input.nextLine();
