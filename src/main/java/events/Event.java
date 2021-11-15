@@ -12,6 +12,8 @@ import java.util.Date;
  */
 
 public class Event implements Serializable{
+
+    private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
     private Date date;

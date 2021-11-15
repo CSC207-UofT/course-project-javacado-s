@@ -1,6 +1,10 @@
 package meals;
 
-public class Dish implements Ingredient {
+import java.io.Serializable;
+
+public class Dish implements Ingredient, Serializable {
+
+        private static final long serialVersionUID = 3892680574828196248L;
         private float price;
         private String Ig_name;
         private String meal_name;

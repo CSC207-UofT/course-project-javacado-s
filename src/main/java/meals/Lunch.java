@@ -1,6 +1,10 @@
 package meals;
 
-public class Lunch extends Meal{
+import java.io.Serializable;
+
+public class Lunch extends Meal implements Serializable {
+
+    private static final long serialVersionUID = 2915823301012894712L;
 
     /** Construct the Lunch.
      * @param selectedMeal given meal type requested

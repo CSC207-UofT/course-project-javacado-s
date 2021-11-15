@@ -11,6 +11,8 @@ import java.util.Objects;
 
 
 public abstract class Meal implements Ingredient, Serializable {
+
+    private static final long serialVersionUID = -1114328364648793004L;
     private String[] mealType = {"breakfast","lunch","dinner"};
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
