@@ -127,7 +127,7 @@ public class UserManager {
     public void updateUser(User u){
         try{
             u.getSerialized_events().close();
-            FileInputStream checkout = new FileInputStream("src/data/users/_checkout.ser");
+            FileInputStream checkout = new FileInputStream("src/main/java/data_files/users/_checkout.ser");
             Path user_events_path = Paths.get(USER_DIRECTORY_PATH + u.getUsername()+"/events.txt");
             Files.copy(checkout, user_events_path, StandardCopyOption.REPLACE_EXISTING);
             checkout.close();
