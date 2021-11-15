@@ -124,9 +124,8 @@ public class EventManager {
         try {
             return getEventByIDWithException(id);
         } catch (EventNotFoundError notFoundError) {
-            notFoundError.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -317,10 +316,9 @@ public class EventManager {
      */
     public void checkout(){
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/data/users/_checkout.ser");
+            FileOutputStream fileOut = new FileOutputStream("src/main/java/data_files/users/_checkout.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this.eventList);
-            out.flush();
             out.close();
             fileOut.close();
         }
