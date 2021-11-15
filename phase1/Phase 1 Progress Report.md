@@ -27,7 +27,7 @@ We have provided a summary of what each group member worked on:
 
 - Rose: Implemented User class, command classes, design document + specification  
 - Lucas: Modified EventManager, event tests, exceptions package 
-- Faith: Implemented Employee subclasses, employee file, progress report 
+- Faith: Modified and Extended Employee, employee txt file, progress report 
 - Zhengdong: Implemented MealType subclasses, modified Meal Classes 
 - Karen: Implemented command classes, Command interface, packaging, style warnings
 - Maggie: Implemented Progress status in Event, event override equals method, testing coverage 
