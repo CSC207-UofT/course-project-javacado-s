@@ -2,6 +2,8 @@ package front_end;/*
 Command line interface that takes in user input
  */
 
+import events.Event;
+import exceptions.EventNotFoundError;
 import managers.*;
 import users.User;
 
@@ -207,16 +209,36 @@ public class Main {
         System.out.println("\n"+system.cancelEvent(id));
     }
 
-    /**
+    /** TODO: this part has been updated by Yifang/Lucas as to avoid being forced to exit due
+     *  TODO: to EventNotFoundError. Please delete this line after checking its correctness
+     *
      * Prompt user for event ID to view event and print event details.
      * @param input Scanner object
      * @param system CateringSystem object
      */
     private static void viewEventPrompt(Scanner input, CateringSystem system) {
-        System.out.println("\nPlease enter the ID of the event you would like to view: ");
+        System.out.println("\nPlease enter the ID of the event you would like to view: (Press -1 to exit)");
         String str_id = input.nextLine();
+        if((str_id.equals("-1"))){
+            System.out.println("Exited Event Viewing");
+            return;
+        }
         int id = Integer.parseInt(str_id);
 
-        System.out.println("\n"+system.viewEvent(id));
+        String result = system.viewEvent(id);
+
+
+        while (result.equals("null")) {
+            if((str_id.equals("-1"))){
+                System.out.println("Exited Event Viewing");
+                return;
+            }
+            System.out.println("\nThe id you entered cannot be found. Please enter a different one.");
+            str_id = input.nextLine();
+            id = Integer.parseInt(str_id);
+            result = system.viewEvent(id);
+        }
+        System.out.println("\n" + system.viewEvent(id));
+
     }
 }
