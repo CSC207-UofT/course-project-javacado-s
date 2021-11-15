@@ -43,6 +43,7 @@ public class Main {
                 logout = input.nextLine().toLowerCase();
             }
             logout = "";
+            loggedIn = false;
             userManager.updateUser(logInResult.getFirst());
 
             System.out.println("\nIf you would like to exit, please enter \"exit\", otherwise, press \"enter\": ");
