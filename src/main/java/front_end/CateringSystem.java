@@ -68,4 +68,14 @@ public class CateringSystem {
         ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action, employeeManager);
         return cmd.execute();
     }
+
+    /**
+     * View event specified by ID.
+     * @param id ID of event
+     * @return a String message with the details of the event
+     */
+    public String viewEvent(int id) {
+        ViewEventCommand cmd = new ViewEventCommand(eventManager, id);
+        return cmd.execute();
+    }
 }

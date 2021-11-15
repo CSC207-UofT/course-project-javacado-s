@@ -102,6 +102,7 @@ public class Main {
         System.out.println("\t1 Create new event");
         System.out.println("\t2 Cancel event");
         System.out.println("\t3 Modify event");
+        System.out.println("\t4 View event");
         System.out.println("\nPlease enter the action (Press \"enter\" if you do not wish to perform an action):");
         String action = input.nextLine();
 
@@ -116,6 +117,10 @@ public class Main {
             }
             case "3" : {
                 modifyEventPrompt(input, system);
+                break;
+            }
+            case "4" : {
+                viewEventPrompt(input, system);
                 break;
             }
         }
@@ -200,5 +205,18 @@ public class Main {
         int id = Integer.parseInt(str_id);
 
         System.out.println("\n"+system.cancelEvent(id));
+    }
+
+    /**
+     * Prompt user for event ID to view event and print event details.
+     * @param input Scanner object
+     * @param system CateringSystem object
+     */
+    private static void viewEventPrompt(Scanner input, CateringSystem system) {
+        System.out.println("\nPlease enter the ID of the event you would like to view: ");
+        String str_id = input.nextLine();
+        int id = Integer.parseInt(str_id);
+
+        System.out.println("\n"+system.viewEvent(id));
     }
 }
