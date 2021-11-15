@@ -19,8 +19,7 @@ This hierarchy was maintained as we followed the single responsibility principle
 one responsibility), the dependency rule, and the open/closed principle. Furthermore, we were able to use packaging 
 strategies in order to organize our code. We were also able to add complexity to use cases such as EventManager, as 
 well we were able to extend entities such as Employee class and Meal class, which helped extend the functionality and scope of the 
-program. Another design that worked well as our decision to serialize Event objects, as this allowed for our program 
-to have an account system for its users.
+program. 
 
 
 We have provided a summary of what each group member worked on: 
