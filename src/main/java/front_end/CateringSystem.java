@@ -1,4 +1,5 @@
-package front_end;/*
+package front_end;
+/*
 This class is instantiated upon startup of program and is in charge of
 communicating/sending information between EmployeeManager, EventManager,
 and the command line/user.
@@ -18,10 +19,16 @@ public class CateringSystem {
     /**
      * Constructor for CateringSystem
      * @param employeeManager Employee manager for system
-     * @param eventManager Event manager for system
      */
-    public CateringSystem(EmployeeManager employeeManager, EventManager eventManager) {
+    public CateringSystem(EmployeeManager employeeManager) {
         this.employeeManager = employeeManager;
+    }
+
+    /**
+     * Setter method for System's EventManager
+     * @param eventManager EventManager for specific User
+     */
+    public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
     }
 
@@ -57,7 +64,8 @@ public class CateringSystem {
      * @return a String message telling user if modification was successful
      */
     public String modifyEvent(Scanner input, int id, String action) {
-        ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action);
+        // TODO: This part is modified by Yifang. Can someone else check if this works?
+        ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action, employeeManager);
         return cmd.execute();
     }
 }

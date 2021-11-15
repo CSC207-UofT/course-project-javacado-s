@@ -1,5 +1,6 @@
 package managers;
 
+import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundError;
 import meals.*;
@@ -226,6 +227,8 @@ public class EventManager {
         return this.cancelledEvent.get(id);
     }
 
+
+
     /**
      * Set the status of the event by id and given status.
      * @param id        The id of the Event
@@ -235,26 +238,71 @@ public class EventManager {
         getEventByID(id).setStatus(status);
     }
 
+    /**
+     * Set the name of the event with the given id to the given new name
+     * @param id        The id of the Event
+     * @param name      The new name of the Event
+     */
     public void setEventName(int id, String name){
         getEventByID(id).setName(name);
     }
 
+    /**
+     * Set the mealType of the event with the given id to the given new mealType
+     * @param id        The id of the Event
+     * @param meal      The new Meal of the Event
+     */
+    public void setEventMeal(int id, Meal meal){
+        getEventByID(id).setMealType(meal);
+    }
+
+    /**
+     * Set location of the event with the given id to the given new location
+     * @param id        The id of the Event
+     * @param location  The new location of the Event
+     */
     public void setEventLocation(int id, String location){
         getEventByID(id).setLocation(location);
     }
 
     /**
-     * Event setter for event's number of attendees.
+     * If there are enough employees for change that set number of attendees
+     * of the event with the given id to the given new one.
+     * Return True iff such change was able to carry out.
+     *
+     * @param id        The id of the Event
+     * @param newNum    The new number of attendees
+     * @param empM      The employeeManager, which has the data of the employees
+     * @return          True iff such change was able to carry out, false otherwise
      */
-    public void setNumAttendees(int id, int attendees) {
-        getEventByID(id).setNumAttendees(attendees);
+    public boolean setEventNumAttendees(int id, int newNum, EmployeeManager empM){
+        Event currEvent = getEventByID(id);
+        int numBefore = currEvent.getNumAttendees();
+        currEvent.setNumAttendees(newNum);
+        if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), currEvent.getDate())){
+            currEvent.setNumAttendees(numBefore);
+            return false;
+        }
+        return true;
     }
 
     /**
-     * Event setter for event's meal type.
+     * If there are enough employees for change that set date
+     * of the event with the given id to the given new one.
+     * Return True iff such change was able to carry out.
+     *
+     * @param id        The id of the Event
+     * @param date      The new number of attendees
+     * @param empM      The employeeManager, which has the data of the employees
+     * @return          True iff such change was able to carry out, false otherwise
      */
-    public void setMealType(int id, Meal newMealType) {
-        getEventByID(id).setMealType(newMealType);
+    public boolean setEventDate(int id, Date date, EmployeeManager empM) {
+        Event currEvent = getEventByID(id);
+        if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), date)) {
+            return false;
+        }
+        currEvent.setDate(date);
+        return true;
     }
 
     /**

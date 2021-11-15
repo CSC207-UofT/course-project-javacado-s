@@ -55,7 +55,7 @@ public class CreateEventCommand implements ICommand<String>{
         }
         else {
             EVENT_MANAGER.cancelEvent(newEventID);
-            return "Sorry, your catering request could not be accepted for this date. " +
+            return "Sorry, your catering request could not be accepted for this date (" + DATE + "). " +
                     "Please try requesting on a different date.";
         }
     }
