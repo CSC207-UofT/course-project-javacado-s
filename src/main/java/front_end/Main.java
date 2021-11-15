@@ -29,13 +29,14 @@ public class Main {
             while (!logout.equals("x")) {
                 while (!loggedIn) {
                     logInResult = loginPrompt(input, userManager);
-                    FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                     loggedIn = logInResult.getSecond();
 
-                    EventManager eventManager = new EventManager(loggedInFile);
-                    system.setEventManager(eventManager);
+                    if (loggedIn) {
+                        FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
+                        EventManager eventManager = new EventManager(loggedInFile);
+                        system.setEventManager(eventManager);
+                    }
                 }
-
                 actionPrompt(input, system);
 
                 System.out.println("\nIf you would like to log out, please enter \"x\", otherwise, press \"enter\": ");
