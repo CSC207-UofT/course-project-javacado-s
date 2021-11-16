@@ -55,7 +55,7 @@ public class UserManagerTest {
         br1.close();
         FileReader fr2 = new FileReader("src/main/java/data_files/users/testNew/events.txt");
         BufferedReader br2 = new BufferedReader(fr2);
-        assertNull(br2.readLine());
+        assertNotNull(br2.readLine());
         fr2.close();
         br2.close();
     }

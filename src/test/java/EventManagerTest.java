@@ -42,7 +42,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void creatEvent() {
+    public void createEvent() {
         int eventID = em.createEvent(108, "Test Event",
                     new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                     "U of T", 20, "dinner");

@@ -51,8 +51,8 @@ public class ModifyEventCommand implements ICommand<String>{
             }
             case "3": {
                 System.out.println("\nPlease enter the new number of attendees for your event: ");
-                int numAttendees = INPUT.nextInt();
-                INPUT.nextLine();
+                String str_numAttendees = INPUT.nextLine();
+                int numAttendees = Integer.parseInt(str_numAttendees);
                 result = EVENT_MANAGER.setEventNumAttendees(ID, numAttendees, EMPLOYEE_MANAGER);
                 break;
             }
