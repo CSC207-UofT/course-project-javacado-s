@@ -87,18 +87,16 @@ public class CateringSystemTest {
         assert(EventM.getEventByID(0).getLocation().equals(input));
     }
 
-    //Todo: fix the ModifyEventAttendees so that it pass
-
-//    @Test
-//    public void testModifyEventAttendees() throws exceptions.EventNotFoundError {
-//        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
-//                "BA", 25, "dinner");
-//        String input = "45";
-//        Scanner s = new Scanner(input);
-//        c.modifyEvent(s, 0, "3");
-//        int actual = EventM.getEventByID(0).getNumAttendees();
-//        assert(Integer.toString(actual).equals("45"));
-//    }
+    @Test
+    public void testModifyEventAttendees() throws exceptions.EventNotFoundError {
+        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
+                "BA", 25, "dinner");
+        String input = "45";
+        Scanner s = new Scanner(input);
+        c.modifyEvent(s, 0, "3");
+        int actual = EventM.getEventByID(0).getNumAttendees();
+        assert(Integer.toString(actual).equals("45"));
+    }
 
     @Test
     public void testModifyEventMeal() throws exceptions.EventNotFoundError {
@@ -116,7 +114,7 @@ public class CateringSystemTest {
                 30, "dinner");
         Event test_event = new Event(0, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
                 30, new Dinner("dinner"));
-        String expected = "Event details (ID: 0): Birthday on 29/10/2021 at CN Tower for 30 attendees. " + "\r\n" +
+        String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
                 test_event.getPrice() + "\r\n The current event status is: "+ test_event.getStatus();
