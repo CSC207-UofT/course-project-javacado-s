@@ -69,6 +69,7 @@ public class EventManager {
 
     /**
      * Create a new Event from System input with specific id, and add it to the eventList
+     * Used in tests
      *
      * @param id                The id of the Event
      * @param name              The name of the Event
