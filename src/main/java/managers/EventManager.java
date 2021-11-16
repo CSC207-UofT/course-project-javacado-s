@@ -35,6 +35,9 @@ public class EventManager {
         ObjectInputStream in = new ObjectInputStream(input);
         this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
+        for(Event e: eventList){
+            idEventMap.put(e.getID(),e);
+        }
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
         this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
@@ -54,9 +57,9 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(String name, Date date, String location,
-                          int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal){
         MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();        
+        Meal newMeal = setMeal.getMeal();
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
@@ -326,5 +329,4 @@ public class EventManager {
             i.printStackTrace();
         }
     }
-
 }
