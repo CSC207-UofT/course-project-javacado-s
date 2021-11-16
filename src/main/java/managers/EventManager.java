@@ -65,27 +65,6 @@ public class EventManager {
     }
 
     /**
-     * Create a new Event from System input with specific id, and add it to the eventList
-     *
-     * @param id                The id of the Event
-     * @param name              The name of the Event
-     * @param date              The date of the Event
-     * @param location          The location of the Event
-     * @param numAttendees      The number of attendees of the Event
-     * @param selectedMeal      The selected meal type
-     * @return                  Return the created Event
-     */
-    public int createEvent(int id, String name, Date date, String location,
-                           int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
-        this.eventList.add(newEvent);
-        this.idEventMap.put(id, newEvent);
-        return id;
-    }
-
-    /**
      * Return a clone of the eventList
      *
      * @return      A clone of the eventList

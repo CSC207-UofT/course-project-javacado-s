@@ -15,6 +15,7 @@ public class MealSetter implements Serializable {
      Constructs a Meal according to designated meal type provided by the user.
      @param selectedMeal given meal type requested
      */
+    // TODO: handle invalid string input
     public MealSetter(String selectedMeal){
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
