@@ -329,8 +329,4 @@ public class EventManager {
             i.printStackTrace();
         }
     }
-    public HashMap<Integer, Event> getHashMap(){
-        return this.idEventMap;
-    }
-
 }
