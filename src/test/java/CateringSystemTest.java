@@ -117,7 +117,7 @@ public class CateringSystemTest {
         String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
-                test_event.getPrice() + "\r\n The current event status is: "+ test_event.getStatus();
+                test_event.getPrice() + "\r\nThe current event status is: "+ test_event.getStatus();
         assertEquals(expected, c.viewEvent(0));
     }
 }
