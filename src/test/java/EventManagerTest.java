@@ -1,9 +1,12 @@
+import employees.Employee;
 import events.Event;
 import exceptions.EventNotFoundError;
+import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
 import meals.Meal;
 import meals.Dinner;
+import meals.Lunch;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +23,7 @@ public class EventManagerTest {
 
     EventManager em;
     UserManager um;
+    EmployeeManager employeeManager;
 
     @Before
     public void setUp() throws Exception {
@@ -27,6 +31,7 @@ public class EventManagerTest {
         um = new UserManager();
         um.createUser(user, "1234");
         em = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
+        employeeManager = new EmployeeManager();
     }
 
     @After
@@ -47,6 +52,14 @@ public class EventManagerTest {
                     new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                     "U of T", 20, "dinner");
         assert (eventID == 108);
+    }
+
+    @Test
+    public void testCreateEvent2() {
+        int eventID = em.createEvent("Test Event",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "U of T", 20, "dinner");
+        assert (eventID == 0);
     }
 
     @Test
@@ -110,6 +123,32 @@ public class EventManagerTest {
                 "BA", 25, testMeal);
 
         assert (em.getEventByID(204).equals(eventB));
+        assert (em.getEventByID(200) == null);
+    }
+
+    @Test
+    public void testGetEmployeesNeeded() {
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+        assert (em.getEmployeesNeeded(108) == 12);
+    }
+
+    @Test
+    public void testGetEventDate() {
+        Date testDate = new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24);
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+        assert (em.getEventDate(108).equals(testDate));
+    }
+
+    @Test
+    public void testGetEventName() {
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+        assert (em.getEventName(108).equals("Test Event A"));
     }
 
     @Test
@@ -212,5 +251,79 @@ public class EventManagerTest {
 
         em.cancelEvent(eventA.getID());
         assert (em.getCancelledEvent(108).equals(eventA));
+    }
+
+    @Test
+    public void testSetEventName() throws EventNotFoundError {
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+
+        em.setEventName(108, "Test Event B");
+
+        assert (em.getEventName(108).equals("Test Event B"));
+    }
+
+    @Test
+    public void testSetEventMeal() throws EventNotFoundError {
+        Meal testMeal = new Lunch("lunch");
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+
+        em.setEventMeal(108, testMeal);
+
+        assert (em.getEventByID(108).getMealType().equals(testMeal));
+    }
+
+    @Test
+    public void testSetEventLocation() throws EventNotFoundError {
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+
+        em.setEventLocation(108, "BA");
+
+        assert (em.getEventByID(108).getLocation().equals("BA"));
+    }
+
+    @Test
+    public void testSetEventNumAttendees() throws EventNotFoundError {
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+
+        assert (em.setEventNumAttendees(108, 30, employeeManager));
+        assert (em.getEventByID(108).getNumAttendees() == 30);
+
+        assert (!em.setEventNumAttendees(108, 5000, employeeManager));
+        assert (em.getEventByID(108).getNumAttendees() == 30);
+    }
+
+    @Test
+    public void testSetEventDate() throws EventNotFoundError {
+        Date testDate = new Date(2021, Calendar.NOVEMBER, 31, 18, 30, 24);
+
+        em.createEvent(108, "Test Event A",
+                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                "MY", 20, "dinner");
+
+        assert (em.setEventDate(108, testDate, employeeManager));
+        assert (em.getEventByID(108).getDate().equals(testDate));
+    }
+
+    @Test
+    public void testGetEventByIDWithException() throws EventNotFoundError {
+        Meal testMeal = new Dinner("dinner");
+
+        em.createEvent(204, "Test Event B",
+                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                "BA", 25, "dinner");
+
+        Event eventB = new Event(204, "Test Event B",
+                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                "BA", 25, testMeal);
+
+        assert (em.getEventByIDWithException(204).equals(eventB));
     }
 }

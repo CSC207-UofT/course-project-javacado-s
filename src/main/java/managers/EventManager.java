@@ -148,6 +148,14 @@ public class EventManager {
      */
     public Date getEventDate(int id) { return getEventByID(id).getDate();}
 
+    /**
+     * Return the name of the event with the given id.
+     *
+     * @param id        The required event's id
+     * @return          Return the name of the event
+     */
+    public String getEventName(int id) { return getEventByID(id).getName();}
+
     // Some more getter methods, in case needed
 
     /**
@@ -217,7 +225,6 @@ public class EventManager {
     public String toString(int id) {
         Event event = this.getEventByID(id);
         return event.toString();
-
     }
 
     /**
@@ -306,13 +313,6 @@ public class EventManager {
         }
         currEvent.setDate(date);
         return true;
-    }
-
-    /**
-     * Event setter for employees assigned to this event.
-     */
-    public void setEmployees(int id, ArrayList<String> newEmployees) {
-        getEventByID(id).setEmployees(newEmployees);
     }
 
     /**

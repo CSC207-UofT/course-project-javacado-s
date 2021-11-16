@@ -185,7 +185,7 @@ public class Event implements Serializable{
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(this.date) + " at " +
                 this.location + " for " + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() +
-                "\r\n" + "Price of catering: $" + this.price + "\r\n The current event status is: " + this.status;
+                "\r\n" + "Price of catering: $" + this.price + "\r\nThe current event status is: " + this.status;
     }
 
     /**
