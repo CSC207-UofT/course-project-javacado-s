@@ -12,6 +12,8 @@ import java.util.Date;
  */
 
 public class Event implements Serializable{
+
+    private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
     private Date date;
@@ -180,7 +182,7 @@ public class Event implements Serializable{
      */
     @Override
     public String toString(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(this.date) + " at " +
                 this.location + " for " + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() +
                 "\r\n" + "Price of catering: $" + this.price + "\r\nThe current event status is: " + this.status;

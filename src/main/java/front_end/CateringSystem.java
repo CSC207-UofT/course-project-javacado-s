@@ -6,6 +6,7 @@ and the command line/user.
  */
 
 import commands.*;
+import exceptions.EventNotFoundError;
 import managers.EmployeeManager;
 import managers.EventManager;
 
@@ -64,7 +65,6 @@ public class CateringSystem {
      * @return a String message telling user if modification was successful
      */
     public String modifyEvent(Scanner input, int id, String action) {
-        // TODO: This part is modified by Yifang. Can someone else check if this works?
         ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action, employeeManager);
         return cmd.execute();
     }
@@ -77,5 +77,10 @@ public class CateringSystem {
     public String viewEvent(int id) {
         ViewEventCommand cmd = new ViewEventCommand(eventManager, id);
         return cmd.execute();
+    }
+
+    /* EXTREMELY BAND-AID FIX; CHANGE LATER */
+    public EventManager getEventManager(){
+        return this.eventManager;
     }
 }

@@ -121,7 +121,7 @@ public class EventTest {
 
     @Test
     public void testToString(){
-        assertEquals("Event details (ID: 10): Birthday on 29/10/2021 at CN Tower for 30 attendees. " + "\r\n" +
+        assertEquals("Event details (ID: 10): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
                 event.getPrice() + "\r\nThe current event status is: " + event.getStatus(), event.toString());

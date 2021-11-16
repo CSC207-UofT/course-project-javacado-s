@@ -3,6 +3,7 @@ package commands;
 import managers.EmployeeManager;
 import managers.EventManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*
@@ -55,7 +56,8 @@ public class CreateEventCommand implements ICommand<String>{
         }
         else {
             EVENT_MANAGER.cancelEvent(newEventID);
-            return "Sorry, your catering request could not be accepted for this date (" + DATE + "). " +
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE) + "). " +
                     "Please try requesting on a different date.";
         }
     }

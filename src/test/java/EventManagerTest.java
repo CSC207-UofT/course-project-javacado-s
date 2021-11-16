@@ -1,29 +1,48 @@
 import events.Event;
 import exceptions.EventNotFoundError;
 import managers.EventManager;
+import managers.UserManager;
 import meals.Meal;
 import meals.Dinner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class EventManagerTest {
 
     EventManager em;
+    UserManager um;
 
     @Before
-    public void setUp() throws IOException, ClassNotFoundException {
-        String user = "testNew";
+    public void setUp() throws Exception {
+        String user = "Tester2";
+        um = new UserManager();
+        um.createUser(user, "1234");
         em = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
     }
 
+    @After
+    public void tearDown(){
+        for(File f: Objects.requireNonNull(um.USER_DIRECTORY.listFiles())){
+            if(f.getName().contains("Tester")){
+                for(File c: Objects.requireNonNull(f.listFiles())){
+                    c.delete();
+                }
+                f.delete();
+            }
+        }
+    }
+
     @Test
-    public void creatEvent() {
+    public void createEvent() {
         int eventID = em.createEvent(108, "Test Event",
                     new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                     "U of T", 20, "dinner");
@@ -174,7 +193,6 @@ public class EventManagerTest {
         ArrayList<Event> eventList = em.getEventList();
         assert (eventList.equals(expected));
     }
-
 
     @Test
     public void getCancelledEvent(){
