@@ -69,7 +69,7 @@ public class ModifyEventCommand implements ICommand<String>{
             return EVENT_MANAGER.getEventByID(ID).toString();
         }
         else {
-            return "Sorry, we could not change the number of attendees. Please try again at a later date.";
+            return "Sorry, we could not change the number of attendees. Please try again at a later time.";
         }
     }
 }

@@ -2,8 +2,6 @@ package front_end;/*
 Command line interface that takes in user input
  */
 
-import events.Event;
-import exceptions.EventNotFoundError;
 import managers.*;
 import users.User;
 
@@ -81,9 +79,15 @@ public class Main {
                 String username = input.nextLine();
                 System.out.println("Password: ");
                 String password = input.nextLine();
-                User user = userManager.getUser(username, password);
-                System.out.println("\nWelcome, " + username + "!");
-                tuple = new Tuple<>(user, true);
+                try {
+                    User user = userManager.getUser(username, password);
+                    System.out.println("\nWelcome, " + username + "!");
+                    tuple = new Tuple<>(user, true);
+                }
+                catch (Exception e) {
+                    System.out.println("\nSorry, login failed. Please try again.");
+                    tuple = new Tuple<>(null, false);
+                }
                 return tuple;
         }
         else if (action.equals("2"))  {
@@ -186,7 +190,7 @@ public class Main {
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
         String[] newDate = date.split("/");
-        Date eventDate = new Date(2021, Integer.parseInt(newDate[0]), Integer.parseInt(newDate[1]));
+        Date eventDate = new Date(2021-1901, Integer.parseInt(newDate[0])-1, Integer.parseInt(newDate[1]));
 
         System.out.println("\nPlease enter the location of your event: ");
         String location = input.nextLine();
@@ -214,15 +218,13 @@ public class Main {
         System.out.println("\n"+system.cancelEvent(id));
     }
 
-    /** TODO: this part has been updated by Yifang/Lucas as to avoid being forced to exit due
-     *  TODO: to EventNotFoundError. Please delete this line after checking its correctness
-     *
+    /**
      * Prompt user for event ID to view event and print event details.
      * @param input Scanner object
      * @param system CateringSystem object
      */
     private static void viewEventPrompt(Scanner input, CateringSystem system) {
-        System.out.println("\nPlease enter the ID of the event you would like to view: (Press -1 to exit)");
+        System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
         String str_id = input.nextLine();
         if((str_id.equals("-1"))){
             System.out.println("Exited Event Viewing");
@@ -232,13 +234,12 @@ public class Main {
 
         String result = system.viewEvent(id);
 
-
         while (result.equals("null")) {
             if((str_id.equals("-1"))){
                 System.out.println("Exited Event Viewing");
                 return;
             }
-            System.out.println("\nThe id you entered cannot be found. Please enter a different one.");
+            System.out.println("\nThe id you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
             str_id = input.nextLine();
             id = Integer.parseInt(str_id);
             result = system.viewEvent(id);

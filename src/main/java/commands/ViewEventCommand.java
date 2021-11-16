@@ -22,9 +22,7 @@ public class ViewEventCommand implements ICommand<String>{
         EVENT_MANAGER = eventManager;
     }
 
-    /** TODO: this part has been updated by Yifang/Lucas as to avoid being forced to exit due
-     *  TODO: to EventNotFoundError. Please delete this line after checking its correctness
-     *
+    /**
      * View event.
      *
      * @return String message of event information.
