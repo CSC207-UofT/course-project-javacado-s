@@ -3,11 +3,11 @@ package managers;
 import employees.Employee;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.io.FileWriter;
 
@@ -101,7 +101,7 @@ public class EmployeeManager {
      * @param d Date d
      * @return ArrayList of available Employees for specific Date d
      */
-    public ArrayList<Employee> availableEmployees(Date d){
+    public ArrayList<Employee> availableEmployees(GregorianCalendar d){
         ArrayList<Employee> available = new ArrayList<>();
         for(Employee e:this.employee_list){
             if(e.isAvailable(d)){
@@ -129,7 +129,7 @@ public class EmployeeManager {
      * @param d given Date
      * @return boolean True if there are enough available Employees on given Date, False otherwise.
      */
-    public boolean enoughEmployees(int num, Date d){
+    public boolean enoughEmployees(int num, GregorianCalendar d){
         return availableEmployees(d).size() >= num;
     }
 
@@ -142,7 +142,7 @@ public class EmployeeManager {
      * I believe we agreed that EventManager should be in charge of assigning Employees to
      * Events, specifically, so for now, this will just set specific dates to unavailable.
      */
-    public void setUnavailable(ArrayList<Employee> employees, Date d){
+    public void setUnavailable(ArrayList<Employee> employees, GregorianCalendar d){
         for(Employee e:employees){
             e.setUnavailability(d);
         }

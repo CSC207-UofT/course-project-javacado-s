@@ -8,6 +8,7 @@ import meals.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -56,7 +57,7 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(String name, Date date, String location,
+    public int createEvent(String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal){
         MealSetter setMeal = new MealSetter(selectedMeal);
         Meal newMeal = setMeal.getMeal();
@@ -79,7 +80,7 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(int id, String name, Date date, String location,
+    public int createEvent(int id, String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal){
         MealSetter setMeal = new MealSetter(selectedMeal);
         Meal newMeal = setMeal.getMeal();
@@ -146,7 +147,7 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the date of the event
      */
-    public Date getEventDate(int id) { return getEventByID(id).getDate();}
+    public GregorianCalendar getEventDate(int id) { return getEventByID(id).getDate();}
 
     /**
      * Return the name of the event with the given id.
@@ -182,7 +183,7 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(Date time) throws EventNotFoundError {
+    public Object getEventByDate(GregorianCalendar time) throws EventNotFoundError {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
@@ -306,7 +307,7 @@ public class EventManager {
      * @param empM      The employeeManager, which has the data of the employees
      * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventDate(int id, Date date, EmployeeManager empM) {
+    public boolean setEventDate(int id, GregorianCalendar date, EmployeeManager empM) {
         Event currEvent = getEventByID(id);
         if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), date)) {
             return false;
