@@ -41,6 +41,16 @@ public class EmployeeManager {
                 name = info.substring(info.indexOf(",") + 1).trim();
                 id = Integer.parseInt(info.substring(0, info.indexOf(",")).trim());
                 Employee e = new Employee(name, id);
+                String rawDates = info.substring(info.indexOf("|"));
+                // Date formatting: |{yyyy}[mm](dd)|
+                while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
+                    int y = Integer.parseInt(info.substring(info.indexOf("{"),info.indexOf("}")));
+                    int m = Integer.parseInt(info.substring(info.indexOf("["),info.indexOf("]")));
+                    int d = Integer.parseInt(info.substring(info.indexOf("("),info.indexOf(")")));
+                    Date date = new Date();
+                    e.setUnavailability(date);
+                    rawDates = rawDates.substring(1).substring(info.indexOf("|"));
+                }
                 this.employee_list.add(e);
             }
         }
@@ -55,26 +65,6 @@ public class EmployeeManager {
                 System.out.println("Something went horribly, horribly wrong.");
         }
         }
-    }
-
-    /**
-     * Adds a new Employee to employee_list (and writes it to stored_employees.txt).
-     * @param id id of new Employee
-     * @param name name of new Employee
-     * For now, we assume any input id is unique and valid.
-     */
-    public void addEmployee(String name, int id){
-        Employee e = new Employee(name, id);
-        this.employee_list.add(e);
-        try{
-            FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt", true);
-            fw.write(id + ", " + name + "\n");
-            fw.close();
-        }
-        catch(IOException io){
-            System.out.println("Something went wrong with writing to file.");
-        }
-
     }
 
     /**
