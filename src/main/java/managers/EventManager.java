@@ -221,8 +221,7 @@ public class EventManager {
     }
 
     /**
-     * @return a String representation of the EventManager class, which is a list of all the user's requested event
-     * names with their IDs.
+     * @return a String list of all the user's requested event names with their IDs.
      */
     public String getEventListString() {
         StringBuilder allEvents = new StringBuilder("Below are a list of all your events with their IDs:");
