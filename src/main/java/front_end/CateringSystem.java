@@ -79,6 +79,8 @@ public class CateringSystem {
         return cmd.execute();
     }
 
+    public String viewAllEvents() { return eventManager.getEventListString(); }
+
     /* EXTREMELY BAND-AID FIX; CHANGE LATER */
     public EventManager getEventManager(){
         return this.eventManager;

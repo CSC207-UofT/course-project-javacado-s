@@ -133,6 +133,7 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
+
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a 
 user can input into our command line. Users can create a new event, or view, modify, or cancel an existing event. They 
 are also able to log in and log out of our program. (We also anticipate adding more commands in Phase2.) Most of these 
@@ -169,12 +170,14 @@ program like yours.**
 **2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
 customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
 give a bit more detail along with the category.**
-
+- Catering companies
+- Could easily be modified for restaurants to use to take orders/reservations from customers
 
 **3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
 example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 
 by people who do not read braille.**
-
+- less likely to be used by individuals, or small companies as the purpose is to help a catering company keep track
+of their orders and customers
 
 ---
 ## Progress Report

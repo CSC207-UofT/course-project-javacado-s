@@ -6,9 +6,7 @@ import exceptions.EventNotFoundError;
 import meals.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This class is used as a manager for the events
@@ -222,9 +220,19 @@ public class EventManager {
         return result;
     }
 
-    public String toString(int id) {
-        Event event = this.getEventByID(id);
-        return event.toString();
+    /**
+     * @return a String representation of the EventManager class, which is a list of all the user's requested event
+     * names with their IDs.
+     */
+    public String getEventListString() {
+        StringBuilder allEvents = new StringBuilder("Below are a list of all your events with their IDs:");
+
+        SortedSet<Integer> ids = new TreeSet<>(idEventMap.keySet());
+        for (int id : ids) {
+            allEvents.append("\r\n").append(id).append(". ").append(idEventMap.get(id).getName());
+        }
+
+        return allEvents.toString();
     }
 
     /**
@@ -236,8 +244,6 @@ public class EventManager {
     public Event getCancelledEvent(int id){
         return this.cancelledEvent.get(id);
     }
-
-
 
     /**
      * Set the status of the event by id and given status.

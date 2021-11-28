@@ -4,7 +4,8 @@ import events.Event;
 import managers.EventManager;
 
 /*
-Command class that lets a user view details about an event.
+Command class that lets a user view a list of all their requested events with their corresponding IDs,
+and lets a user view further details about those events.
  */
 
 public class ViewEventCommand implements ICommand<String>{
