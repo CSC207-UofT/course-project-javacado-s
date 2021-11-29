@@ -113,7 +113,7 @@ public class Main {
         System.out.println("\t1 Create new event");
         System.out.println("\t2 Cancel event");
         System.out.println("\t3 Modify event");
-        System.out.println("\t4 View event");
+        System.out.println("\t4 View events");
         System.out.println("\nPlease enter the action (Press \"enter\" if you do not wish to perform an action):");
         String action = input.nextLine();
 
@@ -131,7 +131,7 @@ public class Main {
                 break;
             }
             case "4" : {
-                viewEventPrompt(input, system);
+                viewEventsPrompt(input, system);
                 break;
             }
         }
@@ -223,7 +223,8 @@ public class Main {
      * @param input Scanner object
      * @param system CateringSystem object
      */
-    private static void viewEventPrompt(Scanner input, CateringSystem system) {
+    private static void viewEventsPrompt(Scanner input, CateringSystem system) {
+        System.out.println(system.viewAllEvents());
         System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
         String str_id = input.nextLine();
         if((str_id.equals("-1"))){
