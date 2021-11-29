@@ -3,7 +3,7 @@ package managers;
 //import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundError;
-import meals.*;
+import meals.MealSetter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class EventManager {
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
     private final EventNotFoundError eventNotFoundError;
+    private final MealSetter setMeal = new MealSetter();
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -57,11 +58,11 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(String name, GregorianCalendar date, String location,
-                           int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
+
+    public int createEvent(String name, Date date, String location,
+                          int numAttendees, String selectedMeal){
+        Event newEvent = new Event(this.newId, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
         this.newId = this.newId + 1;
@@ -82,9 +83,8 @@ public class EventManager {
      */
     public int createEvent(int id, String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
+        Event newEvent = new Event(id, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);
         return id;
@@ -268,10 +268,10 @@ public class EventManager {
     /**
      * Set the mealType of the event with the given id to the given new mealType
      * @param id        The id of the Event
-     * @param meal      The new Meal of the Event
+     * @param mealType  The new Meal of the Event
      */
-    public void setEventMeal(int id, Meal meal){
-        getEventByID(id).setMealType(meal);
+    public void setEventMeal(int id, String mealType){
+        getEventByID(id).setMealType(setMeal.getMeal(mealType));
     }
 
     /**
