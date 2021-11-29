@@ -51,7 +51,7 @@ public class CateringSystemTest {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
         ArrayList<Event> Events = new ArrayList<Event>();
-        Event test_event = new Event(0, "Birthday", new GregorianCalendar(121, Calendar.OCTOBER, 29), "CN Tower",
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         Events.add(test_event);
         System.out.println(EventM.getEventList());
@@ -112,7 +112,7 @@ public class CateringSystemTest {
     public void testViewEvent(){
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
-        Event test_event = new Event(0, "Birthday", new GregorianCalendar(121, Calendar.OCTOBER, 29), "CN Tower",
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
