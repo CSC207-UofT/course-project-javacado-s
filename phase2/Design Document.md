@@ -161,6 +161,14 @@ program like yours.**
 #### Principle 4: Perceptible Information
 
 #### Principle 5: Tolerance for Error
+To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
+that minimizes accidental actions. In order to exit the program, users need to manually type out the word “exit” to
+exit the program. By requiring this step, we manage to minimize the chance that the user accidentally exits the program
+(i.e. by pressing the enter button). One potential feature for a GUI for this program is to have the exit button
+isolated from the main page, for example at the bottom of the screen or having it only accessible via a menu button.
+Once again, this would prevent accidental commands and actions that may lead to the user unintentionally exiting
+the program.
+
 
 #### Principle 6: Low Physical Effort
 
@@ -170,14 +178,21 @@ program like yours.**
 **2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
 customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
 give a bit more detail along with the category.**
-- Catering companies
-- Could easily be modified for restaurants to use to take orders/reservations from customers
+
+The program would be marketed towards catering companies, as it would allow those companies to easily
+keep track of their orders, customers, and employees. This program could be used by different types of
+catering services, including wedding catering, corporate catering, social event catering. Moreover,
+this program could be easily modified for restaurants or restaurant chains to use to take
+orders or reservations from customers.
+
+
 
 **3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
 example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 
 by people who do not read braille.**
-- less likely to be used by individuals, or small companies as the purpose is to help a catering company keep track
-of their orders and customers
+This program is less likely to be used by individuals or small companies, as they would have less need for
+a program that keeps track of many employees.
+
 
 ---
 ## Progress Report
