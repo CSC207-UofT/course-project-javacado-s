@@ -81,13 +81,6 @@ public class EmployeeManager {
     }
 
     /**
-     * @return ArrayList of all registered Employees.
-     */
-    public ArrayList<Employee> getEmployeeList() {
-        return this.employee_list;
-    }
-
-    /**
      * @param d Date d
      * @return ArrayList of available Employees for specific Date d
      */
@@ -103,12 +96,12 @@ public class EmployeeManager {
 
     /**
      * @param list list of Employees
-     * @return Array containing the IDs of Employees in list
+     * @return ArrayList containing the IDs of Employees in list
      */
-    public int[] getID(ArrayList<Employee> list){
-        int[] id_list = new int[list.size()];
-        for(int i=0; i<list.size(); i++){
-            id_list[i]= list.get(i).getid();
+    public ArrayList<Integer> getID(ArrayList<Employee> list){
+        ArrayList<Integer> id_list = new ArrayList<>();
+        for(Employee e: list){
+            id_list.add(e.getid());
         }
         return id_list;
     }
@@ -124,23 +117,40 @@ public class EmployeeManager {
     }
 
     /**
-     * Changes Employee availability (from available to unavailable) on a specific Date.
-     * @param employees Employees to be assigned to work on a specific Date. Subject to change;
-     *                  may be modified to accept an array of integers instead.
+     * Changes Employee availability (from available to unavailable) on a specific date.
+     * @param id_list List of Employee IDs to be assigned to work on a specific Date. Subject to change;
+     *                may be modified to accept an array of integers instead.
      * @param d the specific Date
-     *
-     * I believe we agreed that EventManager should be in charge of assigning Employees to
-     * Events, specifically, so for now, this will just set specific dates to unavailable.
      */
-    public void setUnavailable(ArrayList<Employee> employees, GregorianCalendar d){
+    public void setUnavailable(ArrayList<Integer> id_list, GregorianCalendar d){
+        ArrayList<Employee> employees = IDToEmployee(id_list);
         for(Employee e:employees){
             e.setUnavailability(d);
         }
     }
-
-    public void setAvailable(ArrayList<Employee> employees, GregorianCalendar d) throws Exception {
+    /**
+     * Changes Employee availability (from unavailable to available) on a specific date.
+     * @param id_list List of Employee IDs to be assigned to work on a specific Date. Subject to change;
+     *                may be modified to accept an array of integers instead.
+     * @param d the specific Date
+     */
+    public void setAvailable(ArrayList<Integer> id_list, GregorianCalendar d) throws Exception {
+        ArrayList<Employee> employees = IDToEmployee(id_list);
         for(Employee e:employees){
             e.removeUnavailability(d);
         }
+    }
+
+    /**
+     * Helper function. Converts ArrayList of Integers to ArrayList of Employees.
+     * @param id_list List of Employee IDs
+     * @return List of Employees
+     */
+    public ArrayList<Employee> IDToEmployee(ArrayList<Integer> id_list){
+        ArrayList<Employee> e_list = new ArrayList<>();
+        for(Integer i:id_list){
+            e_list.add(this.getEmployee(i));
+        }
+        return e_list;
     }
 }
