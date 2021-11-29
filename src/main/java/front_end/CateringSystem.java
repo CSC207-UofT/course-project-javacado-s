@@ -11,6 +11,7 @@ import managers.EmployeeManager;
 import managers.EventManager;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class CateringSystem {
@@ -42,7 +43,7 @@ public class CateringSystem {
      * @param mealType          The meal type of the Event
      * @return a String message telling user if the event was successfully booked
      */
-    public String createEvent(String name, Date date, String location, int numAttendees, String mealType) {
+    public String createEvent(String name, GregorianCalendar date, String location, int numAttendees, String mealType) {
         CreateEventCommand cmd = new CreateEventCommand(eventManager, employeeManager, name, date, location,
                                                         numAttendees, mealType);
         return cmd.execute();

@@ -5,6 +5,7 @@ import managers.EventManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /*
 Command class that creates a new Event class
@@ -14,7 +15,7 @@ public class CreateEventCommand implements ICommand<String>{
     private final EventManager EVENT_MANAGER;
     private final EmployeeManager EMPLOYEE_MANAGER;
     private final String NAME;
-    private final Date DATE;
+    private final GregorianCalendar DATE;
     private final String LOCATION;
     private final int NUM_ATTENDEES;
     private final String MEAL_TYPE;
@@ -29,7 +30,7 @@ public class CreateEventCommand implements ICommand<String>{
      * @param numAttendees number of attendees of event
      * @param mealType meal type of event
      */
-    public CreateEventCommand(EventManager eventManager, EmployeeManager employee_manager, String name, Date date,
+    public CreateEventCommand(EventManager eventManager, EmployeeManager employee_manager, String name, GregorianCalendar date,
                               String location, int numAttendees, String mealType) {
         EVENT_MANAGER = eventManager;
         EMPLOYEE_MANAGER = employee_manager;

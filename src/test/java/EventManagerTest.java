@@ -1,4 +1,3 @@
-import employees.Employee;
 import events.Event;
 import exceptions.EventNotFoundError;
 import managers.EmployeeManager;
@@ -13,11 +12,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
+import java.util.GregorianCalendar;
 
 public class EventManagerTest {
 
@@ -49,15 +45,15 @@ public class EventManagerTest {
     @Test
     public void createEvent() {
         int eventID = em.createEvent(108, "Test Event",
-                    new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
-                    "U of T", 20, "dinner");
+                new GregorianCalendar(2021, Calendar.DECEMBER, 1),
+                "U of T", 20, "dinner");
         assert (eventID == 108);
     }
 
     @Test
     public void testCreateEvent2() {
         int eventID = em.createEvent("Test Event",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 1),
                 "U of T", 20, "dinner");
         assert (eventID == 0);
     }
@@ -66,19 +62,19 @@ public class EventManagerTest {
     public void getEventList() {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
-                                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                                 "MY", 20, testMeal);
 
         Event eventB = new Event(204, "Test Event B",
-                                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                                 "BA", 25, testMeal);
 
         ArrayList<Event> expected = new ArrayList<>();
@@ -92,15 +88,15 @@ public class EventManagerTest {
     public void getEventByIndex() {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         ArrayList<Event> eventList = em.getEventList();
@@ -111,15 +107,15 @@ public class EventManagerTest {
     public void getEventByID() {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         assert (em.getEventByID(204).equals(eventB));
@@ -129,16 +125,16 @@ public class EventManagerTest {
     @Test
     public void testGetEmployeesNeeded() {
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
         assert (em.getEmployeesNeeded(108) == 12);
     }
 
     @Test
     public void testGetEventDate() {
-        Date testDate = new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24);
+        GregorianCalendar testDate = new GregorianCalendar(2021, Calendar.NOVEMBER, 20);
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
         assert (em.getEventDate(108).equals(testDate));
     }
@@ -146,7 +142,7 @@ public class EventManagerTest {
     @Test
     public void testGetEventName() {
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
         assert (em.getEventName(108).equals("Test Event A"));
     }
@@ -155,15 +151,15 @@ public class EventManagerTest {
     public void getEventByName() throws EventNotFoundError {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         assert (em.getEventByName("Test Event B").equals(eventB));
@@ -172,18 +168,18 @@ public class EventManagerTest {
     @Test
     public void getEventByDate() throws EventNotFoundError {
         Meal testMeal = new Dinner("dinner");
-        Date testedDate = new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31);
+        GregorianCalendar testedDate = new GregorianCalendar(2021, Calendar.DECEMBER, 21);
 
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         assert (em.getEventByDate(testedDate).equals(eventB));
@@ -193,15 +189,15 @@ public class EventManagerTest {
     public void getEventByLocation() throws EventNotFoundError {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         assert (em.getEventByLocation("BA").equals(eventB));
@@ -211,19 +207,19 @@ public class EventManagerTest {
     public void cancelEvent() {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, testMeal);
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         em.cancelEvent(eventA.getID());
@@ -238,15 +234,15 @@ public class EventManagerTest {
         Meal testMeal = new Dinner("dinner");
 
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, testMeal);
 
         em.cancelEvent(eventA.getID());
@@ -256,7 +252,7 @@ public class EventManagerTest {
     @Test
     public void testSetEventName() {
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.setEventName(108, "Test Event B");
@@ -268,7 +264,7 @@ public class EventManagerTest {
     public void testSetEventMeal() {
         Meal testMeal = new Lunch("lunch");
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.setEventMeal(108, testMeal);
@@ -279,7 +275,7 @@ public class EventManagerTest {
     @Test
     public void testSetEventLocation() {
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         em.setEventLocation(108, "BA");
@@ -290,7 +286,7 @@ public class EventManagerTest {
     @Test
     public void testSetEventNumAttendees() {
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         assert (em.setEventNumAttendees(108, 30, employeeManager));
@@ -302,10 +298,10 @@ public class EventManagerTest {
 
     @Test
     public void testSetEventDate() {
-        Date testDate = new Date(2021, Calendar.NOVEMBER, 31, 18, 30, 24);
+        GregorianCalendar testDate = new GregorianCalendar(2021, Calendar.NOVEMBER, 31);
 
         em.createEvent(108, "Test Event A",
-                new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
         assert (em.setEventDate(108, testDate, employeeManager));
@@ -317,11 +313,11 @@ public class EventManagerTest {
         Meal testMeal = new Dinner("dinner");
 
         em.createEvent(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, "dinner");
 
         Event eventB = new Event(204, "Test Event B",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
                 "BA", 25, testMeal);
 
         assert (em.getEventByIDWithException(204).equals(eventB));

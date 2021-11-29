@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  This class represents an Event that a user is requesting catering for.
@@ -16,7 +17,7 @@ public class Event implements Serializable{
     private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
-    private Date date;
+    private GregorianCalendar date;
     private String location;
     private int numAttendees;
     private Meal mealType;
@@ -35,7 +36,7 @@ public class Event implements Serializable{
      @param numAttendees given number of attendees at the event
      @param mealType given meal type requested
      */
-    public Event(int id, String name, Date date, String location, int numAttendees, Meal mealType) {
+    public Event(int id, String name, GregorianCalendar date, String location, int numAttendees, Meal mealType) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -68,7 +69,7 @@ public class Event implements Serializable{
      * Event getter for event's date.
      * @return Date. Return the date of this event.
      */
-    public Date getDate() {
+    public GregorianCalendar getDate() {
         return date;
     }
     /**
@@ -132,7 +133,7 @@ public class Event implements Serializable{
     /**
      * Event setter for event's date.
      */
-    public void setDate(Date newDate) {
+    public void setDate(GregorianCalendar newDate) {
         date = newDate;
     }
     /**
@@ -183,7 +184,8 @@ public class Event implements Serializable{
     @Override
     public String toString(){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(this.date) + " at " +
+        Date date = this.date.getTime();
+        return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(date) + " at " +
                 this.location + " for " + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() +
                 "\r\n" + "Price of catering: $" + this.price + "\r\nThe current event status is: " + this.status;
     }
