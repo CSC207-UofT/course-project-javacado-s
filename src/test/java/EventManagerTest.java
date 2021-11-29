@@ -254,7 +254,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventName() throws EventNotFoundError {
+    public void testSetEventName() {
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -265,7 +265,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventMeal() throws EventNotFoundError {
+    public void testSetEventMeal() {
         Meal testMeal = new Lunch("lunch");
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
@@ -277,7 +277,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventLocation() throws EventNotFoundError {
+    public void testSetEventLocation() {
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -288,7 +288,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventNumAttendees() throws EventNotFoundError {
+    public void testSetEventNumAttendees() {
         em.createEvent(108, "Test Event A",
                 new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24),
                 "MY", 20, "dinner");
@@ -301,7 +301,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventDate() throws EventNotFoundError {
+    public void testSetEventDate() {
         Date testDate = new Date(2021, Calendar.NOVEMBER, 31, 18, 30, 24);
 
         em.createEvent(108, "Test Event A",
@@ -325,5 +325,27 @@ public class EventManagerTest {
                 "BA", 25, testMeal);
 
         assert (em.getEventByIDWithException(204).equals(eventB));
+    }
+
+    @Test
+    public void testGetEventListString() {
+        em.createEvent(20, "Test Event A",
+                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                "BA", 25, "dinner");
+
+        em.createEvent(100, "Test Event B",
+                new Date(2021, Calendar.NOVEMBER, 21, 17, 45, 31),
+                "MY", 10, "dinner");
+
+        em.createEvent(500, "Test Event C",
+                new Date(2021, Calendar.NOVEMBER, 12, 17, 45, 31),
+                "MY", 1, "dinner");
+
+        String expected = "Below are a list of all your events with their IDs:" + "\r\n" + "20. Test Event A" +
+                "\r\n" + "100. Test Event B" + "\r\n" + "500. Test Event C";
+
+        System.out.println(em.getEventListString());
+
+        assert (em.getEventListString().equals(expected));
     }
 }
