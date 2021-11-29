@@ -248,6 +248,22 @@ public class EventManagerTest {
         em.cancelEvent(eventA.getID());
         assert (em.getCancelledEvent(108).equals(eventA));
     }
+    @Test
+    public void testUpdateEventStatus(){
+        em.createEvent(108, "Test Event A",
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
+                "MY", 20, "dinner");
+        em.createEvent(204, "Test Event B",
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 21),
+                "BA", 25, "dinner");
+
+        em.updateEventStatus(new GregorianCalendar(2021, Calendar.NOVEMBER, 18));
+        assert(em.getEventByID(108).getStatus().equals("Under Preparation"));
+        assert(em.getEventByID(204).getStatus().equals("Under Preparation"));
+        em.updateEventStatus(new GregorianCalendar(2021, Calendar.NOVEMBER, 24));
+        assert(em.getEventByID(108).getStatus().equals("Completed"));
+        assert(em.getEventByID(204).getStatus().equals("Completed"));
+    }
 
     @Test
     public void testSetEventName() {
@@ -267,7 +283,7 @@ public class EventManagerTest {
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
 
-        em.setEventMeal(108, testMeal);
+        em.setEventMeal(108, testMeal.getMealName());
 
         assert (em.getEventByID(108).getMealType().equals(testMeal));
     }
@@ -326,15 +342,15 @@ public class EventManagerTest {
     @Test
     public void testGetEventListString() {
         em.createEvent(20, "Test Event A",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21, 17, 45, 31),
                 "BA", 25, "dinner");
 
         em.createEvent(100, "Test Event B",
-                new Date(2021, Calendar.NOVEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 21, 17, 45, 31),
                 "MY", 10, "dinner");
 
         em.createEvent(500, "Test Event C",
-                new Date(2021, Calendar.NOVEMBER, 12, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 12, 17, 45, 31),
                 "MY", 1, "dinner");
 
         String expected = "Below are a list of all your events with their IDs:" + "\r\n" + "20. Test Event A" +

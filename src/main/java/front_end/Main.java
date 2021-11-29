@@ -6,6 +6,7 @@ import managers.*;
 import users.User;
 
 import java.io.FileInputStream;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -20,6 +21,8 @@ public class Main {
         boolean loggedIn = false;
         String logout = "";
         String exit = "";
+        GregorianCalendar current = (GregorianCalendar) Calendar.getInstance();
+
 
         System.out.println("********************************************" +
                 "********************************************");
@@ -36,6 +39,7 @@ public class Main {
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
                     }
+                    system.updateEventStatus(current);
                 }
                 actionPrompt(input, system);
 

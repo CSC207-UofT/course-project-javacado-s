@@ -24,7 +24,7 @@ public class Event implements Serializable{
     private ArrayList<String> employees;
     private float price;
     private String status;
-    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed", "Cancelled"};
+    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed"};
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list

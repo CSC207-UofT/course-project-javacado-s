@@ -6,10 +6,7 @@ import exceptions.EventNotFoundError;
 import meals.MealSetter;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This class is used as a manager for the events
@@ -59,7 +56,7 @@ public class EventManager {
      * @return                  Return the created Event
      */
 
-    public int createEvent(String name, Date date, String location,
+    public int createEvent(String name, GregorianCalendar date, String location,
                           int numAttendees, String selectedMeal){
         Event newEvent = new Event(this.newId, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
@@ -252,8 +249,21 @@ public class EventManager {
      * @param id        The id of the Event
      * @param status    The new status of the Event
      */
-    public void setEventStatus(int id, String status){
-        getEventByID(id).setStatus(status);
+
+    /**
+     * Set the status of the event from "Created" to "Completed" or "Under Preparation" for all the events
+     * in eventList.
+     * @param current current time when the program run.
+     */
+    public void updateEventStatus(GregorianCalendar current){
+        for (Event e: eventList) {
+            if (e.getDate().compareTo(current) <= 0) {
+                e.setStatus("Completed");
+            }
+            else if (e.getDate().compareTo(current) > 0){
+                e.setStatus("Under Preparation");
+            }
+        }
     }
 
     /**

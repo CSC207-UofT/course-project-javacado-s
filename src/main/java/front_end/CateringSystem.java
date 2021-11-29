@@ -82,6 +82,14 @@ public class CateringSystem {
 
     public String viewAllEvents() { return eventManager.getEventListString(); }
 
+    /**
+     * Update event status for all events in the eventManager when the programs.
+     * @param current current time when the program runs.
+     */
+    public void updateEventStatus(GregorianCalendar current){
+        eventManager.updateEventStatus(current);
+    }
+
     /* EXTREMELY BAND-AID FIX; CHANGE LATER */
     public EventManager getEventManager(){
         return this.eventManager;
