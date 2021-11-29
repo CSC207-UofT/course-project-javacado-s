@@ -6,13 +6,15 @@ package meals;
 
 public class MealSetter {
 
+    private String selectedMeal;
     private Meal newMeal = null;
 
+
     /**
-     Constructs a Meal according to designated meal type provided by the user.
-     @param selectedMeal given meal type requested
+     * @return the Meal constructed by the Class
      */
-    public MealSetter(String selectedMeal){
+    public Meal getMeal(String selectedMeal){
+
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
                 newMeal = new Breakfast(selectedMeal);
@@ -28,12 +30,6 @@ public class MealSetter {
             }
         }
 
-    }
-
-    /**
-     * @return the Meal constructed by the Class
-     */
-    public Meal getMeal(){
         return this.newMeal;
     }
 

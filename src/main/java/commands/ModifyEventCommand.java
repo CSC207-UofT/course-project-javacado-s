@@ -57,9 +57,7 @@ public class ModifyEventCommand implements ICommand<String>{
             case "4": {
                 System.out.println("\nAre we now catering for breakfast, lunch, or dinner?: ");
                 String mealType = INPUT.nextLine();
-                MealSetter setMeal = new MealSetter(mealType);
-                Meal newMeal = setMeal.getMeal();
-                EVENT_MANAGER.setEventMeal(ID, newMeal);
+                EVENT_MANAGER.setEventMeal(ID, mealType);
                 break;
             }
         }
