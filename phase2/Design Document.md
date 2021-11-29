@@ -170,14 +170,25 @@ program like yours.**
 **2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
 customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
 give a bit more detail along with the category.**
-- Catering companies
-- Could easily be modified for restaurants to use to take orders/reservations from customers
+
+Our target market would be English-speaking adults who regularly host large events. For example, we would target HR/
+administrative representatives of businesses and schools, and event planners of community organizations - anyone in
+charge of booking/organizing catering for their events. Since the purpose of our program is to allow a user to request 
+catering for events and manage several requests at once, we want to consider those who would regularly host events 
+rather than it just being a one-time thing. Additionally, since we are a catering company, we want to prioritize
+marketing to those who would host large events as it would be more profitable for us. (Profits of our catering system
+are not reflected in our code at this stage, but this is the general case with catering companies.)
 
 **3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
 example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 
 by people who do not read braille.**
-- less likely to be used by individuals, or small companies as the purpose is to help a catering company keep track
-of their orders and customers
+
+Our program is not likely to be used by non-English speakers, as all our user prompts, input, and output are in 
+English. As well, given that our target market consists of large event hosts, it is less likely that children and
+teenagers would use our program. Finally, taking disabilities into account, are program is less likely to be used by
+those with visual impairments. Our user prompts, input, and output are all text based, with no audio or colour cues.
+See our discussion above under "Principle 1: Equitable Use" (maybe others) for some features we could implement in the
+future to take this into account.
 
 ---
 ## Progress Report
