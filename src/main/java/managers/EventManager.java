@@ -8,6 +8,7 @@ import meals.MealSetter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -36,6 +37,9 @@ public class EventManager {
         ObjectInputStream in = new ObjectInputStream(input);
         this.eventList = (ArrayList<Event>) in.readObject();
         this.idEventMap = new HashMap<>();
+        for(Event e: eventList){
+            idEventMap.put(e.getID(),e);
+        }
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
         this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
@@ -54,6 +58,7 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
+
     public int createEvent(String name, Date date, String location,
                           int numAttendees, String selectedMeal){
         Event newEvent = new Event(this.newId, name, date, location,
@@ -66,6 +71,7 @@ public class EventManager {
 
     /**
      * Create a new Event from System input with specific id, and add it to the eventList
+     * Used in tests
      *
      * @param id                The id of the Event
      * @param name              The name of the Event
@@ -75,7 +81,7 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(int id, String name, Date date, String location,
+    public int createEvent(int id, String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal){
         Event newEvent = new Event(id, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
@@ -123,9 +129,8 @@ public class EventManager {
         try {
             return getEventByIDWithException(id);
         } catch (EventNotFoundError notFoundError) {
-            notFoundError.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -142,7 +147,15 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the date of the event
      */
-    public Date getEventDate(int id) { return getEventByID(id).getDate();}
+    public GregorianCalendar getEventDate(int id) { return getEventByID(id).getDate();}
+
+    /**
+     * Return the name of the event with the given id.
+     *
+     * @param id        The required event's id
+     * @return          Return the name of the event
+     */
+    public String getEventName(int id) { return getEventByID(id).getName();}
 
     // Some more getter methods, in case needed
 
@@ -170,7 +183,7 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(Date time) throws EventNotFoundError {
+    public Object getEventByDate(GregorianCalendar time) throws EventNotFoundError {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
@@ -210,10 +223,18 @@ public class EventManager {
         return result;
     }
 
-    public String toString(int id) {
-        Event event = this.getEventByID(id);
-        return event.toString();
+    /**
+     * @return a String list of all the user's requested event names with their IDs.
+     */
+    public String getEventListString() {
+        StringBuilder allEvents = new StringBuilder("Below are a list of all your events with their IDs:");
 
+        SortedSet<Integer> ids = new TreeSet<>(idEventMap.keySet());
+        for (int id : ids) {
+            allEvents.append("\r\n").append(id).append(". ").append(idEventMap.get(id).getName());
+        }
+
+        return allEvents.toString();
     }
 
     /**
@@ -225,8 +246,6 @@ public class EventManager {
     public Event getCancelledEvent(int id){
         return this.cancelledEvent.get(id);
     }
-
-
 
     /**
      * Set the status of the event by id and given status.
@@ -295,7 +314,7 @@ public class EventManager {
      * @param empM      The employeeManager, which has the data of the employees
      * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventDate(int id, Date date, EmployeeManager empM) {
+    public boolean setEventDate(int id, GregorianCalendar date, EmployeeManager empM) {
         Event currEvent = getEventByID(id);
         if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), date)) {
             return false;
@@ -305,21 +324,13 @@ public class EventManager {
     }
 
     /**
-     * Event setter for employees assigned to this event.
-     */
-    public void setEmployees(int id, ArrayList<String> newEmployees) {
-        getEventByID(id).setEmployees(newEmployees);
-    }
-
-    /**
      * Serializes events_list to "_checkout.ser" file.
      */
     public void checkout(){
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/data/users/_checkout.ser");
+            FileOutputStream fileOut = new FileOutputStream("src/main/java/data_files/users/_checkout.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this.eventList);
-            out.flush();
             out.close();
             fileOut.close();
         }
@@ -327,5 +338,4 @@ public class EventManager {
             i.printStackTrace();
         }
     }
-
 }

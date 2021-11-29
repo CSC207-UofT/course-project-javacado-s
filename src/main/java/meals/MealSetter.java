@@ -1,12 +1,14 @@
 package meals;
 
+import java.io.Serializable;
+
 /**
  This class helps to determine which Meal Type the user wants to book.
  */
 
-public class MealSetter {
+public class MealSetter implements Serializable {
 
-    private String selectedMeal;
+    private static final long serialVersionUID = -3590348619976786670L;
     private Meal newMeal = null;
 
 
@@ -14,7 +16,6 @@ public class MealSetter {
      * @return the Meal constructed by the Class
      */
     public Meal getMeal(String selectedMeal){
-
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
                 newMeal = new Breakfast(selectedMeal);

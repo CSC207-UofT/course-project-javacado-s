@@ -6,10 +6,12 @@ and the command line/user.
  */
 
 import commands.*;
+import exceptions.EventNotFoundError;
 import managers.EmployeeManager;
 import managers.EventManager;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class CateringSystem {
@@ -41,7 +43,7 @@ public class CateringSystem {
      * @param mealType          The meal type of the Event
      * @return a String message telling user if the event was successfully booked
      */
-    public String createEvent(String name, Date date, String location, int numAttendees, String mealType) {
+    public String createEvent(String name, GregorianCalendar date, String location, int numAttendees, String mealType) {
         CreateEventCommand cmd = new CreateEventCommand(eventManager, employeeManager, name, date, location,
                                                         numAttendees, mealType);
         return cmd.execute();
@@ -64,7 +66,6 @@ public class CateringSystem {
      * @return a String message telling user if modification was successful
      */
     public String modifyEvent(Scanner input, int id, String action) {
-        // TODO: This part is modified by Yifang. Can someone else check if this works?
         ModifyEventCommand cmd = new ModifyEventCommand(input, eventManager, id, action, employeeManager);
         return cmd.execute();
     }
@@ -77,5 +78,12 @@ public class CateringSystem {
     public String viewEvent(int id) {
         ViewEventCommand cmd = new ViewEventCommand(eventManager, id);
         return cmd.execute();
+    }
+
+    public String viewAllEvents() { return eventManager.getEventListString(); }
+
+    /* EXTREMELY BAND-AID FIX; CHANGE LATER */
+    public EventManager getEventManager(){
+        return this.eventManager;
     }
 }

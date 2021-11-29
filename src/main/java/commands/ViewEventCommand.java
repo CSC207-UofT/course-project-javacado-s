@@ -1,9 +1,10 @@
 package commands;
 
+import events.Event;
 import managers.EventManager;
 
 /*
-Command class that lets a user view details about an event.
+Command class that lets a user view more information about an event by its ID.
  */
 
 public class ViewEventCommand implements ICommand<String>{
@@ -28,6 +29,10 @@ public class ViewEventCommand implements ICommand<String>{
      */
     @Override
     public String execute() {
-        return EVENT_MANAGER.getEventByID(ID).toString();
+        Event event = EVENT_MANAGER.getEventByID(ID);
+        if (event == null){
+            return "null";
+        }
+        return event.toString();
     }
 }

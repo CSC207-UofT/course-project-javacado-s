@@ -3,7 +3,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.GregorianCalendar;
+
 import employees.Chef;
 import employees.Server;
 import employees.Cleaner;
@@ -22,7 +23,7 @@ public class EmployeeTest {
         e2 = new Server("Cindy", 200);
         e3 = new Cleaner("David", 248);
         e4 = new Supervisor("Rebecca", 24);
-        e.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        e.setUnavailability(new GregorianCalendar(2021, Calendar.NOVEMBER, 20));
     }
     @Test(timeout = 50)
     public void TestGetName() {
@@ -50,8 +51,8 @@ public class EmployeeTest {
 
     @Test(timeout = 50)
     public void TestSetAvailability(){
-        ArrayList<Date> Unavailable = new ArrayList<Date>();
-        Unavailable.add(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        ArrayList<GregorianCalendar> Unavailable = new ArrayList<GregorianCalendar>();
+        Unavailable.add(new GregorianCalendar(2021, Calendar.NOVEMBER, 20));
         assertEquals(e.getUnavailableDates(), Unavailable);
         assertEquals(e2.getUnavailableDates(), new ArrayList<>());
         assertEquals(e3.getUnavailableDates(), new ArrayList<>());
@@ -60,11 +61,11 @@ public class EmployeeTest {
 
     @Test(timeout = 50)
     public void TestisAvailable(){
-        assertTrue(e.isAvailable(new Date(2021,
-            Calendar.NOVEMBER, 8, 18, 30, 24)));
-        assertTrue(e2.isAvailable(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24)));
-        assertTrue(e3.isAvailable(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24)));
-        assertTrue(e3.isAvailable(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24)));
+        assertTrue(e.isAvailable(new GregorianCalendar(2021,
+            Calendar.NOVEMBER, 8)));
+        assertTrue(e2.isAvailable(new GregorianCalendar(2021, Calendar.NOVEMBER, 20)));
+        assertTrue(e3.isAvailable(new GregorianCalendar(2021, Calendar.NOVEMBER, 20)));
+        assertTrue(e3.isAvailable(new GregorianCalendar(2021, Calendar.NOVEMBER, 20)));
     }
 
 //  Todo: pass the TestEquals() method

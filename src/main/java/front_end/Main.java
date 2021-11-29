@@ -6,8 +6,8 @@ import managers.*;
 import users.User;
 
 import java.io.FileInputStream;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Main {
 
@@ -29,19 +29,24 @@ public class Main {
             while (!logout.equals("x")) {
                 while (!loggedIn) {
                     logInResult = loginPrompt(input, userManager);
-                    FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                     loggedIn = logInResult.getSecond();
 
-                    EventManager eventManager = new EventManager(loggedInFile);
-                    system.setEventManager(eventManager);
+                    if (loggedIn) {
+                        FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
+                        EventManager eventManager = new EventManager(loggedInFile);
+                        system.setEventManager(eventManager);
+                    }
                 }
-
                 actionPrompt(input, system);
 
                 System.out.println("\nIf you would like to log out, please enter \"x\", otherwise, press \"enter\": ");
                 logout = input.nextLine().toLowerCase();
             }
             logout = "";
+            loggedIn = false;
+
+            /* EXTREMELY BAND-AID FIX HERE; CHANGE LATER */
+            system.getEventManager().checkout();
             userManager.updateUser(logInResult.getFirst());
 
             System.out.println("\nIf you would like to exit, please enter \"exit\", otherwise, press \"enter\": ");
@@ -64,7 +69,7 @@ public class Main {
 
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
-        System.out.println("\t1 Login in");
+        System.out.println("\t1 Log in");
         System.out.println("\t2 Create a new account");
         System.out.println("\nPlease enter the action:");
         String action = input.nextLine();
@@ -74,9 +79,15 @@ public class Main {
                 String username = input.nextLine();
                 System.out.println("Password: ");
                 String password = input.nextLine();
-                User user = userManager.getUser(username, password);
-                System.out.println("\nWelcome, " + username + "!");
-                tuple = new Tuple<>(user, true);
+                try {
+                    User user = userManager.getUser(username, password);
+                    System.out.println("\nWelcome, " + username + "!");
+                    tuple = new Tuple<>(user, true);
+                }
+                catch (Exception e) {
+                    System.out.println("\nSorry, login failed. Please try again.");
+                    tuple = new Tuple<>(null, false);
+                }
                 return tuple;
         }
         else if (action.equals("2"))  {
@@ -102,7 +113,7 @@ public class Main {
         System.out.println("\t1 Create new event");
         System.out.println("\t2 Cancel event");
         System.out.println("\t3 Modify event");
-        System.out.println("\t4 View event");
+        System.out.println("\t4 View events");
         System.out.println("\nPlease enter the action (Press \"enter\" if you do not wish to perform an action):");
         String action = input.nextLine();
 
@@ -120,7 +131,7 @@ public class Main {
                 break;
             }
             case "4" : {
-                viewEventPrompt(input, system);
+                viewEventsPrompt(input, system);
                 break;
             }
         }
@@ -179,7 +190,7 @@ public class Main {
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
         String[] newDate = date.split("/");
-        Date eventDate = new Date(2021, Integer.parseInt(newDate[0]), Integer.parseInt(newDate[1]));
+        GregorianCalendar eventDate = new GregorianCalendar(2021-1900, Integer.parseInt(newDate[0])-1, Integer.parseInt(newDate[1]));
 
         System.out.println("\nPlease enter the location of your event: ");
         String location = input.nextLine();
@@ -212,11 +223,29 @@ public class Main {
      * @param input Scanner object
      * @param system CateringSystem object
      */
-    private static void viewEventPrompt(Scanner input, CateringSystem system) {
-        System.out.println("\nPlease enter the ID of the event you would like to view: ");
+    private static void viewEventsPrompt(Scanner input, CateringSystem system) {
+        System.out.println(system.viewAllEvents());
+        System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
         String str_id = input.nextLine();
+        if((str_id.equals("-1"))){
+            System.out.println("Exited Event Viewing");
+            return;
+        }
         int id = Integer.parseInt(str_id);
 
-        System.out.println("\n"+system.viewEvent(id));
+        String result = system.viewEvent(id);
+
+        while (result.equals("null")) {
+            if((str_id.equals("-1"))){
+                System.out.println("Exited Event Viewing");
+                return;
+            }
+            System.out.println("\nThe id you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
+            str_id = input.nextLine();
+            id = Integer.parseInt(str_id);
+            result = system.viewEvent(id);
+        }
+        System.out.println("\n" + system.viewEvent(id));
+
     }
 }

@@ -6,10 +6,8 @@ import users.User;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
+import java.util.GregorianCalendar;
 
 public class UserManagerTest {
     UserManager u = new UserManager();
@@ -55,7 +53,7 @@ public class UserManagerTest {
         br1.close();
         FileReader fr2 = new FileReader("src/main/java/data_files/users/testNew/events.txt");
         BufferedReader br2 = new BufferedReader(fr2);
-        assertNull(br2.readLine());
+        assertNotNull(br2.readLine());
         fr2.close();
         br2.close();
     }
@@ -95,7 +93,7 @@ public class UserManagerTest {
     public void testUpdateUser() throws Exception {
         ArrayList<Event> test = new ArrayList<>();
         Event test_event = new Event(0, "test_string",
-                new Date(),
+                new GregorianCalendar(),
                 "test_location",
                 0,
                 new Breakfast("Breakfast"));

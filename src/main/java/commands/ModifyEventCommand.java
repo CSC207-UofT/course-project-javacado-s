@@ -30,10 +30,12 @@ public class ModifyEventCommand implements ICommand<String>{
 
     /**
      * Modifies event
-     * @return new toString of modified Event
+     * @return new toString of modified Event or error message
      */
     @Override
     public String execute() {
+        boolean result = true;
+
         switch (ACTION) {
             case "1": {
                 System.out.println("\nPlease enter the new name of your event: ");
@@ -49,9 +51,9 @@ public class ModifyEventCommand implements ICommand<String>{
             }
             case "3": {
                 System.out.println("\nPlease enter the new number of attendees for your event: ");
-                int numAttendees = INPUT.nextInt();
-                INPUT.nextLine();
-                EVENT_MANAGER.setEventNumAttendees(ID, numAttendees, EMPLOYEE_MANAGER);
+                String str_numAttendees = INPUT.nextLine();
+                int numAttendees = Integer.parseInt(str_numAttendees);
+                result = EVENT_MANAGER.setEventNumAttendees(ID, numAttendees, EMPLOYEE_MANAGER);
                 break;
             }
             case "4": {
@@ -61,6 +63,11 @@ public class ModifyEventCommand implements ICommand<String>{
                 break;
             }
         }
-        return EVENT_MANAGER.getEventByID(ID).toString();
+        if (result) {
+            return EVENT_MANAGER.getEventByID(ID).toString();
+        }
+        else {
+            return "Sorry, we could not change the number of attendees. Please try again at a later time.";
+        }
     }
 }
