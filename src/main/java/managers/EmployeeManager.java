@@ -2,14 +2,11 @@ package managers;
 
 import employees.Employee;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
-import java.io.FileWriter;
 
 /*
 This class represents the EmployeeManager part of our system, which is in charge of most, if not all,
@@ -41,6 +38,19 @@ public class EmployeeManager {
                 name = info.substring(info.indexOf(",") + 1).trim();
                 id = Integer.parseInt(info.substring(0, info.indexOf(",")).trim());
                 Employee e = new Employee(name, id);
+                String rawDates = info.substring(info.indexOf("|"));
+                // Date formatting: |{yyyy}[mm](dd)|
+                while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
+                    int y = Integer.parseInt(info.substring(info.indexOf("{"),info.indexOf("}")));
+                    int m = Integer.parseInt(info.substring(info.indexOf("["),info.indexOf("]")));
+                    int d = Integer.parseInt(info.substring(info.indexOf("("),info.indexOf(")")));
+                    GregorianCalendar date = new GregorianCalendar();
+                    date.set(Calendar.YEAR, y);
+                    date.set(Calendar.MONTH, m);
+                    date.set(Calendar.DAY_OF_MONTH, d);
+                    e.setUnavailability(date);
+                    rawDates = rawDates.substring(1).substring(info.indexOf("|"));
+                }
                 this.employee_list.add(e);
             }
         }
@@ -53,28 +63,8 @@ public class EmployeeManager {
             catch(IOException io){
                 io.printStackTrace();
                 System.out.println("Something went horribly, horribly wrong.");
+            }
         }
-        }
-    }
-
-    /**
-     * Adds a new Employee to employee_list (and writes it to stored_employees.txt).
-     * @param id id of new Employee
-     * @param name name of new Employee
-     * For now, we assume any input id is unique and valid.
-     */
-    public void addEmployee(String name, int id){
-        Employee e = new Employee(name, id);
-        this.employee_list.add(e);
-        try{
-            FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt", true);
-            fw.write(id + ", " + name + "\n");
-            fw.close();
-        }
-        catch(IOException io){
-            System.out.println("Something went wrong with writing to file.");
-        }
-
     }
 
     /**
@@ -145,6 +135,12 @@ public class EmployeeManager {
     public void setUnavailable(ArrayList<Employee> employees, GregorianCalendar d){
         for(Employee e:employees){
             e.setUnavailability(d);
+        }
+    }
+
+    public void setAvailable(ArrayList<Employee> employees, GregorianCalendar d) throws Exception {
+        for(Employee e:employees){
+            e.removeUnavailability(d);
         }
     }
 }
