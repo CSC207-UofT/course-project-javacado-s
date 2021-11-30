@@ -2,11 +2,15 @@ package managers;
 
 import employees.Employee;
 
-import java.util.*;
-
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+
+import java.util.*;
 
 /*
 This class represents the EmployeeManager part of our system, which is in charge of most, if not all,
@@ -18,10 +22,8 @@ public class EmployeeManager {
 
     /**
      * Constructs an instance of EmployeeManager.
-     * employee_list is initialized as an empty ArrayList, and Employees are added from text from
-     * "stored_employees.txt". If "stored_employees.txt" does not exist, it will be created, and employee_list
-     * For now, we assume each line in "stored_employees.txt" is in the following format:
-     * id, name
+     * employee_list is initialized as an empty ArrayList, and Employees are added from text from the existing
+     * database "employees.txt".
      *
      * This will be subject to change as we work on our program.
      */
@@ -30,41 +32,40 @@ public class EmployeeManager {
 
         String name;
         int id;
-        File list = new File("src/main/java/data_files/employees.txt");
+        File employees_path = new File("src/main/java/data_files/employees.txt");
         try {
-            Scanner reader = new Scanner(list);
-            while (reader.hasNextLine()) {
-                String info = reader.nextLine();
-                name = info.substring(info.indexOf(",") + 1).trim();
-                id = Integer.parseInt(info.substring(0, info.indexOf(",")).trim());
+            FileReader fr = new FileReader(employees_path);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                name = line.substring(line.indexOf(",") + 1, line.indexOf("|")).trim();
+                id = Integer.parseInt(line.substring(0, line.indexOf(",")).trim());
                 Employee e = new Employee(name, id);
-                String rawDates = info.substring(info.indexOf("|"));
+                String rawDates = line.substring(line.indexOf("|"));
                 // Date formatting: |{yyyy}[mm](dd)|
                 while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
-                    int y = Integer.parseInt(info.substring(info.indexOf("{"),info.indexOf("}")));
-                    int m = Integer.parseInt(info.substring(info.indexOf("["),info.indexOf("]")));
-                    int d = Integer.parseInt(info.substring(info.indexOf("("),info.indexOf(")")));
+                    int y = Integer.parseInt(line.substring(line.indexOf("{"),line.indexOf("}")));
+                    int m = Integer.parseInt(line.substring(line.indexOf("["),line.indexOf("]")));
+                    int d = Integer.parseInt(line.substring(line.indexOf("("),line.indexOf(")")));
                     GregorianCalendar date = new GregorianCalendar();
                     date.set(Calendar.YEAR, y);
                     date.set(Calendar.MONTH, m);
                     date.set(Calendar.DAY_OF_MONTH, d);
                     e.setUnavailability(date);
-                    rawDates = rawDates.substring(1).substring(info.indexOf("|"));
+                    rawDates = rawDates.substring(1).substring(line.indexOf("|"));
                 }
                 this.employee_list.add(e);
             }
+            br.close();
+            fr.close();
         }
         catch(FileNotFoundException e){
-            try{
-                if(list.createNewFile()) {
-                    System.out.println("employees.txt was not found and a new file has been created.");
-                }
-            }
-            catch(IOException io){
-                io.printStackTrace();
-                System.out.println("Something went horribly, horribly wrong.");
-            }
+            System.out.println("employees.txt not found");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -127,17 +128,34 @@ public class EmployeeManager {
         for(Employee e:employees){
             e.setUnavailability(d);
         }
+        try {
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     /**
      * Changes Employee availability (from unavailable to available) on a specific date.
      * @param id_list List of Employee IDs to be assigned to work on a specific Date. Subject to change;
      *                may be modified to accept an array of integers instead.
      * @param d the specific Date
      */
-    public void setAvailable(ArrayList<Integer> id_list, GregorianCalendar d) throws Exception {
+    public void setAvailable(ArrayList<Integer> id_list, GregorianCalendar d){
         ArrayList<Employee> employees = IDToEmployee(id_list);
         for(Employee e:employees){
-            e.removeUnavailability(d);
+            try {
+                e.removeUnavailability(d);
+            }
+            catch(Exception except){
+                System.out.println(except.getMessage());
+            }
+        }
+        try{
+            update();
+        }
+        catch(IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -152,5 +170,22 @@ public class EmployeeManager {
             e_list.add(this.getEmployee(i));
         }
         return e_list;
+    }
+
+    public void update() throws IOException {
+        FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        for(Employee e: employee_list){
+            //id, name|{yyyy}[mm](dd)|{yyyy}[mm](dd)|...|
+            String line = e.getid()  + ", " + e.getName() + "|";
+            for(GregorianCalendar d: e.getUnavailableDates()){
+                line = line.concat("{"+d.get(Calendar.YEAR)+"}");
+                line = line.concat("["+d.get(Calendar.MONTH)+"]");
+                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")");
+            }
+            bw.write(line);
+        }
+        bw.close();
+        fw.close();
     }
 }
