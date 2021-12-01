@@ -119,12 +119,11 @@ public class EmployeeManager {
 
     /**
      * Changes Employee availability (from available to unavailable) on a specific date.
-     * @param id_list List of Employee IDs to be assigned to work on a specific Date. Subject to change;
-     *                may be modified to accept an array of integers instead.
+     * @param employees List of Employees to be assigned to work on a specific Date.
      * @param d the specific Date
+     * Since this is EmployeeManager side, the parameter is left as an ArrayList of Employees rather than a list of IDs.
      */
-    public void setUnavailable(ArrayList<Integer> id_list, GregorianCalendar d){
-        ArrayList<Employee> employees = IDToEmployee(id_list);
+    public void setUnavailable(ArrayList<Employee> employees, GregorianCalendar d){
         for(Employee e:employees){
             e.setUnavailability(d);
         }
@@ -137,9 +136,9 @@ public class EmployeeManager {
 
     /**
      * Changes Employee availability (from unavailable to available) on a specific date.
-     * @param id_list List of Employee IDs to be assigned to work on a specific Date. Subject to change;
-     *                may be modified to accept an array of integers instead.
+     * @param id_list List of Employee IDs to be assigned to work on a specific Date.
      * @param d the specific Date
+     * Since the input is EventManager side, the parameter is left as an ArrayList of IDs.
      */
     public void setAvailable(ArrayList<Integer> id_list, GregorianCalendar d){
         ArrayList<Employee> employees = IDToEmployee(id_list);
@@ -172,6 +171,9 @@ public class EmployeeManager {
         return e_list;
     }
 
+    /**
+     * Updates employees.txt.
+     */
     public void update() throws IOException {
         FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -187,5 +189,13 @@ public class EmployeeManager {
         }
         bw.close();
         fw.close();
+    }
+
+    public ArrayList<Employee> chooseEmployees(int num, GregorianCalendar d){
+        ArrayList<Employee> chosen = new ArrayList<>();
+        for(int i=0; i<num; i++){
+            chosen.add(availableEmployees(d).get(i));
+        }
+        return chosen;
     }
 }

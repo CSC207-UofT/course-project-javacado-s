@@ -55,7 +55,7 @@ public class CateringSystem {
      * @return a String message telling user if cancellation was successful
      */
     public String cancelEvent(int id) {
-        CancelEventCommand cmd = new CancelEventCommand(eventManager, id);
+        CancelEventCommand cmd = new CancelEventCommand(eventManager, employeeManager, id);
         return cmd.execute();
     }
 
