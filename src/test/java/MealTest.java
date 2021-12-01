@@ -19,8 +19,8 @@ public class MealTest {
 
     @Test(timeout = 50)
     public void TestGetNumEmployee(){
-        assertEquals(0.2, e_meal.getNumEmployee(),3);
-        assertEquals(0.4, meal2.getNumEmployee(), 3);
+        assertEquals(0.2, e_meal.getNumEmployee("Chef"),3);
+        assertEquals(0.4, meal2.getNumEmployee("Chef"), 3);
     }
 
     @Test(timeout = 50)

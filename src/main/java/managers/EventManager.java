@@ -6,10 +6,7 @@ import exceptions.EventNotFoundError;
 import meals.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This class is used as a manager for the events
