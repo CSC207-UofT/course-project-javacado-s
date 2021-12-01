@@ -62,9 +62,6 @@ public class ModifyEventCommand implements ICommand<String>{
                             EMPLOYEE_MANAGER.chooseEmployees(EVENT_MANAGER.getEmployeesNeeded(ID), EVENT_MANAGER.getEventDate(ID)),
                             EVENT_MANAGER.getEventDate(ID));
                 }
-                else{
-                    result = false;
-                }
                 break;
             }
             case "4": {
