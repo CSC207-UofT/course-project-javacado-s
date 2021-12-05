@@ -6,24 +6,24 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  This class represents an Event that a user is requesting catering for.
  */
 
 public class Event implements Serializable{
-
     private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
-    private Date date;
+    private GregorianCalendar date;
     private String location;
     private int numAttendees;
     private Meal mealType;
-    private ArrayList<String> employees;
+    private ArrayList<Integer> employees;
     private float price;
     private String status;
-    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed", "Cancelled"};
+    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed"};
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
@@ -35,7 +35,7 @@ public class Event implements Serializable{
      @param numAttendees given number of attendees at the event
      @param mealType given meal type requested
      */
-    public Event(int id, String name, Date date, String location, int numAttendees, Meal mealType) {
+    public Event(int id, String name, GregorianCalendar date, String location, int numAttendees, Meal mealType) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -68,7 +68,7 @@ public class Event implements Serializable{
      * Event getter for event's date.
      * @return Date. Return the date of this event.
      */
-    public Date getDate() {
+    public GregorianCalendar getDate() {
         return date;
     }
     /**
@@ -97,7 +97,7 @@ public class Event implements Serializable{
      * Event getter for list of employees assigned.
      * @return Arraylist of employees assigned to this event.
      */
-    public ArrayList<String> getEmployees() {
+    public ArrayList<Integer> getEmployees() {
         return employees;
     }
 
@@ -114,7 +114,12 @@ public class Event implements Serializable{
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return (int) Math.ceil(mealType.getNumEmployee() * numAttendees);
+        int numEmployees = 0;
+        String[] employeeType = {"Chef", "Cleaner", "Server", "Supervisor"};
+        for(String employee: employeeType){
+            numEmployees += Math.ceil(mealType.getNumEmployee(employee) * numAttendees);
+        }
+        return numEmployees;
     }
 
     /**
@@ -132,7 +137,7 @@ public class Event implements Serializable{
     /**
      * Event setter for event's date.
      */
-    public void setDate(Date newDate) {
+    public void setDate(GregorianCalendar newDate) {
         date = newDate;
     }
     /**
@@ -160,7 +165,7 @@ public class Event implements Serializable{
     /**
      * Event setter for employees assigned to this event.
      */
-    public void setEmployees(ArrayList<String> newEmployees) {
+    public void setEmployees(ArrayList<Integer> newEmployees) {
         employees = newEmployees;
     }
 
@@ -183,7 +188,8 @@ public class Event implements Serializable{
     @Override
     public String toString(){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(this.date) + " at " +
+        Date date = this.date.getTime();
+        return "Event details (ID: " + this.id + "): " + this.name + " on " + sdf.format(date) + " at " +
                 this.location + " for " + this.numAttendees + " attendees. " + "\r\n" + this.mealType.toString() +
                 "\r\n" + "Price of catering: $" + this.price + "\r\nThe current event status is: " + this.status;
     }

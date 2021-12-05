@@ -53,15 +53,21 @@ public class ModifyEventCommand implements ICommand<String>{
                 System.out.println("\nPlease enter the new number of attendees for your event: ");
                 String str_numAttendees = INPUT.nextLine();
                 int numAttendees = Integer.parseInt(str_numAttendees);
-                result = EVENT_MANAGER.setEventNumAttendees(ID, numAttendees, EMPLOYEE_MANAGER);
+                if(result = EMPLOYEE_MANAGER.enoughEmployees(numAttendees, EVENT_MANAGER.getEventDate(ID)))
+                {
+                    EMPLOYEE_MANAGER.setAvailable(EVENT_MANAGER.getEventByID(ID).getEmployees(),
+                            EVENT_MANAGER.getEventDate(ID));
+                    EVENT_MANAGER.setEventNumAttendees(ID, numAttendees);
+                    EMPLOYEE_MANAGER.setUnavailable(
+                            EMPLOYEE_MANAGER.chooseEmployees(EVENT_MANAGER.getEmployeesNeeded(ID), EVENT_MANAGER.getEventDate(ID)),
+                            EVENT_MANAGER.getEventDate(ID));
+                }
                 break;
             }
             case "4": {
                 System.out.println("\nAre we now catering for breakfast, lunch, or dinner?: ");
                 String mealType = INPUT.nextLine();
-                MealSetter setMeal = new MealSetter(mealType);
-                Meal newMeal = setMeal.getMeal();
-                EVENT_MANAGER.setEventMeal(ID, newMeal);
+                EVENT_MANAGER.setEventMeal(ID, mealType);
                 break;
             }
         }

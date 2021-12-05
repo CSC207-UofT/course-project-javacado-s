@@ -5,16 +5,17 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import meals.Dinner;
 import meals.Lunch;
+import java.util.GregorianCalendar;
 
 public class EventTest {
 
     Event event;
     @Before
     public void setUp() {
-        event = new Event(10, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        GregorianCalendar initial = new GregorianCalendar(2021, Calendar.NOVEMBER, 29);
+        event = new Event(10, "Birthday", initial, "CN Tower",
                 30, new Dinner("dinner"));
     }
 
@@ -30,7 +31,7 @@ public class EventTest {
 
     @Test
     public void getDate() {
-        assertEquals(new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), event.getDate());
+        assertEquals(new GregorianCalendar(2021, Calendar.NOVEMBER, 29), event.getDate());
     }
 
     @Test
@@ -91,8 +92,8 @@ public class EventTest {
 
     @Test
     public void setDate() {
-        event.setDate(new Date(121, Calendar.OCTOBER, 30, 18, 30, 30));
-        assertEquals(new Date(121, Calendar.OCTOBER, 30, 18, 30, 30), event.getDate());
+        event.setDate(new GregorianCalendar(2021, Calendar.DECEMBER, 1));
+        assertEquals(new GregorianCalendar(2021, Calendar.DECEMBER, 1), event.getDate());
     }
 
     @Test
@@ -121,7 +122,7 @@ public class EventTest {
 
     @Test
     public void testToString(){
-        assertEquals("Event details (ID: 10): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
+        assertEquals("Event details (ID: 10): Birthday on 11/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
                 event.getPrice() + "\r\nThe current event status is: " + event.getStatus(), event.toString());
@@ -129,9 +130,9 @@ public class EventTest {
 
     @Test
     public void testEquals(){
-        Event event2 = new Event(10, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        Event event2 = new Event(10, "Birthday", new GregorianCalendar(2021, Calendar.DECEMBER, 1), "CN Tower",
                 30, new Dinner("dinner"));
-        Event event3 = new Event(11, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        Event event3 = new Event(11, "Birthday", new GregorianCalendar(2021, Calendar.DECEMBER, 1), "CN Tower",
                 30, new Dinner("dinner"));
         assert(event.equals(event2));
         assert!(event.equals(event3));

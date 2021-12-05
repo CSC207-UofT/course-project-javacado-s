@@ -3,7 +3,7 @@ package managers;
 //import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundError;
-import meals.*;
+import meals.MealSetter;
 
 import java.io.*;
 import java.util.*;
@@ -23,6 +23,7 @@ public class EventManager {
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
     private final EventNotFoundError eventNotFoundError;
+    private final MealSetter setMeal = new MealSetter();
 
     /**
      * Construct a new EventManager, with an empty eventList
@@ -54,11 +55,11 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(String name, Date date, String location,
-                           int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
+
+    public int createEvent(String name, GregorianCalendar date, String location,
+                          int numAttendees, String selectedMeal){
+        Event newEvent = new Event(this.newId, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
         this.newId = this.newId + 1;
@@ -77,11 +78,10 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
-    public int createEvent(int id, String name, Date date, String location,
+    public int createEvent(int id, String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal){
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
+        Event newEvent = new Event(id, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);
         return id;
@@ -144,7 +144,7 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the date of the event
      */
-    public Date getEventDate(int id) { return getEventByID(id).getDate();}
+    public GregorianCalendar getEventDate(int id) { return getEventByID(id).getDate();}
 
     /**
      * Return the name of the event with the given id.
@@ -180,7 +180,7 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(Date time) throws EventNotFoundError {
+    public Object getEventByDate(GregorianCalendar time) throws EventNotFoundError {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
@@ -249,8 +249,21 @@ public class EventManager {
      * @param id        The id of the Event
      * @param status    The new status of the Event
      */
-    public void setEventStatus(int id, String status){
-        getEventByID(id).setStatus(status);
+
+    /**
+     * Set the status of the event from "Created" to "Completed" or "Under Preparation" for all the events
+     * in eventList.
+     * @param current current time when the program run.
+     */
+    public void updateEventStatus(GregorianCalendar current){
+        for (Event e: eventList) {
+            if (e.getDate().compareTo(current) <= 0) {
+                e.setStatus("Completed");
+            }
+            else if (e.getDate().compareTo(current) > 0){
+                e.setStatus("Under Preparation");
+            }
+        }
     }
 
     /**
@@ -265,10 +278,10 @@ public class EventManager {
     /**
      * Set the mealType of the event with the given id to the given new mealType
      * @param id        The id of the Event
-     * @param meal      The new Meal of the Event
+     * @param mealType  The new Meal of the Event
      */
-    public void setEventMeal(int id, Meal meal){
-        getEventByID(id).setMealType(meal);
+    public void setEventMeal(int id, String mealType){
+        getEventByID(id).setMealType(setMeal.getMeal(mealType));
     }
 
     /**
@@ -281,25 +294,11 @@ public class EventManager {
     }
 
     /**
-     * If there are enough employees for change that set number of attendees
-     * of the event with the given id to the given new one.
-     * Return True iff such change was able to carry out.
-     *
+     * Set number of attendees of the event with the given id to the new number
      * @param id        The id of the Event
      * @param newNum    The new number of attendees
-     * @param empM      The employeeManager, which has the data of the employees
-     * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventNumAttendees(int id, int newNum, EmployeeManager empM){
-        Event currEvent = getEventByID(id);
-        int numBefore = currEvent.getNumAttendees();
-        currEvent.setNumAttendees(newNum);
-        if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), currEvent.getDate())){
-            currEvent.setNumAttendees(numBefore);
-            return false;
-        }
-        return true;
-    }
+    public void setEventNumAttendees(int id, int newNum){ getEventByID(id).setNumAttendees(newNum); }
 
     /**
      * If there are enough employees for change that set date
@@ -311,7 +310,7 @@ public class EventManager {
      * @param empM      The employeeManager, which has the data of the employees
      * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventDate(int id, Date date, EmployeeManager empM) {
+    public boolean setEventDate(int id, GregorianCalendar date, EmployeeManager empM) {
         Event currEvent = getEventByID(id);
         if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), date)) {
             return false;

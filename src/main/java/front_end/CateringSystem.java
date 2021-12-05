@@ -11,6 +11,7 @@ import managers.EmployeeManager;
 import managers.EventManager;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class CateringSystem {
@@ -42,7 +43,7 @@ public class CateringSystem {
      * @param mealType          The meal type of the Event
      * @return a String message telling user if the event was successfully booked
      */
-    public String createEvent(String name, Date date, String location, int numAttendees, String mealType) {
+    public String createEvent(String name, GregorianCalendar date, String location, int numAttendees, String mealType) {
         CreateEventCommand cmd = new CreateEventCommand(eventManager, employeeManager, name, date, location,
                                                         numAttendees, mealType);
         return cmd.execute();
@@ -54,7 +55,7 @@ public class CateringSystem {
      * @return a String message telling user if cancellation was successful
      */
     public String cancelEvent(int id) {
-        CancelEventCommand cmd = new CancelEventCommand(eventManager, id);
+        CancelEventCommand cmd = new CancelEventCommand(eventManager, employeeManager, id);
         return cmd.execute();
     }
 
@@ -80,6 +81,14 @@ public class CateringSystem {
     }
 
     public String viewAllEvents() { return eventManager.getEventListString(); }
+
+    /**
+     * Update event status for all events in the eventManager when the programs.
+     * @param current current time when the program runs.
+     */
+    public void updateEventStatus(GregorianCalendar current){
+        eventManager.updateEventStatus(current);
+    }
 
     /* EXTREMELY BAND-AID FIX; CHANGE LATER */
     public EventManager getEventManager(){

@@ -6,8 +6,9 @@ import managers.*;
 import users.User;
 
 import java.io.FileInputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Main {
 
@@ -20,6 +21,8 @@ public class Main {
         boolean loggedIn = false;
         String logout = "";
         String exit = "";
+        GregorianCalendar current = (GregorianCalendar) Calendar.getInstance();
+
 
         System.out.println("********************************************" +
                 "********************************************");
@@ -36,6 +39,7 @@ public class Main {
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
                     }
+                    system.updateEventStatus(current);
                 }
                 actionPrompt(input, system);
 
@@ -190,7 +194,7 @@ public class Main {
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
         String[] newDate = date.split("/");
-        Date eventDate = new Date(2021-1900, Integer.parseInt(newDate[0])-1, Integer.parseInt(newDate[1]));
+        GregorianCalendar eventDate = new GregorianCalendar(2021-1900, Integer.parseInt(newDate[0])-1, Integer.parseInt(newDate[1]));
 
         System.out.println("\nPlease enter the location of your event: ");
         String location = input.nextLine();

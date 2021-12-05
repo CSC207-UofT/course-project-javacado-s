@@ -1,7 +1,7 @@
 package employees;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /*
@@ -11,7 +11,7 @@ This class represents an Employee of the company
 public class Employee {
     private final String name;
     private final int id;
-    private final ArrayList<Date> unavailableDates;
+    private final ArrayList<GregorianCalendar> unavailableDates;
     private static final int WAGE = 10;
 
     /**
@@ -32,7 +32,7 @@ public class Employee {
     public int getid(){
         return id;
     }
-    public ArrayList<Date> getUnavailableDates(){
+    public ArrayList<GregorianCalendar> getUnavailableDates(){
         return unavailableDates;
     }
     public int getWage(){
@@ -44,10 +44,10 @@ public class Employee {
      * @param date given date
      * @return boolean, True if Employee is available on that date
      */
-    public boolean isAvailable(Date date){
+    public boolean isAvailable(GregorianCalendar date){
         return !(this.unavailableDates.contains(date));
     }
-    public void setUnavailability(Date unavailableDate){
+    public void setUnavailability(GregorianCalendar unavailableDate){
         unavailableDates.add(unavailableDate);
     }
 
@@ -64,5 +64,10 @@ public class Employee {
     }
 
 
+    public void removeUnavailability(GregorianCalendar d) throws Exception {
+        if(!unavailableDates.remove(d)){
+            throw new Exception("Date was not found in " + this.name + "'s list of dates.");
+        }
+    }
 }
 

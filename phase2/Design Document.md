@@ -166,6 +166,14 @@ are not fluent in English, to use our program with more ease.
 #### Principle 4: Perceptible Information
 
 #### Principle 5: Tolerance for Error
+To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
+that minimizes accidental actions. In order to exit the program, users need to manually type out the word “exit” to
+exit the program. By requiring this step, we manage to minimize the chance that the user accidentally exits the program
+(i.e. by pressing the enter button). One potential feature for a GUI for this program is to have the exit button
+isolated from the main page, for example at the bottom of the screen or having it only accessible via a menu button.
+Once again, this would prevent accidental commands and actions that may lead to the user unintentionally exiting
+the program.
+
 
 #### Principle 6: Low Physical Effort
 
@@ -183,6 +191,7 @@ catering for events and manage several requests at once, we want to consider tho
 rather than it just being a one-time thing. Additionally, since we are a catering company, we want to prioritize
 marketing to those who would host large events as it would be more profitable for us. (Profits of our catering system
 are not reflected in our code at this stage, but this is the general case with catering companies.)
+
 
 **3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
 example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 

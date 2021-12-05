@@ -48,10 +48,10 @@ public class CateringSystemTest {
 
     @Test
     public void testCreateEvent(){
-        c.createEvent("Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
         ArrayList<Event> Events = new ArrayList<Event>();
-        Event test_event = new Event(0, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         Events.add(test_event);
         System.out.println(EventM.getEventList());
@@ -62,14 +62,14 @@ public class CateringSystemTest {
     public void TestCancelEvent(){
         c.cancelEvent(0);
         ArrayList<Event> Events = new ArrayList<>();
-        Event test_event = new Event(0, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         assert(EventM.getEventList().equals(Events));
     }
 
     @Test
     public void testModifyEventName() throws exceptions.EventNotFoundError {
-        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
+        c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "Reunion";
         Scanner s = new Scanner(input);
@@ -79,7 +79,7 @@ public class CateringSystemTest {
 
     @Test
     public void testModifyEventLocation() throws exceptions.EventNotFoundError {
-        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
+        c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "MY";
         Scanner s = new Scanner(input);
@@ -89,7 +89,7 @@ public class CateringSystemTest {
 
     @Test
     public void testModifyEventAttendees() throws exceptions.EventNotFoundError {
-        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
+        c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "45";
         Scanner s = new Scanner(input);
@@ -100,7 +100,7 @@ public class CateringSystemTest {
 
     @Test
     public void testModifyEventMeal() throws exceptions.EventNotFoundError {
-        c.createEvent("Test Event B", new Date(121, Calendar.DECEMBER, 21, 17, 45, 31),
+        c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "lunch";
         Scanner s = new Scanner(input);
@@ -110,9 +110,9 @@ public class CateringSystemTest {
 
     @Test
     public void testViewEvent(){
-        c.createEvent("Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
-        Event test_event = new Event(0, "Birthday", new Date(121, Calendar.OCTOBER, 29, 18, 30, 24), "CN Tower",
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
@@ -120,4 +120,13 @@ public class CateringSystemTest {
                 test_event.getPrice() + "\r\nThe current event status is: "+ test_event.getStatus();
         assertEquals(expected, c.viewEvent(0));
     }
+
+    @Test
+    public void testUpdateEventStatus(){
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                30, "dinner");
+        c.updateEventStatus(new GregorianCalendar(2021, Calendar.OCTOBER, 29));
+        assert(EventM.getEventByID(0).getStatus().equals("Completed"));
+    }
+
 }
