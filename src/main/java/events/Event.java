@@ -114,7 +114,12 @@ public class Event implements Serializable{
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return (int) Math.ceil(mealType.getNumEmployee() * numAttendees);
+        int numEmployees = 0;
+        String[] employeeType = {"Chef", "Cleaner", "Server", "Supervisor"};
+        for(String employee: employeeType){
+            numEmployees += Math.ceil(mealType.getNumEmployee(employee) * numAttendees);
+        }
+        return numEmployees;
     }
 
     /**

@@ -17,7 +17,7 @@ public abstract class Meal implements Ingredient, Serializable {
     private Hashtable<String, Float> priceList = new Hashtable<>();
     private Hashtable<String, String[]> menuList = new Hashtable<>();
     private Hashtable<String, ArrayList<Ingredient>> IngredientList = new Hashtable<>();
-    private final Hashtable<String, Float> NUM_EMPLOYEE = new Hashtable<>();
+    private final Hashtable<String, Hashtable<String, Float>> NUM_EMPLOYEE = new Hashtable<>();
     private String selectedMeal;
 
     /**
@@ -50,11 +50,28 @@ public abstract class Meal implements Ingredient, Serializable {
                 "Shrimp And Corn Chowder Soup","Apple Juice"});
     }
 
-    // a private method which sets the number Employee per numAttendeeGroup attendees.
+    // a private method which sets the number Employee types per numAttendeeGroup attendees.
     private void setEmployee(){
-        this.NUM_EMPLOYEE.put(mealType[0], (float) 0.2);
-        this.NUM_EMPLOYEE.put(mealType[1], (float) 0.4);
-        this.NUM_EMPLOYEE.put(mealType[2], (float) 0.6);
+        double numEmployeeTypes;
+
+        for(int j = 0; j < mealType.length; j ++){
+            String[] employeeType = {"Chef", "Cleaner", "Server", "Supervisor"};
+            Hashtable<String, Float> employeeTypes = new Hashtable<>();
+            if(j == 0){
+                numEmployeeTypes = 0.2;
+            }
+            else if(j == 1){
+                numEmployeeTypes = 0.4;
+            }
+            else{
+                numEmployeeTypes = 0.6;
+            }
+            for(String employee: employeeType){
+                employeeTypes.put(employee, (float)numEmployeeTypes);
+            }
+            this.NUM_EMPLOYEE.put(mealType[j], employeeTypes);
+        }
+
     }
 
     //a private method which initialize a Menu of Ingredient objects (leave for phase 2 update).
@@ -81,8 +98,8 @@ public abstract class Meal implements Ingredient, Serializable {
     /**
      * @return an integer represents the number Employee per numAttendeeGroup attendees.
      */
-    public float getNumEmployee(){
-        return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase());
+    public float getNumEmployee(String employee){
+        return NUM_EMPLOYEE.get(this.selectedMeal.toLowerCase()).get(employee);
     }
     /**
      * @return the Meal type name of the Meal which user requested.
