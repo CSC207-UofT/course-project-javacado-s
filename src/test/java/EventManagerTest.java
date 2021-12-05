@@ -1,5 +1,5 @@
 import events.Event;
-import exceptions.EventNotFoundError;
+import exceptions.EventNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
@@ -148,7 +148,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByName() throws EventNotFoundError {
+    public void getEventByName() throws EventNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -166,7 +166,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByDate() throws EventNotFoundError {
+    public void getEventByDate() throws EventNotFoundException {
         Meal testMeal = new Dinner("dinner");
         GregorianCalendar testedDate = new GregorianCalendar(2021, Calendar.DECEMBER, 21);
 
@@ -186,7 +186,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByLocation() throws EventNotFoundError {
+    public void getEventByLocation() throws EventNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -325,7 +325,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEventByIDWithException() throws EventNotFoundError {
+    public void testGetEventByIDWithException() throws EventNotFoundException {
         Meal testMeal = new Dinner("dinner");
 
         em.createEvent(204, "Test Event B",

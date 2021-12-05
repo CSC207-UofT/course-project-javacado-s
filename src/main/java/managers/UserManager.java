@@ -1,5 +1,7 @@
 package managers;
 
+import exceptions.InvalidPasswordException;
+import exceptions.UserNotFoundException;
 import users.User;
 import events.Event;
 
@@ -90,23 +92,12 @@ public class UserManager {
     public User getUser(String username, String password) throws Exception{
         ArrayList<String> user_events = new ArrayList<>();
         for(File f: users){
-            /*
-            May replace with a try-catch. Probably should, in fact.
-             */
             if(f.getName().equals(username)){
-                /*
-                BufferedReader reads from a character-input stream, whereas FileReader reads chars at a time
-                so BufferedReader is both more efficient and easier to work with.
-                 */
                 FileReader fr = new FileReader(USER_DIRECTORY_PATH + username+"/password.txt");
                 BufferedReader br = new BufferedReader(fr);
-                /*
-                BufferedReader moves onto the next line in the file after each call of readLine(), I trim to make
-                sure newline characters don't mess up the equality. This may be an issue later on depending on
-                whether we allow spaces at the beginning and end of passwords.
-                 */
+
                 if(!br.readLine().trim().equals(password)){
-                    throw new Exception("Password does not match.");
+                    throw new InvalidPasswordException("Password does not match.");
                 }
                 br.close();
                 fr.close();
@@ -114,7 +105,7 @@ public class UserManager {
 
             }
         }
-        throw new Exception("No user found.");
+        throw new UserNotFoundException("Username not found in database.");
     }
 
     /**
