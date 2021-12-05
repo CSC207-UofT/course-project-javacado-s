@@ -1,5 +1,6 @@
 import events.Event;
 import exceptions.EventNotFoundError;
+import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
@@ -43,7 +44,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void createEvent() {
+    public void createEvent() throws MealNotFoundException {
         int eventID = em.createEvent(108, "Test Event",
                 new GregorianCalendar(2021, Calendar.DECEMBER, 1),
                 "U of T", 20, "dinner");
@@ -51,7 +52,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testCreateEvent2() {
+    public void testCreateEvent2() throws MealNotFoundException {
         int eventID = em.createEvent("Test Event",
                 new GregorianCalendar(2021, Calendar.DECEMBER, 1),
                 "U of T", 20, "dinner");
@@ -59,7 +60,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventList() {
+    public void getEventList() throws MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -85,7 +86,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByIndex() {
+    public void getEventByIndex() throws MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -104,7 +105,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByID() {
+    public void getEventByID() throws MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -123,7 +124,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEmployeesNeeded() {
+    public void testGetEmployeesNeeded() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
@@ -131,7 +132,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEventDate() {
+    public void testGetEventDate() throws MealNotFoundException {
         GregorianCalendar testDate = new GregorianCalendar(2021, Calendar.NOVEMBER, 20);
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -140,7 +141,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEventName() {
+    public void testGetEventName() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
@@ -148,7 +149,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByName() throws EventNotFoundError {
+    public void getEventByName() throws EventNotFoundError, MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -166,7 +167,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByDate() throws EventNotFoundError {
+    public void getEventByDate() throws EventNotFoundError, MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         GregorianCalendar testedDate = new GregorianCalendar(2021, Calendar.DECEMBER, 21);
 
@@ -186,7 +187,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getEventByLocation() throws EventNotFoundError {
+    public void getEventByLocation() throws EventNotFoundError, MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -204,7 +205,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void cancelEvent() {
+    public void cancelEvent() throws MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -230,7 +231,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void getCancelledEvent(){
+    public void getCancelledEvent() throws MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
 
         em.createEvent(108, "Test Event A",
@@ -250,7 +251,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventName() {
+    public void testSetEventName() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
@@ -261,7 +262,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventMeal() {
+    public void testSetEventMeal() throws MealNotFoundException {
         Meal testMeal = new Lunch("lunch");
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
@@ -273,7 +274,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventLocation() {
+    public void testSetEventLocation() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
@@ -284,7 +285,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventNumAttendees() {
+    public void testSetEventNumAttendees() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
@@ -297,7 +298,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testSetEventDate() {
+    public void testSetEventDate() throws MealNotFoundException {
         GregorianCalendar testDate = new GregorianCalendar(2021, Calendar.NOVEMBER, 31);
 
         em.createEvent(108, "Test Event A",
@@ -309,7 +310,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEventByIDWithException() throws EventNotFoundError {
+    public void testGetEventByIDWithException() throws EventNotFoundError, MealNotFoundException {
         Meal testMeal = new Dinner("dinner");
 
         em.createEvent(204, "Test Event B",
@@ -324,17 +325,17 @@ public class EventManagerTest {
     }
 
     @Test
-    public void testGetEventListString() {
+    public void testGetEventListString() throws MealNotFoundException {
         em.createEvent(20, "Test Event A",
-                new Date(2021, Calendar.DECEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21, 17, 45, 31),
                 "BA", 25, "dinner");
 
         em.createEvent(100, "Test Event B",
-                new Date(2021, Calendar.NOVEMBER, 21, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 21, 17, 45, 31),
                 "MY", 10, "dinner");
 
         em.createEvent(500, "Test Event C",
-                new Date(2021, Calendar.NOVEMBER, 12, 17, 45, 31),
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 12, 17, 45, 31),
                 "MY", 1, "dinner");
 
         String expected = "Below are a list of all your events with their IDs:" + "\r\n" + "20. Test Event A" +

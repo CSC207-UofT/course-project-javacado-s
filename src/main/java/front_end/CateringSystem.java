@@ -7,6 +7,7 @@ and the command line/user.
 
 import commands.*;
 import exceptions.EventNotFoundError;
+import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 
@@ -81,6 +82,15 @@ public class CateringSystem {
     }
 
     public String viewAllEvents() { return eventManager.getEventListString(); }
+
+    /**
+     * Check if event ID exists
+     * @param id ID of Event
+     * @return whether ID exists or not
+     */
+    public boolean eventIDExists(int id) {
+        return eventManager.getEventByID(id) != null;
+    }
 
     /* EXTREMELY BAND-AID FIX; CHANGE LATER */
     public EventManager getEventManager(){

@@ -3,13 +3,11 @@ package managers;
 //import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundError;
+import exceptions.MealNotFoundException;
 import meals.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * This class is used as a manager for the events
@@ -58,7 +56,7 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(String name, GregorianCalendar date, String location,
-                           int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         MealSetter setMeal = new MealSetter(selectedMeal);
         Meal newMeal = setMeal.getMeal();
         Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
@@ -81,7 +79,7 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(int id, String name, GregorianCalendar date, String location,
-                           int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         MealSetter setMeal = new MealSetter(selectedMeal);
         Meal newMeal = setMeal.getMeal();
         Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);

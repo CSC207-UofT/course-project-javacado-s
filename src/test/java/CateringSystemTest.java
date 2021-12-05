@@ -1,4 +1,5 @@
 import events.Event;
+import exceptions.MealNotFoundException;
 import front_end.CateringSystem;
 import managers.EmployeeManager;
 import managers.EventManager;
@@ -47,10 +48,10 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testCreateEvent(){
+    public void testCreateEvent() {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
-        ArrayList<Event> Events = new ArrayList<Event>();
+        ArrayList<Event> Events = new ArrayList<>();
         Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         Events.add(test_event);
@@ -109,7 +110,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testViewEvent(){
+    public void testViewEvent() {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
         Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",

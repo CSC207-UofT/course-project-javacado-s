@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 
@@ -47,19 +48,23 @@ public class CreateEventCommand implements ICommand<String>{
      */
     @Override
     public String execute() {
-        int newEventID = EVENT_MANAGER.createEvent(NAME, DATE, LOCATION, NUM_ATTENDEES, MEAL_TYPE);
-        boolean enoughEmployees = EMPLOYEE_MANAGER.enoughEmployees(EVENT_MANAGER.getEmployeesNeeded(newEventID),
-                EVENT_MANAGER.getEventDate(newEventID));
+        try {
+            int newEventID = EVENT_MANAGER.createEvent(NAME, DATE, LOCATION, NUM_ATTENDEES, MEAL_TYPE);
+            boolean enoughEmployees = EMPLOYEE_MANAGER.enoughEmployees(EVENT_MANAGER.getEmployeesNeeded(newEventID),
+                    EVENT_MANAGER.getEventDate(newEventID));
 
-        if (enoughEmployees) {
-            return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
-                    EVENT_MANAGER.getEventByID(newEventID);
+            if (enoughEmployees) {
+                return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
+                        EVENT_MANAGER.getEventByID(newEventID);
+            } else {
+                EVENT_MANAGER.cancelEvent(newEventID);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE) + "). " +
+                        "Please try requesting on a different date.";
+            }
         }
-        else {
-            EVENT_MANAGER.cancelEvent(newEventID);
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE) + "). " +
-                    "Please try requesting on a different date.";
+        catch (MealNotFoundException e) {
+            return "Sorry, the given meal type does not exist. Please try again.";
         }
     }
 }
