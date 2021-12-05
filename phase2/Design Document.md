@@ -153,6 +153,11 @@ could implement in the future that would adhere to principle or (b) Explain why 
 program like yours.**
 
 #### Principle 1: Equitable Use
+Currently, our program does not have many features that adhere to this principle as we have a very simple, text-based
+user interface. Features we could implement in the future include (1) text-to-speech and speech-to-text services, and
+(2) translation services. The first category of features would make our program adhere to equitable use as it allows
+those with visual impairments to use our program. Translation services would allow those who do not speak English, or
+are not fluent in English, to use our program with more ease.
 
 #### Principle 2: Flexibility in Use
 
