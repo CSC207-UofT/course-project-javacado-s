@@ -64,5 +64,10 @@ public class Employee {
     }
 
 
+    public void removeUnavailability(GregorianCalendar d) throws Exception {
+        if(!unavailableDates.remove(d)){
+            throw new Exception("Date was not found in " + this.name + "'s list of dates.");
+        }
+    }
 }
 

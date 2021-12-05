@@ -4,7 +4,6 @@ import managers.EmployeeManager;
 import managers.EventManager;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /*
@@ -52,6 +51,9 @@ public class CreateEventCommand implements ICommand<String>{
                 EVENT_MANAGER.getEventDate(newEventID));
 
         if (enoughEmployees) {
+                EMPLOYEE_MANAGER.setUnavailable(EMPLOYEE_MANAGER.chooseEmployees(
+                        EVENT_MANAGER.getEmployeesNeeded(newEventID),
+                                EVENT_MANAGER.getEventDate(newEventID)),EVENT_MANAGER.getEventDate(newEventID));
             return "Thank you for choosing Javacado's! Your catering request was accepted." + "\r\n" +
                     EVENT_MANAGER.getEventByID(newEventID);
         }
@@ -59,7 +61,7 @@ public class CreateEventCommand implements ICommand<String>{
             EVENT_MANAGER.cancelEvent(newEventID);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
             return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE) + "). " +
-                    "Please try requesting on a different date.";
+                    "Please try requesting a different date.";
         }
     }
 }

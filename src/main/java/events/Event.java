@@ -13,7 +13,6 @@ import java.util.GregorianCalendar;
  */
 
 public class Event implements Serializable{
-
     private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
@@ -21,7 +20,7 @@ public class Event implements Serializable{
     private String location;
     private int numAttendees;
     private Meal mealType;
-    private ArrayList<String> employees;
+    private ArrayList<Integer> employees;
     private float price;
     private String status;
     private final String [] possibleStatus = {"Created", "Under Preparation", "Completed"};
@@ -98,7 +97,7 @@ public class Event implements Serializable{
      * Event getter for list of employees assigned.
      * @return Arraylist of employees assigned to this event.
      */
-    public ArrayList<String> getEmployees() {
+    public ArrayList<Integer> getEmployees() {
         return employees;
     }
 
@@ -161,7 +160,7 @@ public class Event implements Serializable{
     /**
      * Event setter for employees assigned to this event.
      */
-    public void setEmployees(ArrayList<String> newEmployees) {
+    public void setEmployees(ArrayList<Integer> newEmployees) {
         employees = newEmployees;
     }
 

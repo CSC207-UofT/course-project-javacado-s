@@ -294,25 +294,11 @@ public class EventManager {
     }
 
     /**
-     * If there are enough employees for change that set number of attendees
-     * of the event with the given id to the given new one.
-     * Return True iff such change was able to carry out.
-     *
+     * Set number of attendees of the event with the given id to the new number
      * @param id        The id of the Event
      * @param newNum    The new number of attendees
-     * @param empM      The employeeManager, which has the data of the employees
-     * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventNumAttendees(int id, int newNum, EmployeeManager empM){
-        Event currEvent = getEventByID(id);
-        int numBefore = currEvent.getNumAttendees();
-        currEvent.setNumAttendees(newNum);
-        if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), currEvent.getDate())){
-            currEvent.setNumAttendees(numBefore);
-            return false;
-        }
-        return true;
-    }
+    public void setEventNumAttendees(int id, int newNum){ getEventByID(id).setNumAttendees(newNum); }
 
     /**
      * If there are enough employees for change that set date
