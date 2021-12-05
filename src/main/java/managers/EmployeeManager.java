@@ -1,6 +1,6 @@
 package managers;
 
-import employees.Employee;
+import employees.*;
 
 import java.util.ArrayList;
 
@@ -36,12 +36,26 @@ public class EmployeeManager {
         File list = new File("src/main/java/data_files/employees.txt");
         try {
             Scanner reader = new Scanner(list);
+            int i = 0;
             while (reader.hasNextLine()) {
                 String info = reader.nextLine();
                 name = info.substring(info.indexOf(",") + 1).trim();
                 id = Integer.parseInt(info.substring(0, info.indexOf(",")).trim());
-                Employee e = new Employee(name, id);
+                Employee e;
+                if (i % 4 == 0){
+                    e = new Chef(name, id);
+                }
+                else if(i % 4 == 1){
+                    e = new Cleaner(name, id);
+                }
+                else if (i % 4 == 2){
+                    e = new Server(name, id);
+                }
+                else {
+                    e = new Supervisor(name, id);
+                }
                 this.employee_list.add(e);
+                i ++;
             }
         }
         catch(FileNotFoundException e){
@@ -53,7 +67,7 @@ public class EmployeeManager {
             catch(IOException io){
                 io.printStackTrace();
                 System.out.println("Something went horribly, horribly wrong.");
-        }
+            }
         }
     }
 
