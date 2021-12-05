@@ -46,7 +46,6 @@ public class Event implements Serializable{
         // Edit depending on what the meal price getter method is
         this.price = mealType.getMealPrice() * numAttendees;
         this.status = possibleStatus[0];
-
     }
 
     /**

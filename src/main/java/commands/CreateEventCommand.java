@@ -60,8 +60,8 @@ public class CreateEventCommand implements ICommand<String>{
         else {
             EVENT_MANAGER.cancelEvent(newEventID);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE) + "). " +
-                    "Please try requesting a different date.";
+            return "Sorry, your catering request could not be accepted for this date (" + sdf.format(DATE.getTime())
+                    + "). " + "Please try requesting a different date.";
         }
     }
 }

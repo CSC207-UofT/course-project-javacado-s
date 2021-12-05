@@ -134,16 +134,22 @@ employees and the saved User data, so those would be packaged into one folder as
 ---
 ## Design Patterns
 
-We used the Command design pattern in our code to have our program more efficiently execute the various commands a 
-user can input into our command line. Users can create a new event, or view, modify, or cancel an existing event. They 
-are also able to log in and log out of our program. (We also anticipate adding more commands in Phase2.) Most of these 
-requests require several steps in our program, so using this design pattern, we can turn these requests into single 
+We used the Command design pattern in our code to have our program more efficiently execute the various commands a
+user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
+example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
+want to create an event, the Main then calls on CateringSystem which eventually calls on CreateEventCommand, so that it
+creates an event. Similar examples can be found, like the CancelEventCommand. By indirectly calling these commands, the
+users can create a new event, or view, modify, or cancel an existing event. They are also able to log in and log out of
+our program. (We also anticipate adding more commands in Phase2.) Most of these requests require several steps in our
+program, so using this design pattern, we can turn these requests into single
 objects that contain information about all those steps.
 
-We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
-subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
-In the future we hope to determine meal prices based on ingredients, so implementing this tree structure using this
-design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
+We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
+meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
+EventManager). We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have 
+different subclasses of meal types, each with a different menu of dishes, where each dish is made with different 
+ingredients. In the future we hope to determine meal prices based on ingredients, so implementing this tree structure 
+using this design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
 
 ---
 ##Accessibility Report

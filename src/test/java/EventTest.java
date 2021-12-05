@@ -55,15 +55,15 @@ public class EventTest {
 
     @Test
     public void setEmployees() {
-        ArrayList<String> employees = new ArrayList<>();
-        employees.add("A");
-        employees.add("B");
-        employees.add("C");
+        ArrayList<Integer> employees = new ArrayList<>();
+        employees.add(1);
+        employees.add(2);
+        employees.add(3);
         event.setEmployees(employees);
-        ArrayList<String> expected = new ArrayList<>();
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
         assertEquals(expected, event.getEmployees());
     }
 
