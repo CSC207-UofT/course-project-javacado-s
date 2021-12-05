@@ -133,7 +133,6 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
-
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a
 user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
 example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
@@ -182,6 +181,10 @@ the program.
 
 
 #### Principle 6: Low Physical Effort
+Our current design only involves text-base UI, which may require some effort when typing commands into the program, 
+however, our program do not need much of that effort; only a little would be enough to do the job. We might consider
+adding a GUI to the program, so that the user do not have to input command by typing, but instead only need to press 
+the buttons.
 
 #### Principle 7: Size and Space for Approach and Use
 
@@ -227,5 +230,6 @@ that they made throughout the term:**
 **Faith:**
 
 **Yifang:**
+Worked on the design document a bit, improved the MealSetter.
 
 **Zhengdong:**
