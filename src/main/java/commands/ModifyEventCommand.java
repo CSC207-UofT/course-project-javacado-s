@@ -31,7 +31,7 @@ public class ModifyEventCommand implements ICommand<String>{
 
     /**
      * Modifies event
-     * @return new toString of modified Event
+     * @return new toString of modified Event or error message
      */
     @Override
     public String execute() {
