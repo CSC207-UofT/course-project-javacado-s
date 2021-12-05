@@ -2,14 +2,15 @@ package managers;
 
 import employees.*;
 
-import java.util.ArrayList;
-
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+
+import java.util.*;
 
 /*
 This class represents the EmployeeManager part of our system, which is in charge of most, if not all,
@@ -21,10 +22,8 @@ public class EmployeeManager {
 
     /**
      * Constructs an instance of EmployeeManager.
-     * employee_list is initialized as an empty ArrayList, and Employees are added from text from
-     * "stored_employees.txt". If "stored_employees.txt" does not exist, it will be created, and employee_list
-     * For now, we assume each line in "stored_employees.txt" is in the following format:
-     * id, name
+     * employee_list is initialized as an empty ArrayList, and Employees are added from text from the existing
+     * database "employees.txt".
      *
      * This will be subject to change as we work on our program.
      */
@@ -33,7 +32,7 @@ public class EmployeeManager {
 
         String name;
         int id;
-        File list = new File("src/main/java/data_files/employees.txt");
+        File employees_path = new File("src/main/java/data_files/employees.txt");
         try {
             Scanner reader = new Scanner(list);
             int i = 0;
@@ -57,6 +56,8 @@ public class EmployeeManager {
                 this.employee_list.add(e);
                 i ++;
             }
+            br.close();
+            fr.close();
         }
         catch(FileNotFoundException e){
             try{
@@ -105,13 +106,6 @@ public class EmployeeManager {
     }
 
     /**
-     * @return ArrayList of all registered Employees.
-     */
-    public ArrayList<Employee> getEmployeeList() {
-        return this.employee_list;
-    }
-
-    /**
      * @param d Date d
      * @return ArrayList of available Employees for specific Date d
      */
@@ -127,12 +121,12 @@ public class EmployeeManager {
 
     /**
      * @param list list of Employees
-     * @return Array containing the IDs of Employees in list
+     * @return ArrayList containing the IDs of Employees in list
      */
-    public int[] getID(ArrayList<Employee> list){
-        int[] id_list = new int[list.size()];
-        for(int i=0; i<list.size(); i++){
-            id_list[i]= list.get(i).getid();
+    public ArrayList<Integer> getID(ArrayList<Employee> list){
+        ArrayList<Integer> id_list = new ArrayList<>();
+        for(Employee e: list){
+            id_list.add(e.getid());
         }
         return id_list;
     }
@@ -148,17 +142,84 @@ public class EmployeeManager {
     }
 
     /**
-     * Changes Employee availability (from available to unavailable) on a specific Date.
-     * @param employees Employees to be assigned to work on a specific Date. Subject to change;
-     *                  may be modified to accept an array of integers instead.
+     * Changes Employee availability (from available to unavailable) on a specific date.
+     * @param employees List of Employees to be assigned to work on a specific Date.
      * @param d the specific Date
-     *
-     * I believe we agreed that EventManager should be in charge of assigning Employees to
-     * Events, specifically, so for now, this will just set specific dates to unavailable.
+     * Since this is EmployeeManager side, the parameter is left as an ArrayList of Employees rather than a list of IDs.
      */
     public void setUnavailable(ArrayList<Employee> employees, GregorianCalendar d){
         for(Employee e:employees){
             e.setUnavailability(d);
         }
+        try {
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Changes Employee availability (from unavailable to available) on a specific date.
+     * @param id_list List of Employee IDs to be assigned to work on a specific Date.
+     * @param d the specific Date
+     * Since the input is EventManager side, the parameter is left as an ArrayList of IDs.
+     */
+    public void setAvailable(ArrayList<Integer> id_list, GregorianCalendar d){
+        ArrayList<Employee> employees = IDToEmployee(id_list);
+        for(Employee e:employees){
+            try {
+                e.removeUnavailability(d);
+            }
+            catch(Exception except){
+                System.out.println(except.getMessage());
+            }
+        }
+        try{
+            update();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Helper function. Converts ArrayList of Integers to ArrayList of Employees.
+     * @param id_list List of Employee IDs
+     * @return List of Employees
+     */
+    public ArrayList<Employee> IDToEmployee(ArrayList<Integer> id_list){
+        ArrayList<Employee> e_list = new ArrayList<>();
+        for(Integer i:id_list){
+            e_list.add(this.getEmployee(i));
+        }
+        return e_list;
+    }
+
+    /**
+     * Updates employees.txt.
+     */
+    public void update() throws IOException {
+        FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        for(Employee e: employee_list){
+            //id, name|{yyyy}[mm](dd)|{yyyy}[mm](dd)|...|
+            String line = e.getid()  + ", " + e.getName() + "|";
+            for(GregorianCalendar d: e.getUnavailableDates()){
+                line = line.concat("{"+d.get(Calendar.YEAR)+"}");
+                line = line.concat("["+d.get(Calendar.MONTH)+"]");
+                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")");
+            }
+            bw.write(line);
+        }
+        bw.close();
+        fw.close();
+    }
+
+    public ArrayList<Employee> chooseEmployees(int num, GregorianCalendar d){
+        ArrayList<Employee> chosen = new ArrayList<>();
+        for(int i=0; i<num; i++){
+            chosen.add(availableEmployees(d).get(i));
+        }
+        return chosen;
     }
 }
