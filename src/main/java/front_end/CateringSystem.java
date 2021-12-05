@@ -6,12 +6,9 @@ and the command line/user.
  */
 
 import commands.*;
-import exceptions.EventNotFoundError;
-import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 

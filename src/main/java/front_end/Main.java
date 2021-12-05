@@ -3,7 +3,6 @@ package front_end;
 Command line interface that takes in user input
  */
 
-import exceptions.MealNotFoundException;
 import managers.*;
 import users.User;
 

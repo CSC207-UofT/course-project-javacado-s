@@ -16,7 +16,7 @@ public class ModifyEventCommand implements ICommand<String>{
     private final EmployeeManager EMPLOYEE_MANAGER;
 
     /**
-     * Contructor for CancelEventCommand
+     * Constructor for CancelEventCommand
      * @param eventManager Event manager that'll modify the event
      * @param id ID of event to modify
      */
