@@ -133,12 +133,19 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
-
-We used the Command design pattern in our code to have our program more efficiently execute the various commands a 
-user can input into our command line. Users can create a new event, or view, modify, or cancel an existing event. They 
-are also able to log in and log out of our program. (We also anticipate adding more commands in Phase2.) Most of these 
-requests require several steps in our program, so using this design pattern, we can turn these requests into single 
+We used the Command design pattern in our code to have our program more efficiently execute the various commands a
+user can input into our command line. And, for conveniency, we placed all the commands in the Command package. For
+example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
+want to create an event, the Main then calls on CateringSystem which eventually calls on CreateEventCommand, so that it
+creates an event. Similar examples can be found, like the CancelEventCommand. By indirectly calling these commands, the
+users can create a new event, or view, modify, or cancel an existing event. They are also able to log in and log out of
+our program. (We also anticipate adding more commands in Phase2.) Most of these requests require several steps in our
+program, so using this design pattern, we can turn these requests into single
 objects that contain information about all those steps.
+
+We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
+meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
+EventManager).
 
 We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
 subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
@@ -171,6 +178,10 @@ the program.
 
 
 #### Principle 6: Low Physical Effort
+Our current design only involves text-base UI, which may require some effort when typing commands into the program, 
+however, our program do not need much of that effort; only a little would be enough to do the job. We might consider
+adding a GUI to the program, so that the user do not have to input command by typing, but instead only need to press 
+the buttons.
 
 #### Principle 7: Size and Space for Approach and Use
 
@@ -211,5 +222,6 @@ that they made throughout the term:**
 **Faith:**
 
 **Yifang:**
+Worked on the design document a bit, improved the MealSetter.
 
 **Zhengdong:**
