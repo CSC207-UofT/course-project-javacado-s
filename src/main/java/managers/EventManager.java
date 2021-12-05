@@ -318,6 +318,7 @@ public class EventManager {
      * Serializes events_list to "_checkout.ser" file.
      */
     public void checkout(){
-        new CheckOutEvents().checkout(this.eventList);
+        CheckOutEvents coe = new CheckOutEvents();
+        coe.checkout(this.eventList);
     }
 }
