@@ -60,6 +60,10 @@ public class EmployeeManagerReadWriter implements
     }
 
     @Override
+    /*
+    TODO rewrite this so it only needs to update the unavailability for the one employee rather than
+    rewrite the entire file?
+     */
     public void update(ArrayList<Employee> eList) throws IOException {
         FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -68,8 +72,8 @@ public class EmployeeManagerReadWriter implements
             String line = e.getid()  + ", " + e.getName() + "|";
             for(GregorianCalendar d: e.getUnavailableDates()){
                 line = line.concat("{"+d.get(Calendar.YEAR)+"}");
-                line = line.concat("["+d.get(Calendar.MONTH)+"]");
-                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")");
+                line = line.concat("["+ (d.get(Calendar.MONTH) + 1)+"]");
+                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")")+"|" + "\r\n";
             }
             bw.write(line);
         }

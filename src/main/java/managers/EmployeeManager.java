@@ -185,6 +185,7 @@ public class EmployeeManager {
 
     /**
      * Updates employees.txt.
+     * TODO See EmployeeManagerReadWriter for notes on this
      */
     public void update() throws IOException {
         RW.update(this.employee_list);
