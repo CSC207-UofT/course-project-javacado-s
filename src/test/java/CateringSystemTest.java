@@ -1,4 +1,5 @@
 import events.Event;
+import exceptions.EventNotFoundException;
 import front_end.CateringSystem;
 import managers.EmployeeManager;
 import managers.EventManager;
@@ -7,11 +8,9 @@ import meals.Dinner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import users.User;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -50,7 +49,7 @@ public class CateringSystemTest {
     public void testCreateEvent(){
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
-        ArrayList<Event> Events = new ArrayList<Event>();
+        ArrayList<Event> Events = new ArrayList<>();
         Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, new Dinner("dinner"));
         Events.add(test_event);
@@ -68,7 +67,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventName() throws exceptions.EventNotFoundError {
+    public void testModifyEventName() throws EventNotFoundException {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "Reunion";
@@ -78,7 +77,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventLocation() throws exceptions.EventNotFoundError {
+    public void testModifyEventLocation() throws EventNotFoundException {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "MY";
@@ -88,7 +87,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventAttendees() throws exceptions.EventNotFoundError {
+    public void testModifyEventAttendees() throws EventNotFoundException {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "45";
@@ -99,7 +98,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventMeal() throws exceptions.EventNotFoundError {
+    public void testModifyEventMeal() throws EventNotFoundException {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "lunch";

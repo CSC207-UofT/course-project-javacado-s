@@ -2,7 +2,7 @@ package managers;
 
 //import commands.CreateMealCommand;
 import events.Event;
-import exceptions.EventNotFoundError;
+import exceptions.EventNotFoundException;
 import meals.MealSetter;
 import read_writers.EventManagerReadWriter;
 
@@ -23,7 +23,6 @@ public class EventManager {
     private HashMap<Integer, Event> idEventMap;
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
-    private final EventNotFoundError eventNotFoundError;
     private final MealSetter setMeal = new MealSetter();
     private final EventManagerReadWriter RW;
 
@@ -103,10 +102,10 @@ public class EventManager {
      * @param id        The required event's id
      * @return          Return the required event
      */
-    public Event getEventByIDWithException(int id) throws EventNotFoundError {
+    public Event getEventByIDWithException(int id) throws EventNotFoundException {
         Event result = this.idEventMap.get(id);
         if (result == null){
-            throw new EventNotFoundError("The event with the given id is not found");
+            throw new EventNotFoundException("The event with the given id is not found");
         }
         return result;
     }
@@ -114,7 +113,7 @@ public class EventManager {
     public Event getEventByID(int id){
         try {
             return getEventByIDWithException(id);
-        } catch (EventNotFoundError notFoundError) {
+        } catch (EventNotFoundException e) {
             return null;
         }
     }
@@ -152,14 +151,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event name
      *      *                  not found." if there is not such event
      */
-    public Event getEventByName(String name) throws EventNotFoundError{
+    public Event getEventByName(String name) throws EventNotFoundException {
         for (Event e : this.eventList) {
             if (e.getName().equals(name)) {
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + name + " not found");
+        throw new EventNotFoundException("Event name " + name + " not found");
     }
 
     /**
@@ -169,14 +168,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(GregorianCalendar time) throws EventNotFoundError {
+    public Event getEventByDate(GregorianCalendar time) throws EventNotFoundException {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + time + " not found");
+        throw new EventNotFoundException("Event name " + time + " not found");
     }
 
     /**
@@ -186,14 +185,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event location
      *                  not found." if there is not such event
      */
-    public Object getEventByLocation(String location) throws EventNotFoundError {
+    public Event getEventByLocation(String location) throws EventNotFoundException {
         for (Event e : this.eventList){
             if (e.getLocation().equals(location)){
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + location + " not found");
+        throw new EventNotFoundException("Event name " + location + " not found");
     }
 
     /**
