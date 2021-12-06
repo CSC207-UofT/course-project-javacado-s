@@ -1,4 +1,5 @@
-package front_end;/*
+package front_end;
+/*
 Command line interface that takes in user input
  */
 
@@ -70,7 +71,7 @@ public class Main {
      * @param userManager UserManager object
      * @return FileInputStream of User's existing Events in serialized form
      */
-    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager) throws Exception {
+    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager){
         Tuple<User, Boolean> tuple;
 
         System.out.println("****************************************************************************************");
@@ -97,11 +98,20 @@ public class Main {
                 return tuple;
         }
         else if (action.equals("2"))  {
-            System.out.println("\nNew username: ");
-            String username = input.nextLine();
-            System.out.println("New password: ");
-            String password = input.nextLine();
-            userManager.createUser(username, password);
+            boolean finished = false;
+            while (!finished){
+                try{
+                    System.out.println("\nNew username: ");
+                    String username = input.nextLine();
+                    System.out.println("New password: ");
+                    String password = input.nextLine();
+                    userManager.createUser(username, password);
+                    finished = true;
+                }
+                catch (Exception e){
+                    System.out.println("\nUsername already exists. Please choose another username.");
+                }
+            }
             System.out.println("\nSuccess! You may now log in with your new account.");
         }
         tuple = new Tuple<>(null, false);
@@ -155,11 +165,24 @@ public class Main {
         String str_id = input.nextLine();
         int id = Integer.parseInt(str_id);
 
+        while (!system.eventIDExists(id)) {
+            System.out.println("\nThe ID you entered cannot be found. Please enter the ID of the event you would " +
+                    "like to modify (Enter -1 to cancel change): ");
+            str_id = input.nextLine();
+
+            if (str_id.equals("-1")) {
+                return;
+            }
+
+            id = Integer.parseInt(str_id);
+        }
+
         cont = modifyEventHelper(input, system, id);
 
         while (cont.equalsIgnoreCase("yes")) {
             cont = modifyEventHelper(input, system, id);
         }
+        System.out.println("Exited Event Modifying");
     }
 
     /**
@@ -195,21 +218,26 @@ public class Main {
 
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
-        String[] newDate = date.split("/");
-        GregorianCalendar eventDate = new GregorianCalendar(2021, Integer.parseInt(newDate[0])-1,
-                Integer.parseInt(newDate[1]));
+        try {
+            String[] newDate = date.split("/");
+            GregorianCalendar eventDate = new GregorianCalendar(2021, Integer.parseInt(newDate[0])-1,
+                    Integer.parseInt(newDate[1]));
 
-        System.out.println("\nPlease enter the location of your event: ");
-        String location = input.nextLine();
+            System.out.println("\nPlease enter the location of your event: ");
+            String location = input.nextLine();
 
-        System.out.println("\nPlease enter the number of attendees for your event: ");
-        int numAttendees = input.nextInt();
-        input.nextLine();
+            System.out.println("\nPlease enter the number of attendees for your event: ");
+            int numAttendees = input.nextInt();
+            input.nextLine();
 
-        System.out.println("\nAre we catering for breakfast, lunch, or dinner?: ");
-        String mealType = input.nextLine();
+            System.out.println("\nAre we catering for breakfast, lunch, or dinner?: ");
+            String mealType = input.nextLine();
 
-        System.out.println("\n"+system.createEvent(name, eventDate, location, numAttendees, mealType));
+            System.out.println("\n"+system.createEvent(name, eventDate, location, numAttendees, mealType));
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input. Please try again.");
+        }
     }
 
     /**
@@ -225,6 +253,7 @@ public class Main {
         System.out.println("\n"+system.cancelEvent(id));
     }
 
+    // TODO: handle non int input
     /**
      * Prompt user for event ID to view event and print event details.
      * @param input Scanner object
@@ -234,7 +263,7 @@ public class Main {
         System.out.println(system.viewAllEvents());
         System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
         String str_id = input.nextLine();
-        if((str_id.equals("-1"))){
+        if(str_id.equals("-1")){
             System.out.println("Exited Event Viewing");
             return;
         }
@@ -243,11 +272,11 @@ public class Main {
         String result = system.viewEvent(id);
 
         while (result.equals("null")) {
-            if((str_id.equals("-1"))){
+            if(str_id.equals("-1")){
                 System.out.println("Exited Event Viewing");
                 return;
             }
-            System.out.println("\nThe id you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
+            System.out.println("\nThe ID you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
             str_id = input.nextLine();
             id = Integer.parseInt(str_id);
             result = system.viewEvent(id);

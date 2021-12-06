@@ -81,6 +81,15 @@ public class CateringSystem {
     public String viewAllEvents() { return eventManager.getEventListString(); }
 
     /**
+     * Check if event ID exists
+     * @param id ID of Event
+     * @return whether ID exists or not
+     */
+    public boolean eventIDExists(int id) {
+        return eventManager.getEventByID(id) != null;
+    }
+  
+    /**
      * Update event status for all events in the eventManager when the programs.
      * @param current current time when the program runs.
      */

@@ -1,8 +1,8 @@
 package managers;
 
-//import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundException;
+import exceptions.MealNotFoundException;
 import meals.MealSetter;
 import read_writers.EventManagerReadWriter;
 
@@ -54,10 +54,13 @@ public class EventManager {
      */
 
     public int createEvent(String name, GregorianCalendar date, String location,
-                          int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         Event newEvent = new Event(this.newId, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
+        while (this.idEventMap.containsKey(this.newId)){
+            this.newId += 1;
+        }
         this.idEventMap.put(this.newId, newEvent);
         this.newId = this.newId + 1;
         return this.newId - 1;
@@ -76,7 +79,7 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(int id, String name, GregorianCalendar date, String location,
-                           int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         Event newEvent = new Event(id, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
@@ -260,7 +263,7 @@ public class EventManager {
      * @param id        The id of the Event
      * @param mealType  The new Meal of the Event
      */
-    public void setEventMeal(int id, String mealType){
+    public void setEventMeal(int id, String mealType) throws MealNotFoundException {
         getEventByID(id).setMealType(setMeal.getMeal(mealType));
     }
 

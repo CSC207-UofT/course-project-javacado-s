@@ -14,7 +14,7 @@ public class CancelEventCommand implements ICommand<String>{
     private final EventManager EVENT_MANAGER;
     private final EmployeeManager EMPLOYEE_MANAGER;
     /**
-     * Contructor for CancelEventCommand
+     * Constructor for CancelEventCommand
      * @param eventManager Event manager that'll cancel the event
      * @param id ID of event to cancel
      */
@@ -32,8 +32,8 @@ public class CancelEventCommand implements ICommand<String>{
     public String execute() {
         boolean removed = EVENT_MANAGER.cancelEvent(ID);
         if (removed) {
-            EMPLOYEE_MANAGER.setAvailable(EVENT_MANAGER.getEventByID(ID).getEmployees(),
-                    EVENT_MANAGER.getEventByID(ID).getDate());
+            EMPLOYEE_MANAGER.setAvailable(EVENT_MANAGER.getCancelledEvent(ID).getEmployees(),
+                    EVENT_MANAGER.getCancelledEvent(ID).getDate());
             return "Your event cancellation (ID: " + ID + ") was successful.";
         }
         else {
