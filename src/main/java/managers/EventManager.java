@@ -263,7 +263,7 @@ public class EventManager {
      * @param id        The id of the Event
      * @param mealType  The new Meal of the Event
      */
-    public void setEventMeal(int id, String mealType){
+    public void setEventMeal(int id, String mealType) throws MealNotFoundException {
         getEventByID(id).setMealType(setMeal.getMeal(mealType));
     }
 
