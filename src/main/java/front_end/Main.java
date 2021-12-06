@@ -71,7 +71,7 @@ public class Main {
      * @param userManager UserManager object
      * @return FileInputStream of User's existing Events in serialized form
      */
-    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager) throws Exception {
+    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager){
         Tuple<User, Boolean> tuple;
 
         System.out.println("****************************************************************************************");
@@ -98,11 +98,20 @@ public class Main {
                 return tuple;
         }
         else if (action.equals("2"))  {
-            System.out.println("\nNew username: ");
-            String username = input.nextLine();
-            System.out.println("New password: ");
-            String password = input.nextLine();
-            userManager.createUser(username, password);
+            boolean finished = false;
+            while (!finished){
+                try{
+                    System.out.println("\nNew username: ");
+                    String username = input.nextLine();
+                    System.out.println("New password: ");
+                    String password = input.nextLine();
+                    userManager.createUser(username, password);
+                    finished = true;
+                }
+                catch (Exception e){
+                    System.out.println("\nUsername already exists. Please choose another username.");
+                }
+            }
             System.out.println("\nSuccess! You may now log in with your new account.");
         }
         tuple = new Tuple<>(null, false);
