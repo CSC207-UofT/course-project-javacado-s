@@ -158,6 +158,7 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
+### Command Design Pattern
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a
 user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
 example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
