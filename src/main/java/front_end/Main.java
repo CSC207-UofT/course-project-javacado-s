@@ -97,15 +97,15 @@ public class Main {
                 return tuple;
         }
         else if (action.equals("2"))  {
-            boolean done = false;
-            while (!done){
+            boolean finished = false;
+            while (!finished){
                 try{
                     System.out.println("\nNew username: ");
                     String username = input.nextLine();
                     System.out.println("New password: ");
                     String password = input.nextLine();
                     userManager.createUser(username, password);
-                    done = true;
+                    finished = true;
                 }
                 catch (Exception e){
                     System.out.println("\nUsername already exists. Please choose another username.");
