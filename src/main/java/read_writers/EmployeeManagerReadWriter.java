@@ -31,16 +31,16 @@ public class EmployeeManagerReadWriter implements
                 String rawDates = line.substring(line.indexOf("|"));
                 // Date formatting: |{yyyy}[mm](dd)|
                 ArrayList<GregorianCalendar> dates = new ArrayList<>();
-                while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
-                    int y = Integer.parseInt(line.substring(line.indexOf("{"),line.indexOf("}")));
-                    int m = Integer.parseInt(line.substring(line.indexOf("["),line.indexOf("]")));
-                    int d = Integer.parseInt(line.substring(line.indexOf("("),line.indexOf(")")));
+                while(rawDates.indexOf("|")!=rawDates.lastIndexOf("|")){
+                    int y = Integer.parseInt(line.substring(line.indexOf("{")+1,line.indexOf("}")));
+                    int m = Integer.parseInt(line.substring(line.indexOf("[")+1,line.indexOf("]")));
+                    int d = Integer.parseInt(line.substring(line.indexOf("(")+1,line.indexOf(")")));
                     GregorianCalendar date = new GregorianCalendar();
                     date.set(Calendar.YEAR, y);
                     date.set(Calendar.MONTH, m);
                     date.set(Calendar.DAY_OF_MONTH, d);
                     dates.add(date);
-                    rawDates = rawDates.substring(1).substring(line.indexOf("|"));
+                    rawDates = rawDates.substring(1);
                 }
                 Tuple<String, ArrayList<GregorianCalendar>> employeeInfo = new Tuple<>(name, dates);
                 fileInfo.put(id, employeeInfo);
@@ -60,10 +60,6 @@ public class EmployeeManagerReadWriter implements
     }
 
     @Override
-    /*
-    TODO rewrite this so it only needs to update the unavailability for the one employee rather than
-    rewrite the entire file?
-     */
     public void update(ArrayList<Employee> eList) throws IOException {
         FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
         BufferedWriter bw = new BufferedWriter(fw);
@@ -73,8 +69,9 @@ public class EmployeeManagerReadWriter implements
             for(GregorianCalendar d: e.getUnavailableDates()){
                 line = line.concat("{"+d.get(Calendar.YEAR)+"}");
                 line = line.concat("["+ (d.get(Calendar.MONTH) + 1)+"]");
-                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")")+"|" + "\r\n";
+                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")|");
             }
+            line = line.concat("\r\n");
             bw.write(line);
         }
         bw.close();
