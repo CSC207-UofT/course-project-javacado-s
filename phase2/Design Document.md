@@ -155,7 +155,7 @@ We also used a simple factory design pattern. The MealSetter in the meals packag
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
 EventManager).
 
-### Composite Deign Pattern
+### Composite Design Pattern
 We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
 subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
 In the future we hope to determine meal prices based on ingredients, so implementing this tree structure using this
@@ -207,7 +207,7 @@ the buttons.
 Unfortunately, most part of this principle cannot be adhered by our program, since most of this principle applied more 
 to hardware than software side, and since our program so far only provide a simple UI form (text-UI); 
 However, In the future program expansions, it is possible to provide some forms of the features, such as integrated 
-together with the Principle 2, like to crate High contrast mode so that our text-UI is easier to see when viewing the 
+together with the Principle 2, like to create High contrast mode so that our text-UI is easier to see when viewing the 
 screen from different positions, and also adjust the level of detailed information on screen so that it does not 
 require the User to have to look closer to the screen.
 
