@@ -168,7 +168,7 @@ program like yours.**
 #### Principle 1: Equitable Use
 
 #### Principle 2: Flexibility in Use
-Our program adheres to this principle because takes in user input through the keyboard, so that it accommodates both 
+Our program adheres to this principle because it takes in user input through the keyboard, so that it accommodates both 
 left- and right-handed users. In the future, we can implement a feature that allows users to change the size of text. 
 This way the user interface can adapt to each users’ specific needs. We can also implement a text-to-speech feature, so 
 that users have the option to read prompts and other textual information displayed on the screen, or to listen to them. 
