@@ -210,12 +210,12 @@ that they made throughout the term:**
 **Karen:**
 
 **Zi Xuan:**
-Handled assigning and reassigning specific Employees to Events. Updated EmployeeManager to properly
-handle Employee unavailability. Created Exceptions to provide more
-specific try-catch scenarios. Slight refactoring. 
+Handled assigning and reassigning specific Employees to Events. Updated EmployeeManager to properly handle Employee 
+unavailability. Created Exceptions to provide more specific try-catch scenarios. Slight refactoring. 
 
 Significant pull requests:\
-https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with 
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
 Implemented the user "branch" of our catering system.
 
 **Maggie:**
