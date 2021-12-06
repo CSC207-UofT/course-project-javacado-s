@@ -134,14 +134,20 @@ employees and the saved User data, so those would be packaged into one folder as
 ---
 ## Design Patterns
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a
-user can input into our command line. And, for conveniency, we placed all the commands in the Command package. For
+user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
 example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
-want to create an event, the Main then calls on CateringSystem which eventually calls on CreateEventCommand, so that it
-creates an event. Similar examples can be found, like the CancelEventCommand. By indirectly calling these commands, the
-users can create a new event, or view, modify, or cancel an existing event. They are also able to log in and log out of
-our program. (We also anticipate adding more commands in Phase2.) Most of these requests require several steps in our
-program, so using this design pattern, we can turn these requests into single
-objects that contain information about all those steps.
+want to create an event, inputting information about the new event (e.g. event name, date, etc.). Main then calls on 
+CateringSystem's methods, passing along the information. CateringSystem eventually creates an CreateEventCommand object, 
+so that it stores all the information and classes (e.g. EventManager and EmployeeManager) necessary to create an event. 
+Finally, CateringSystem calls CreateEventCommand's execute() method, creating the new event. Within CreateEventCommand, 
+it calls on methods from EventManager and EmployeeManager to create that event. Similar examples can be found, like the 
+CancelEventCommand. By Main indirectly calling these commands through CateringSystem, the users can create a new event, 
+or view, modify, or cancel an existing event. Most of these requests require several steps in our program, so using this 
+design pattern, we can turn these requests into single objects that contain information about all those steps. In 
+addition, it has the benefit of extracting the implementation of these commands into their own classes, so that Main and 
+CateringSystem don't have to know about how these commands work. We also implemented the Command design pattern with 
+a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface  
+cast to a different type, allowing the return type of their execute() methods to be different.
 
 We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
@@ -162,6 +168,13 @@ program like yours.**
 #### Principle 1: Equitable Use
 
 #### Principle 2: Flexibility in Use
+Our program adheres to this principle because takes in user input through the keyboard, so that it accommodates both 
+left- and right-handed users. In the future, we can implement a feature that allows users to change the size of text. 
+This way the user interface can adapt to each users’ specific needs. We can also implement a text-to-speech feature, so 
+that users have the option to read prompts and other textual information displayed on the screen, or to listen to them. 
+All of these features make the use of our program more flexible, accommodating a wider range of user preferences and 
+abilities.
+
 
 #### Principle 3: Simple and Intuitive Use
 
@@ -214,6 +227,11 @@ that they made throughout the term:**
 **Rose:**
 
 **Karen:**
+Worked on handling invalid inputs in Main (e.g. when creating/modifying an event).
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/34/files - In this pull request, I started implementing 
+the Command design pattern by creating the ICommand interface and CreateEventCommand class. This demonstrates a 
+significant contribution to our team because it laid the foundation for how we were to incorporate this design pattern 
+into our program.
 
 **Zx:**
 
