@@ -274,19 +274,28 @@ future to take this into account.
 ---
 ## Progress Report
 
-**We have provided a summary of what each group member worked on during the Phases 2, as well as one (or two) significant pull request(s)
-that they made throughout the term:**
+**We have provided a summary of what each group member worked on during Phase 2, as well as one (or two) significant 
+pull request(s) that they made throughout the term:**
 
-**Rose:**
+###Rose
+In phase 2, I worked on keeping our Design Document up to date and making edits according to our feedback from Phase 1.
+Additionally, I modified our ViewEventCommand to show a list of the user's events to make it more convenient to use our 
+program. I also worked on extracting the file reading, parsing, and writing sections from our manager classes and 
+creating gateway classes to perform these tasks.
 
-**Karen:**
+**One significant pull request:** https://github.com/CSC207-UofT/course-project-javacado-s/pull/96 \
+This pull request involved creating the gateway classes, which demonstrates a significant contribution as it helped our 
+program adhere to clean architecture. Additionally, I created interfaces to ensure that these classes adhere to the 
+dependency inversion and interface segregation SOLID principles.
+
+###Karen
 Worked on handling invalid inputs in Main (e.g. when creating/modifying an event).
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/34/files - In this pull request, I started implementing 
 the Command design pattern by creating the ICommand interface and CreateEventCommand class. This demonstrates a 
 significant contribution to our team because it laid the foundation for how we were to incorporate this design pattern 
 into our program.
 
-**Zi Xuan:**
+###Zi Xuan
 Handled assigning and reassigning specific Employees to Events. Updated EmployeeManager to properly handle Employee 
 unavailability. Created Exceptions to provide more specific try-catch scenarios. Slight refactoring. 
 
@@ -295,20 +304,20 @@ https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
 Implemented the user "branch" of our catering system.
 
-**Maggie:**
+###Maggie
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
 Update status feature so that event status are automatically updated each time the program is run: 
 https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48
 one testing file: 
 https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
 
-**Faith:**
+###Faith
 Integrated Employee subtypes in the code -- modified meal class and its subclasses(Breakfast, Lunch, Dinner), event class, and meal tests, to include different types of Employees (Chef, Supervisor, Server, Cleaner) (https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Implemented employee subclasses in EmployeeManager for initialization(https://github.com/CSC207-UofT/course-project-javacado-s/pull/92)
 
-**Yifang:**
+###Yifang
 Worked on the design document a bit, improved the MealSetter.
 
-**Zhengdong:**
+###Zhengdong
 During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
 so that it follows more on the Composite Design pattern, move some roles originally in the Meal class to its Subclasses.
 
