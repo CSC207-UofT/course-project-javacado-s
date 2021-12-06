@@ -1,6 +1,8 @@
 package employees;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
@@ -60,7 +62,7 @@ public class Employee {
 
         return (Objects.equals(this.name, ((Employee) e).name) &&
                 this.id == ((Employee) e).id &&
-                this.unavailableDates == ((Employee) e).unavailableDates);
+                this.unavailableDates.equals(((Employee) e).unavailableDates));
     }
 
 
@@ -68,6 +70,16 @@ public class Employee {
         if(!unavailableDates.remove(d)){
             throw new Exception("Date was not found in " + this.name + "'s list of dates.");
         }
+    }
+
+    public String toString(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        StringBuilder dates = new StringBuilder();
+        for (GregorianCalendar g: this.unavailableDates){
+            String formatted = sdf.format(g.getTime());
+            dates.append(formatted).append("\r\n");
+        }
+        return this.name + " " + this.id + " " + dates;
     }
 }
 

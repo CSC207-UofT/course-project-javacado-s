@@ -68,16 +68,14 @@ public class EmployeeTest {
         assertTrue(e3.isAvailable(new GregorianCalendar(2021, Calendar.NOVEMBER, 20)));
     }
 
-//  Todo: pass the TestEquals() method
-
-//    @Test(timeout = 50)
-//    public void TestEquals(){
-//        Employee e1 = new Employee("Carly", 1234);
-//        e1.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
-//        Employee e2 = new Employee("Carly", 1234);
-//        e2.setUnavailability(new Date(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
-//        assert(e1.equals(e2));
-//    }
+    @Test(timeout = 50)
+    public void TestEquals(){
+        Employee e1 = new Employee("Carly", 1234);
+        e1.setUnavailability(new GregorianCalendar(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        Employee e2 = new Employee("Carly", 1234);
+        e2.setUnavailability(new GregorianCalendar(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        assert(e1.equals(e2));
+    }
 
 
 }
