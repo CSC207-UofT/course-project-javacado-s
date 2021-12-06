@@ -37,7 +37,7 @@ public class EmployeeManagerReadWriter implements
                     int d = Integer.parseInt(line.substring(line.indexOf("(")+1,line.indexOf(")")));
                     GregorianCalendar date = new GregorianCalendar();
                     date.set(Calendar.YEAR, y);
-                    date.set(Calendar.MONTH, m);
+                    date.set(Calendar.MONTH, m-1);
                     date.set(Calendar.DAY_OF_MONTH, d);
                     dates.add(date);
                     rawDates = rawDates.substring(1);
