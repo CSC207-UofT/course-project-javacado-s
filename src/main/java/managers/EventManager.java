@@ -4,6 +4,7 @@ package managers;
 import events.Event;
 import exceptions.EventNotFoundException;
 import meals.MealSetter;
+import read_writers.EventManagerReadWriter;
 
 import java.io.*;
 import java.util.*;
@@ -23,23 +24,21 @@ public class EventManager {
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
     private final MealSetter setMeal = new MealSetter();
+    private final EventManagerReadWriter RW;
 
     /**
-     * Construct a new EventManager, with an empty eventList
+     * Construct a new EventManager.
      *
      */
-    @SuppressWarnings("unchecked")
     public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
-        ObjectInputStream in = new ObjectInputStream(input);
-        this.eventList = (ArrayList<Event>) in.readObject();
+        this.RW = new EventManagerReadWriter();
+        this.eventList = RW.read(input);
         this.idEventMap = new HashMap<>();
         for(Event e: eventList){
             idEventMap.put(e.getID(),e);
         }
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
-        in.close();
-        input.close();
     }
 
 
@@ -95,18 +94,7 @@ public class EventManager {
     }
 
     /**
-     * Return the event at the given index of eventList
-     *
-     * @param index     The index of the required event
-     * @return          Return the required event
-     */
-    public Event getEventByIndex(int index){
-        return this.eventList.get(index);
-    }
-
-
-    /**
-     * Return the event that has the given id. Throws exceptions.EventNotFoundException
+     * Return the event that has the given id. Throws exceptions.EventNotFoundError
      * if the event cannot be found
      *
      * @param id        The required event's id
@@ -243,12 +231,6 @@ public class EventManager {
     }
 
     /**
-     * Set the status of the event by id and given status.
-     * @param id        The id of the Event
-     * @param status    The new status of the Event
-     */
-
-    /**
      * Set the status of the event from "Created" to "Completed" or "Under Preparation" for all the events
      * in eventList.
      * @param current current time when the program run.
@@ -321,15 +303,6 @@ public class EventManager {
      * Serializes events_list to "_checkout.ser" file.
      */
     public void checkout(){
-        try {
-            FileOutputStream fileOut = new FileOutputStream("src/main/java/data_files/users/_checkout.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this.eventList);
-            out.close();
-            fileOut.close();
-        }
-        catch(IOException i){
-            i.printStackTrace();
-        }
+        RW.update(this.eventList);
     }
 }

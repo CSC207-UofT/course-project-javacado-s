@@ -40,8 +40,8 @@ public class Main {
                         FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
+                        system.updateEventStatus(current);
                     }
-                    system.updateEventStatus(current);
                 }
                 actionPrompt(input, system);
 
@@ -196,7 +196,8 @@ public class Main {
         System.out.println("\nPlease enter the date of your event (month/day, e.g. 10/24): ");
         String date = input.nextLine();
         String[] newDate = date.split("/");
-        GregorianCalendar eventDate = new GregorianCalendar(2021-1900, Integer.parseInt(newDate[0])-1, Integer.parseInt(newDate[1]));
+        GregorianCalendar eventDate = new GregorianCalendar(2021, Integer.parseInt(newDate[0])-1,
+                Integer.parseInt(newDate[1]));
 
         System.out.println("\nPlease enter the location of your event: ");
         String location = input.nextLine();

@@ -1,14 +1,11 @@
 package managers;
 
 import employees.Employee;
+import front_end.Tuple;
+import read_writers.EmployeeManagerReadWriter;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 
 import java.util.*;
 
@@ -19,6 +16,7 @@ Employee management faculties.
 public class EmployeeManager {
 
     private ArrayList<Employee> employee_list;
+    private final EmployeeManagerReadWriter RW;
 
     /**
      * Constructs an instance of EmployeeManager.
@@ -29,43 +27,17 @@ public class EmployeeManager {
      */
     public EmployeeManager(){
         this.employee_list = new ArrayList<>();
+        this.RW = new EmployeeManagerReadWriter();
 
-        String name;
-        int id;
-        File employees_path = new File("src/main/java/data_files/employees.txt");
-        try {
-            FileReader fr = new FileReader(employees_path);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                name = line.substring(line.indexOf(",") + 1, line.indexOf("|")).trim();
-                id = Integer.parseInt(line.substring(0, line.indexOf(",")).trim());
-                Employee e = new Employee(name, id);
-                String rawDates = line.substring(line.indexOf("|"));
-                // Date formatting: |{yyyy}[mm](dd)|
-                while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
-                    int y = Integer.parseInt(line.substring(line.indexOf("{"),line.indexOf("}")));
-                    int m = Integer.parseInt(line.substring(line.indexOf("["),line.indexOf("]")));
-                    int d = Integer.parseInt(line.substring(line.indexOf("("),line.indexOf(")")));
-                    GregorianCalendar date = new GregorianCalendar();
-                    date.set(Calendar.YEAR, y);
-                    date.set(Calendar.MONTH, m);
-                    date.set(Calendar.DAY_OF_MONTH, d);
-                    e.setUnavailability(date);
-                    rawDates = rawDates.substring(1).substring(line.indexOf("|"));
-                }
-                this.employee_list.add(e);
+        HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> employeeInfo = RW.read();
+
+        for (Integer id: employeeInfo.keySet()) {
+            Employee e = new Employee(employeeInfo.get(id).getFirst(), id);
+            for (GregorianCalendar date: employeeInfo.get(id).getSecond()) {
+                e.setUnavailability(date);
             }
-            br.close();
-            fr.close();
+            this.employee_list.add(e);
         }
-        catch(FileNotFoundException e){
-            System.out.println("employees.txt not found");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     /**
@@ -175,20 +147,7 @@ public class EmployeeManager {
      * Updates employees.txt.
      */
     public void update() throws IOException {
-        FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
-        BufferedWriter bw = new BufferedWriter(fw);
-        for(Employee e: employee_list){
-            //id, name|{yyyy}[mm](dd)|{yyyy}[mm](dd)|...|
-            String line = e.getid()  + ", " + e.getName() + "|";
-            for(GregorianCalendar d: e.getUnavailableDates()){
-                line = line.concat("{"+d.get(Calendar.YEAR)+"}");
-                line = line.concat("["+d.get(Calendar.MONTH)+"]");
-                line = line.concat("("+d.get(Calendar.DAY_OF_MONTH)+")");
-            }
-            bw.write(line);
-        }
-        bw.close();
-        fw.close();
+        RW.update(this.employee_list);
     }
 
     public ArrayList<Employee> chooseEmployees(int num, GregorianCalendar d){
