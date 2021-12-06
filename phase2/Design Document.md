@@ -136,12 +136,18 @@ employees and the saved User data, so those would be packaged into one folder as
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a
 user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
 example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
-want to create an event, the Main then calls on CateringSystem which eventually calls on CreateEventCommand, so that it
-creates an event. Similar examples can be found, like the CancelEventCommand. By indirectly calling these commands, the
-users can create a new event, or view, modify, or cancel an existing event. They are also able to log in and log out of
-our program. (We also anticipate adding more commands in Phase2.) Most of these requests require several steps in our
-program, so using this design pattern, we can turn these requests into single
-objects that contain information about all those steps.
+want to create an event, inputting information about the new event (e.g. event name, date, etc.). Main then calls on 
+CateringSystem's methods, passing along the information. CateringSystem eventually creates an CreateEventCommand object, 
+so that it stores all the information and classes (e.g. EventManager and EmployeeManager) necessary to create an event. 
+Finally, CateringSystem calls CreateEventCommand's execute() method, creating the new event. Within CreateEventCommand, 
+it calls on methods from EventManager and EmployeeManager to create that event. Similar examples can be found, like the 
+CancelEventCommand. By Main indirectly calling these commands through CateringSystem, the users can create a new event, 
+or view, modify, or cancel an existing event. Most of these requests require several steps in our program, so using this 
+design pattern, we can turn these requests into single objects that contain information about all those steps. In 
+addition, it has the benefit of extracting the implementation of these commands into their own classes, so that Main and 
+CateringSystem don't have to know about how these commands work. We also implemented the Command design pattern with 
+a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface cast 
+to a different type, allowing the return type of their execute() methods to be different.
 
 We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
@@ -151,7 +157,7 @@ ingredients. In the future we hope to determine meal prices based on ingredients
 using this design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
 
 ---
-##Accessibility Report
+## Accessibility Report
 **1. For each Principle of Universal Design, write 2-5 sentences or point form notes explaining which features your 
 program adhere to that principle. If you do not have any such features you can either: (a) Describe features that you 
 could implement in the future that would adhere to principle or (b) Explain why the principle does not apply to a 
@@ -165,10 +171,21 @@ those with visual impairments to use our program. Translation services would all
 are not fluent in English, to use our program with more ease.
 
 #### Principle 2: Flexibility in Use
+Our program adheres to this principle because takes in user input through the keyboard, so that it accommodates both 
+left- and right-handed users. In the future, we can implement a feature that allows users to change the size of text. 
+This way the user interface can adapt to each users’ specific needs. We can also implement a text-to-speech feature, so 
+that users have the option to read prompts and other textual information displayed on the screen, or to listen to them. 
+All of these features make the use of our program more flexible, accommodating a wider range of user preferences and 
+abilities.
+
 
 #### Principle 3: Simple and Intuitive Use
 
 #### Principle 4: Perceptible Information
+Currently, the fourth principle, perceptible information, can not be satisfied by our program. The only way that user can
+interact with the program is through a keyboard and reading prompts from the commandline. There are no visual or audio
+options. One feature we could implement in the future is to include audio, and visual information in our program by
+implementing a GUI and presenter in our program to allow users to choose how the information is presented to them.
 
 #### Principle 5: Tolerance for Error
 To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
@@ -222,10 +239,20 @@ that they made throughout the term:**
 **Rose:**
 
 **Karen:**
+Worked on handling invalid inputs in Main (e.g. when creating/modifying an event).
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/34/files - In this pull request, I started implementing 
+the Command design pattern by creating the ICommand interface and CreateEventCommand class. This demonstrates a 
+significant contribution to our team because it laid the foundation for how we were to incorporate this design pattern 
+into our program.
 
 **Zx:**
 
 **Maggie:**
+Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
+Update status feature so that event status are automatically updated each time the program is run: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48
+one testing file: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
 
 **Faith:**
 
