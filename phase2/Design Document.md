@@ -159,7 +159,7 @@ In the future we hope to determine meal prices based on ingredients, so implemen
 design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
 
 ---
-##Accessibility Report
+## Accessibility Report
 **1. For each Principle of Universal Design, write 2-5 sentences or point form notes explaining which features your 
 program adhere to that principle. If you do not have any such features you can either: (a) Describe features that you 
 could implement in the future that would adhere to principle or (b) Explain why the principle does not apply to a 
