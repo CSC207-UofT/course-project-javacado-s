@@ -151,10 +151,13 @@ We ultimately decided to package our code by component, since we noticed that ou
 categories. We have three Manager classes that would be packaged into a "Manager" folder, several Commands that would
 go in a "Commands" folder, etc. At this point we had also considered packaging by layer, but Meal and Employee each
 have several subclasses (and associated interfaces), and we expect to possibly extend our other entity classes User
-and Event to have more subclasses as well. In this case, packaging by layer would result in too many classes in our
+and Event to have more subclasses as well. In this case, packaging by layer would result in a lot of classes in our
 Entity folder, so we felt that it would be more suitable to package subclasses together with their parent class. (i.e. 
-Breakfast, Lunch, Dinner, and Meal would go in a "Meals" folder). We also have several data files, such as our list of
-employees and the saved User data, so those would be packaged into one folder as well.
+Breakfast, Lunch, Dinner, and Meal would go in a "Meals" folder). This would improve readability since there's less to 
+look at per package. In addition, packaging by component separates the different categories of entities and so higher 
+level classes don't have to access entities they're not dependent on. For example, MealSetter only needs to import the 
+"Meals" folder and this better illustrates the relationship between classes. We also have several data files, such as 
+our list of employees and the saved User data, so those would be packaged into one folder as well.
 
 ---
 ## Design Patterns
