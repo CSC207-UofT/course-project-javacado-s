@@ -177,7 +177,12 @@ abilities.
 
 
 #### Principle 3: Simple and Intuitive Use
-
+Our program provides simple prompts for actions from the user. We provide them with a list of actions, and to perform
+an action, the user enters the number associated with the action. To avoid confusion, we prompt the user for each piece 
+of information needed to perform an action. For instance, when creating an event, we prompt for each detail separately 
+(e.g name, date, number of attendees, etc.). When an error occurs we tell our user which input is invalid. This adheres 
+to the principle of simple and intuitive design. A young child would be able to use our program without any 
+issues.
 #### Principle 4: Perceptible Information
 Currently, the fourth principle, perceptible information, can not be satisfied by our program. The only way that user can
 interact with the program is through a keyboard and reading prompts from the commandline. There are no visual or audio
@@ -237,7 +242,14 @@ the Command design pattern by creating the ICommand interface and CreateEventCom
 significant contribution to our team because it laid the foundation for how we were to incorporate this design pattern 
 into our program.
 
-**Zx:**
+**Zi Xuan:**
+Handled assigning and reassigning specific Employees to Events. Updated EmployeeManager to properly handle Employee 
+unavailability. Created Exceptions to provide more specific try-catch scenarios. Slight refactoring. 
+
+Significant pull requests:\
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with 
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
+Implemented the user "branch" of our catering system.
 
 **Maggie:**
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
