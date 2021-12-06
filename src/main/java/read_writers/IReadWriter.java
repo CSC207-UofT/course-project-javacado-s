@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * Interface for ReadWriter classes.
  */
 
-public interface IReadWriter<T1, T2, T3> {
-    T1 read(T2 input) throws IOException, ClassNotFoundException;
-    void update(T3 input) throws IOException;
+public interface IReadWriter<T> {
+    void update(T input) throws IOException;
 }

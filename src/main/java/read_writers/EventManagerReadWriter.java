@@ -10,7 +10,7 @@ import java.util.Arrays;
  * This class performs text/database parsing and updating to be used in class EventManager.
  */
 
-public class EventManagerReadWriter implements IReadWriter<ArrayList<Event>, FileInputStream, ArrayList<Event>> {
+public class EventManagerReadWriter implements IEventReadWriter<ArrayList<Event>, FileInputStream, ArrayList<Event>> {
 
     /**
      * Reads a file of serialized events and returns a list of events.

@@ -29,8 +29,7 @@ public class EmployeeManager {
         this.employee_list = new ArrayList<>();
         this.RW = new EmployeeManagerReadWriter();
 
-        File employees_path = new File("src/main/java/data_files/employees.txt");
-        HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> employeeInfo = RW.read(employees_path);
+        HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> employeeInfo = RW.read();
 
         for (Integer id: employeeInfo.keySet()) {
             Employee e = new Employee(employeeInfo.get(id).getFirst(), id);
@@ -39,45 +38,6 @@ public class EmployeeManager {
             }
             this.employee_list.add(e);
         }
-
-        /*
-        String name;
-        int id;
-        try {
-            FileReader fr = new FileReader(employees_path);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                name = line.substring(line.indexOf(",") + 1, line.indexOf("|")).trim();
-                id = Integer.parseInt(line.substring(0, line.indexOf(",")).trim());
-                Employee e = new Employee(name, id);
-                String rawDates = line.substring(line.indexOf("|"));
-                // Date formatting: |{yyyy}[mm](dd)|
-                while(rawDates.indexOf("|")==rawDates.lastIndexOf("|")){
-                    int y = Integer.parseInt(line.substring(line.indexOf("{"),line.indexOf("}")));
-                    int m = Integer.parseInt(line.substring(line.indexOf("["),line.indexOf("]")));
-                    int d = Integer.parseInt(line.substring(line.indexOf("("),line.indexOf(")")));
-                    GregorianCalendar date = new GregorianCalendar();
-                    date.set(Calendar.YEAR, y);
-                    date.set(Calendar.MONTH, m);
-                    date.set(Calendar.DAY_OF_MONTH, d);
-                    e.setUnavailability(date);
-                    rawDates = rawDates.substring(1).substring(line.indexOf("|"));
-                }
-                this.employee_list.add(e);
-            }
-            br.close();
-            fr.close();
-        }
-        catch(FileNotFoundException e){
-            System.out.println("employees.txt not found");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
-
     }
 
     /**

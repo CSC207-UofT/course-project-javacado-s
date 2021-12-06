@@ -53,7 +53,9 @@ newly constructed the EventManager who will deserialize the events and store the
 information is "loaded", the functionality of our program is very similar to that in Phase 0 but specific to a user 
 (and with more user commands).
 
-### Using unique IDs for entity classes
+<br/>
+
+### Using Unique IDs for Entity Classes
 In classes Event, Employee, and User, we have unique IDs (in the case of User, it's a username) to identify different
 instances of our entity classes. We decided to use these to minimize coupling within our program.
 
@@ -69,35 +71,54 @@ need to access information of an employee for a certain event, the employee ID c
 get the needed information, rather than directly calling methods from an Employee object (which would not be consistent
 with clean architecture).
 
+<br/>
+
+### Creating Gateway Classes to Read and Update Serialized and Text Files
+Many of the methods in our manager classes involved reading, parsing, and writing to various files. For example, 
+EventManager needed to deserialize an ArrayList of Events from a .ser file, and must be able to serialize the event list
+of a user when they log out. EmployeeManager needed to read in and create employees from a .txt file, and must update 
+that file given changes in their availabilities. UserManager must read from a .txt file to determine a user's password
+and let them log in, and must also update their serialized events with information from EventManager. To ensure we
+adhere to clean architecture, we decided to create gateway classes to perform these tasks that deal with external
+information. 
+
+Since each manager class has their own implementation of reading and updating files, we decided to create a gateway 
+class for each manager class. In order to abide by the dependency inversion principle, we created a common interface
+IReadWriter that the gateway classes would implement and the manager classes would depend on.
+
 ---
 ## Clean Architecture
 Throughout our entire working process, we have made sure that our project adheres to Clean Architecture. When we first
 designed our CRC model, and in this phase where we extended our program to include a login system, we determined which
 classes to create according to the different layers of clean architecture. We began with determining our **entity 
 classes**, such as User, Meal, Event, and Employee (along with their respective subclasses). We ensured that these
-classes only store information about the objects, and created **use case classes** to manipulate them: UserManager,
-EventManager, and EmployeeManager. We then have a **controller class**, CateringSystem, to execute commands from the
-user and communicate between the different Manager classes. This helped us adhere to the **dependency rule** and only
-allow for dependence on an adjacent layer, from outer to inner. We then have our **user interface class** to actually
-interact with the user and handle both the input and output of information, without affecting any of our classes in 
-the inner layers.
+classes only store information about the objects, and created **use case classes** to manipulate them: UserManager
+manipulated User, EventManager manipulates Event, and EmployeeManager manipulates Employee. Since all these Manager
+classes need to read information from files and write to them, we have **gateway classes** EventManagerReadWriter
+(for EventManager), EmployeeManagerReadWriter (for EmployeeManager), and UserManagerReadWriter (for UserManager)
+to do these tasks. We then have a **controller class**, CateringSystem, to execute commands from the user and 
+communicate between the different Manager classes. This helped us adhere to the **dependency rule** and only allow for
+dependence on an adjacent layer, from outer to inner. We also created an interface for our gateway classes that our
+use case classes could depend on to adhere to the dependency rule, as gateways are on a more outer layer compared to
+use cases. We then have our **user interface class** to actually interact with the user and handle both the input 
+and output of information, without affecting any of our classes in the inner layers.
 
 ---
 ## SOLID Design Principles
 #### Single Responsibility Principle
 We've ensured that each of our classes only have one responsibility. Our entity
 classes only store, set, and get information for the object they represent. Our use case classes are only responsible
-for manipulating _one_ entity class (and their respective subclasses). Our controller class delegates tasks to our use
-case classes. And our user interface class only interacts with the user, inputting and outputting information, while
-it passes on the execution of user commands to the controller class. In other words, all our classes each only have one
-reason to change.
+for manipulating _one_ entity class (and their respective subclasses). Each gateway class is responsible for acting
+as a gateway for one manager class. Our controller class delegates tasks to our use case classes. And our user 
+interface class only interacts with the user, inputting and outputting information, while it passes on the execution 
+of user commands to the controller class. In other words, all our classes each only have one reason to change.
 
 
 #### Open/Closed Principle
 Our entity classes are open for extension but closed for modification. For example, in Phase
 1 we wanted to add new features to our Meal and Employee classes for more complexity in our program. Instead of
 directly modifying the classes, we created subclasses for Meal to allow for different prices and employee to attendee
-ratios. We also created subclasses for Employee so we have different types of employees required per event, as well as
+ratios. We also created subclasses for Employee, so we have different types of employees required per event, as well as
 different employee wages.
 
 
@@ -119,6 +140,10 @@ Currently, any of our Manager (use case) classes will work with any class that i
 subclass of the entity class that that Manager manipulates. Thus, our Manager classes do not depend on specific
 behaviour of an entity class and if we wanted to introduce a new subclass of Event, for example, we'd be able to include
 it without rewriting code in our EventManager class.
+
+Also, we initially had an issue where our manager classes depended on their respective gateway classes, an outer layer, 
+but we made an interface IReadWriter. Then, the manager classes could depend on this interface, and the gateway classes
+would implement that interface.
 
 ---
 ## Packaging Strategy
@@ -159,9 +184,9 @@ using this design pattern seems suitable. Additionally, it would make extending 
 ---
 ## Accessibility Report
 **1. For each Principle of Universal Design, write 2-5 sentences or point form notes explaining which features your 
-program adhere to that principle. If you do not have any such features you can either: (a) Describe features that you 
-could implement in the future that would adhere to principle or (b) Explain why the principle does not apply to a 
-program like yours.**
+program adhere to that principle. If you do not have any such features you can either:** 
+* Describe features that you could implement in the future that would adhere to principle; or
+* Explain why the principle does not apply to a program like yours.
 
 #### Principle 1: Equitable Use
 Currently, our program does not have many features that adhere to this principle as we have a very simple, text-based
@@ -177,7 +202,6 @@ This way the user interface can adapt to each users’ specific needs. We can al
 that users have the option to read prompts and other textual information displayed on the screen, or to listen to them. 
 All of these features make the use of our program more flexible, accommodating a wider range of user preferences and 
 abilities.
-
 
 #### Principle 3: Simple and Intuitive Use
 
@@ -196,7 +220,6 @@ isolated from the main page, for example at the bottom of the screen or having i
 Once again, this would prevent accidental commands and actions that may lead to the user unintentionally exiting
 the program.
 
-
 #### Principle 6: Low Physical Effort
 Our current design only involves text-base UI, which may require some effort when typing commands into the program, 
 however, our program do not need much of that effort; only a little would be enough to do the job. We might consider
@@ -205,6 +228,7 @@ the buttons.
 
 #### Principle 7: Size and Space for Approach and Use
 
+<br/>
 
 **2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
 customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
@@ -218,6 +242,7 @@ rather than it just being a one-time thing. Additionally, since we are a caterin
 marketing to those who would host large events as it would be more profitable for us. (Profits of our catering system
 are not reflected in our code at this stage, but this is the general case with catering companies.)
 
+<br/>
 
 **3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
 example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 

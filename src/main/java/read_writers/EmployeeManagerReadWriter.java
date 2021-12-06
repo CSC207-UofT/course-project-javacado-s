@@ -14,10 +14,19 @@ import java.util.HashMap;
  */
 
 public class EmployeeManagerReadWriter implements
-        IReadWriter<HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>>, File, ArrayList<Employee>>{
+        IEmployeeReadWriter<HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>>, ArrayList<Employee>>{
 
+    public HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> read(File input) {
+        return new HashMap<>();
+    }
+
+    /**
+     * Read the employees.txt file and parse contents for EmployeeManager to initialize employees.
+     * @return Hashmap containing information on an employee's id, name, and unavailable dates
+     */
     @Override
-    public HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> read(File employeesFile) {
+    public HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> read() {
+        File employeesFile = new File("src/main/java/data_files/employees.txt");
         try {
             FileReader fr = new FileReader(employeesFile);
             BufferedReader br = new BufferedReader(fr);

@@ -30,7 +30,6 @@ public class EventManager {
      * Construct a new EventManager.
      *
      */
-    @SuppressWarnings("unchecked")
     public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
         this.RW = new EventManagerReadWriter();
         this.eventList = RW.read(input);
@@ -40,7 +39,6 @@ public class EventManager {
         }
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
-        this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
     }
 
 
@@ -231,12 +229,6 @@ public class EventManager {
     public Event getCancelledEvent(int id){
         return this.cancelledEvent.get(id);
     }
-
-    /**
-     * Set the status of the event by id and given status.
-     * @param id        The id of the Event
-     * @param status    The new status of the Event
-     */
 
     /**
      * Set the status of the event from "Created" to "Completed" or "Under Preparation" for all the events
