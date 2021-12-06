@@ -133,6 +133,7 @@ employees and the saved User data, so those would be packaged into one folder as
 
 ---
 ## Design Patterns
+### Command Design pattern
 We used the Command design pattern in our code to have our program more efficiently execute the various commands a
 user can input into our command line. And, for convenience, we placed all the commands in the Command package. For
 example, there is the CreateEventCommand which is used by the CateringSystem. The user interacts with the Main as they
@@ -149,10 +150,12 @@ CateringSystem don't have to know about how these commands work. We also impleme
 a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface cast 
 to a different type, allowing the return type of their execute() methods to be different.
 
+### Factory Design pattern
 We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
 EventManager).
 
+### Composite Deign Pattern
 We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
 subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
 In the future we hope to determine meal prices based on ingredients, so implementing this tree structure using this
@@ -201,7 +204,12 @@ adding a GUI to the program, so that the user do not have to input command by ty
 the buttons.
 
 #### Principle 7: Size and Space for Approach and Use
-
+Unfortunately, most part of this principle cannot be adhered by our program, since most of this principle applied more 
+to hardware than software side, and since our program so far only provide a simple UI form (text-UI); 
+However, In the future program expansions, it is possible to provide some forms of the features, such as integrated 
+together with the Principle 2, like to crate High contrast mode so that our text-UI is easier to see when viewing the 
+screen from different positions, and also adjust the level of detailed information on screen so that it does not 
+require the User to have to look closer to the screen.
 
 **2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
 customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
@@ -225,7 +233,7 @@ a program that keeps track of many employees.
 ---
 ## Progress Report
 
-**We have provided a summary of what each group member worked on, as well as one (or two) significant pull request(s)
+**We have provided a summary of what each group member worked on during the Phases 2, as well as one (or two) significant pull request(s)
 that they made throughout the term:**
 
 **Rose:**
@@ -252,3 +260,14 @@ https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c
 Worked on the design document a bit, improved the MealSetter.
 
 **Zhengdong:**
+During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
+so that it follows more on the Composite Design pattern, move some roles originally in the Meal class to its Subclasses.
+
+one significant Pull Requests:
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/46/files
+In this Pull request, I implement the basic framework of the Composite Design Pattern in my Meal Classes, 
+by creating 3 direct subclasses (Breakfast, Lunch and Dinner), a "lowest common denominator" interface Ingredient,
+A primitive Dish class.
+Doing so we have successfully implement one of the design pattern (develop from 0 to 1) inside one of the key part of 
+our catering system, since we need meals to be served in the Event and this design pattern help us consider 
+individual Ingredients/MealTypes/Dishes and General Meal (Composition) uniformly.
