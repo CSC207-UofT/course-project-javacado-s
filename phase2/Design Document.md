@@ -158,10 +158,10 @@ program like yours.**
 
 #### Principle 3: Simple and Intuitive Use
 Our program provides simple prompts for actions from the user. We provide them with a list of actions, and to perform
-an action, the user enters the number associated with the action. To avoid confusion, we prompt the
-user for each piece of information needed to perform an action. For instance, when creating an event, we prompt for each
-detail separately (name, date, number of attendees, etc.). When an error occurs we tell our user which input is invalid.
-This adheres to the principle of simple and intuitive design. A young child would be able to use our program without any 
+an action, the user enters the number associated with the action. To avoid confusion, we prompt the user for each piece 
+of information needed to perform an action. For instance, when creating an event, we prompt for each detail separately 
+(e.g name, date, number of attendees, etc.). When an error occurs we tell our user which input is invalid. This adheres 
+to the principle of simple and intuitive design. A young child would be able to use our program without any 
 issues.
 #### Principle 4: Perceptible Information
 
