@@ -316,7 +316,12 @@ https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c
 Integrated Employee subtypes in the code -- modified meal class and its subclasses(Breakfast, Lunch, Dinner), event class, and meal tests, to include different types of Employees (Chef, Supervisor, Server, Cleaner) (https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Implemented employee subclasses in EmployeeManager for initialization(https://github.com/CSC207-UofT/course-project-javacado-s/pull/92)
 
 ###Yifang
-Worked on the design document a bit, improved the MealSetter.
+Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
+to creating new users.
+
+Significant pull requests: \
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/67/files \
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/86/files
 
 ###Zhengdong
 During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
