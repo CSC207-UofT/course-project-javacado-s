@@ -1,6 +1,6 @@
 package managers;
 
-import employees.Employee;
+import employees.*;
 import front_end.Tuple;
 import read_writers.EmployeeManagerReadWriter;
 
@@ -29,13 +29,27 @@ public class EmployeeManager {
         this.employee_list = new ArrayList<>();
         this.RW = new EmployeeManagerReadWriter();
 
-        HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> employeeInfo = RW.read();
 
+        HashMap<Integer, Tuple<String, ArrayList<GregorianCalendar>>> employeeInfo = RW.read();
+        Employee e;
         for (Integer id: employeeInfo.keySet()) {
-            Employee e = new Employee(employeeInfo.get(id).getFirst(), id);
+            if (id % 4 == 0){
+                e = new Chef(employeeInfo.get(id).getFirst(), id);
+            }
+            else if(id % 4 == 1){
+                e = new Cleaner(employeeInfo.get(id).getFirst(), id);
+            }
+            else if (id % 4 == 2){
+                e = new Server(employeeInfo.get(id).getFirst(), id);
+            }
+            else {
+                e = new Supervisor(employeeInfo.get(id).getFirst(), id);
+            }
+
             for (GregorianCalendar date: employeeInfo.get(id).getSecond()) {
                 e.setUnavailability(date);
             }
+
             this.employee_list.add(e);
         }
     }
