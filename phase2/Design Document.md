@@ -324,7 +324,7 @@ event class, and meal tests, to include different types of Employees (Chef, Supe
 EmployeeManager for initialization. This demonstrates a significant contribution to the team as it added complexity to the design of our program, 
 specifically on the employee side, by extending one of its core entity classes. 
 
-###Yifang
+### Yifang
 Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
 to creating new users.
 
