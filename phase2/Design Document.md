@@ -146,8 +146,8 @@ or view, modify, or cancel an existing event. Most of these requests require sev
 design pattern, we can turn these requests into single objects that contain information about all those steps. In 
 addition, it has the benefit of extracting the implementation of these commands into their own classes, so that Main and 
 CateringSystem don't have to know about how these commands work. We also implemented the Command design pattern with 
-a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface  
-cast to a different type, allowing the return type of their execute() methods to be different.
+a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface cast 
+to a different type, allowing the return type of their execute() methods to be different.
 
 We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
