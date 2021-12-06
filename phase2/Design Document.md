@@ -324,8 +324,14 @@ event class, and meal tests, to include different types of Employees (Chef, Supe
 EmployeeManager for initialization. This demonstrates a significant contribution to the team as it added complexity to the design of our program, 
 specifically on the employee side, by extending one of its core entity classes. 
 
-### Yifang
-Worked on the design document a bit, improved the MealSetter.
+###Yifang
+Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
+to creating new users.
+
+Significant pull requests:\
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/67/files \
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/86/files
+
 
 ### Zhengdong
 During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
