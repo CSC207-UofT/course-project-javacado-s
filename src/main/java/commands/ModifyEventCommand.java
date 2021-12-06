@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 import meals.Meal;
@@ -15,7 +16,7 @@ public class ModifyEventCommand implements ICommand<String>{
     private final EmployeeManager EMPLOYEE_MANAGER;
 
     /**
-     * Contructor for CancelEventCommand
+     * Constructor for CancelEventCommand
      * @param eventManager Event manager that'll modify the event
      * @param id ID of event to modify
      */
@@ -34,8 +35,6 @@ public class ModifyEventCommand implements ICommand<String>{
      */
     @Override
     public String execute() {
-        boolean result = true;
-
         switch (ACTION) {
             case "1": {
                 System.out.println("\nPlease enter the new name of your event: ");
@@ -53,8 +52,8 @@ public class ModifyEventCommand implements ICommand<String>{
                 System.out.println("\nPlease enter the new number of attendees for your event: ");
                 String str_numAttendees = INPUT.nextLine();
                 int numAttendees = Integer.parseInt(str_numAttendees);
-                if(result = EMPLOYEE_MANAGER.enoughEmployees(numAttendees, EVENT_MANAGER.getEventDate(ID)))
-                {
+                boolean result = EMPLOYEE_MANAGER.enoughEmployees(numAttendees, EVENT_MANAGER.getEventDate(ID));
+                if(result) {
                     EMPLOYEE_MANAGER.setAvailable(EVENT_MANAGER.getEventByID(ID).getEmployees(),
                             EVENT_MANAGER.getEventDate(ID));
                     EVENT_MANAGER.setEventNumAttendees(ID, numAttendees);
@@ -62,20 +61,22 @@ public class ModifyEventCommand implements ICommand<String>{
                             EMPLOYEE_MANAGER.chooseEmployees(EVENT_MANAGER.getEmployeesNeeded(ID), EVENT_MANAGER.getEventDate(ID)),
                             EVENT_MANAGER.getEventDate(ID));
                 }
+                else {
+                    return "Sorry, we could not change the number of attendees. Please try again at a later time.";
+                }
                 break;
             }
             case "4": {
                 System.out.println("\nAre we now catering for breakfast, lunch, or dinner?: ");
                 String mealType = INPUT.nextLine();
-                EVENT_MANAGER.setEventMeal(ID, mealType);
+                try {
+                    EVENT_MANAGER.setEventMeal(ID, mealType);
+                } catch (MealNotFoundException e) {
+                    return "Sorry, the given meal type does not exist. Please try again.";
+                }
                 break;
             }
         }
-        if (result) {
-            return EVENT_MANAGER.getEventByID(ID).toString();
-        }
-        else {
-            return "Sorry, we could not change the number of attendees. Please try again at a later time.";
-        }
+        return EVENT_MANAGER.getEventByID(ID).toString();
     }
 }

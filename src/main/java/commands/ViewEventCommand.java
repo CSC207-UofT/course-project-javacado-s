@@ -12,7 +12,7 @@ public class ViewEventCommand implements ICommand<String>{
     private final EventManager EVENT_MANAGER;
 
     /**
-     * Contructor for ViewEventCommand
+     * Constructor for ViewEventCommand
      *
      * @param eventManager Event manager that will get info on the event
      * @param id           ID of event to view

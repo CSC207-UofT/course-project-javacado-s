@@ -1,8 +1,8 @@
 package managers;
 
-//import commands.CreateMealCommand;
 import events.Event;
 import exceptions.EventNotFoundException;
+import exceptions.MealNotFoundException;
 import meals.MealSetter;
 import read_writers.EventManagerReadWriter;
 
@@ -54,7 +54,7 @@ public class EventManager {
      */
 
     public int createEvent(String name, GregorianCalendar date, String location,
-                          int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         Event newEvent = new Event(this.newId, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
@@ -79,7 +79,7 @@ public class EventManager {
      * @return                  Return the created Event
      */
     public int createEvent(int id, String name, GregorianCalendar date, String location,
-                           int numAttendees, String selectedMeal){
+                           int numAttendees, String selectedMeal) throws MealNotFoundException {
         Event newEvent = new Event(id, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
