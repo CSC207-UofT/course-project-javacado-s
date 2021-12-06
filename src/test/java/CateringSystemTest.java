@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CateringSystemTest {
     CateringSystem c;
@@ -46,7 +46,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testCreateEvent(){
+    public void testCreateEvent() {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
         ArrayList<Event> Events = new ArrayList<>();
@@ -67,7 +67,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventName() throws EventNotFoundException {
+    public void testModifyEventName() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "Reunion";
@@ -77,7 +77,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventLocation() throws EventNotFoundException {
+    public void testModifyEventLocation() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "MY";
@@ -87,7 +87,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventAttendees() throws EventNotFoundException {
+    public void testModifyEventAttendees() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "45";
@@ -98,7 +98,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testModifyEventMeal() throws EventNotFoundException {
+    public void testModifyEventMeal() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
                 "BA", 25, "dinner");
         String input = "lunch";
@@ -108,7 +108,7 @@ public class CateringSystemTest {
     }
 
     @Test
-    public void testViewEvent(){
+    public void testViewEvent() {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 30, "dinner");
         Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
