@@ -40,8 +40,8 @@ public class Main {
                         FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
+                        system.updateEventStatus(current);
                     }
-                    system.updateEventStatus(current);
                 }
                 actionPrompt(input, system);
 
