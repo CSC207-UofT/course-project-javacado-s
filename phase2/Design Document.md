@@ -179,6 +179,10 @@ abilities.
 #### Principle 3: Simple and Intuitive Use
 
 #### Principle 4: Perceptible Information
+Currently, the fourth principle, perceptible information, can not be satisfied by our program. The only way that user can
+interact with the program is through a keyboard and reading prompts from the commandline. There are no visual or audio
+options. One feature we could implement in the future is to include audio, and visual information in our program by
+implementing a GUI and presenter in our program to allow users to choose how the information is presented to them.
 
 #### Principle 5: Tolerance for Error
 To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
@@ -236,6 +240,11 @@ into our program.
 **Zx:**
 
 **Maggie:**
+Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
+Update status feature so that event status are automatically updated each time the program is run: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48
+one testing file: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
 
 **Faith:**
 

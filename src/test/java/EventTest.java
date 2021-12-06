@@ -50,20 +50,20 @@ public class EventTest {
 
     @Test
     public void getEmployees() {
-        assertEquals(new ArrayList<String>(), event.getEmployees());
+        assertEquals(new ArrayList<Integer>(), event.getEmployees());
     }
 
     @Test
     public void setEmployees() {
-        ArrayList<String> employees = new ArrayList<>();
-        employees.add("A");
-        employees.add("B");
-        employees.add("C");
+        ArrayList<Integer> employees = new ArrayList<>();
+        employees.add(12);
+        employees.add(23);
+        employees.add(11);
         event.setEmployees(employees);
-        ArrayList<String> expected = new ArrayList<>();
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(12);
+        expected.add(23);
+        expected.add(11);
         assertEquals(expected, event.getEmployees());
     }
 
@@ -74,7 +74,7 @@ public class EventTest {
 
     @Test
     public void getEmployeesNeeded() {
-        assertEquals(18, event.getEmployeesNeeded());
+        assertEquals(72, event.getEmployeesNeeded());
     }
 
     @Test
@@ -116,8 +116,8 @@ public class EventTest {
 
     @Test
     public void setStatus() {
-        event.setStatus("Cancelled");
-        assertEquals("Cancelled", event.getStatus());
+        event.setStatus("Created");
+        assertEquals("Created", event.getStatus());
     }
 
     @Test
