@@ -328,7 +328,7 @@ specifically on the employee side, by extending one of its core entity classes.
 Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
 to creating new users.
 
-Significant pull requests:\
+Significant pull requests: \
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/67/files \
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/86/files
 
