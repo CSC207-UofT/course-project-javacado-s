@@ -250,7 +250,7 @@ public class EventManagerTest {
         assert (em.getCancelledEvent(108).equals(eventA));
     }
     @Test
-    public void testUpdateEventStatus(){
+    public void testUpdateEventStatus() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
