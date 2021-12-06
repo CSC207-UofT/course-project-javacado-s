@@ -3,10 +3,13 @@ package front_end;
 Command line interface that takes in user input
  */
 
+import exceptions.InvalidPasswordException;
+import exceptions.UserNotFoundException;
 import managers.*;
 import users.User;
 
 import java.io.FileInputStream;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -21,6 +24,8 @@ public class Main {
         boolean loggedIn = false;
         String logout = "";
         String exit = "";
+        GregorianCalendar current = (GregorianCalendar) Calendar.getInstance();
+
 
         System.out.println("********************************************" +
                 "********************************************");
@@ -36,6 +41,7 @@ public class Main {
                         FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
+                        system.updateEventStatus(current);
                     }
                 }
                 actionPrompt(input, system);
@@ -86,7 +92,7 @@ public class Main {
                     tuple = new Tuple<>(user, true);
                 }
                 catch (Exception e) {
-                    System.out.println("\nSorry, login failed. Please try again.");
+                    System.out.println(e.getMessage());
                     tuple = new Tuple<>(null, false);
                 }
                 return tuple;
@@ -205,7 +211,7 @@ public class Main {
         String date = input.nextLine();
         try {
             String[] newDate = date.split("/");
-            GregorianCalendar eventDate = new GregorianCalendar(2021, Integer.parseInt(newDate[0]) - 1,
+            GregorianCalendar eventDate = new GregorianCalendar(2021, Integer.parseInt(newDate[0])-1,
                     Integer.parseInt(newDate[1]));
 
             System.out.println("\nPlease enter the location of your event: ");

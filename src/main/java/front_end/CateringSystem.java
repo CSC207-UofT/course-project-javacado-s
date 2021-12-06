@@ -53,7 +53,7 @@ public class CateringSystem {
      * @return a String message telling user if cancellation was successful
      */
     public String cancelEvent(int id) {
-        CancelEventCommand cmd = new CancelEventCommand(eventManager, id);
+        CancelEventCommand cmd = new CancelEventCommand(eventManager, employeeManager, id);
         return cmd.execute();
     }
 
@@ -87,6 +87,14 @@ public class CateringSystem {
      */
     public boolean eventIDExists(int id) {
         return eventManager.getEventByID(id) != null;
+    }
+  
+    /**
+     * Update event status for all events in the eventManager when the programs.
+     * @param current current time when the program runs.
+     */
+    public void updateEventStatus(GregorianCalendar current){
+        eventManager.updateEventStatus(current);
     }
 
     /* EXTREMELY BAND-AID FIX; CHANGE LATER */

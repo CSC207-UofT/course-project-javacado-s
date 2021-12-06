@@ -1,4 +1,5 @@
 import events.Event;
+import exceptions.EventNotFoundException;
 import front_end.CateringSystem;
 import managers.EmployeeManager;
 import managers.EventManager;
@@ -118,4 +119,13 @@ public class CateringSystemTest {
                 test_event.getPrice() + "\r\nThe current event status is: "+ test_event.getStatus();
         assertEquals(expected, c.viewEvent(0));
     }
+
+    @Test
+    public void testUpdateEventStatus(){
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                30, "dinner");
+        c.updateEventStatus(new GregorianCalendar(2021, Calendar.OCTOBER, 29));
+        assert(EventM.getEventByID(0).getStatus().equals("Completed"));
+    }
+
 }

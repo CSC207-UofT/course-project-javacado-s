@@ -1,10 +1,10 @@
 package managers;
 
-//import commands.CreateMealCommand;
 import events.Event;
-import exceptions.EventNotFoundError;
+import exceptions.EventNotFoundException;
 import exceptions.MealNotFoundException;
-import meals.*;
+import meals.MealSetter;
+import read_writers.EventManagerReadWriter;
 
 import java.io.*;
 import java.util.*;
@@ -23,25 +23,22 @@ public class EventManager {
     private HashMap<Integer, Event> idEventMap;
     private HashMap<Integer, Event> cancelledEvent;
     private int newId;
-    private final EventNotFoundError eventNotFoundError;
+    private final MealSetter setMeal = new MealSetter();
+    private final EventManagerReadWriter RW;
 
     /**
-     * Construct a new EventManager, with an empty eventList
+     * Construct a new EventManager.
      *
      */
-    @SuppressWarnings("unchecked")
     public EventManager(FileInputStream input) throws IOException, ClassNotFoundException {
-        ObjectInputStream in = new ObjectInputStream(input);
-        this.eventList = (ArrayList<Event>) in.readObject();
+        this.RW = new EventManagerReadWriter();
+        this.eventList = RW.read(input);
         this.idEventMap = new HashMap<>();
         for(Event e: eventList){
             idEventMap.put(e.getID(),e);
         }
         this.cancelledEvent = new HashMap<>();
         this.newId = 0;
-        this.eventNotFoundError = new EventNotFoundError("The required event cannot be found");
-        in.close();
-        input.close();
     }
 
 
@@ -55,11 +52,11 @@ public class EventManager {
      * @param selectedMeal      The selected meal type
      * @return                  Return the created Event
      */
+
     public int createEvent(String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal) throws MealNotFoundException {
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(this.newId, name, date, location, numAttendees, newMeal);
+        Event newEvent = new Event(this.newId, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(this.newId, newEvent);
         this.newId = this.newId + 1;
@@ -80,9 +77,8 @@ public class EventManager {
      */
     public int createEvent(int id, String name, GregorianCalendar date, String location,
                            int numAttendees, String selectedMeal) throws MealNotFoundException {
-        MealSetter setMeal = new MealSetter(selectedMeal);
-        Meal newMeal = setMeal.getMeal();
-        Event newEvent = new Event(id, name, date, location, numAttendees, newMeal);
+        Event newEvent = new Event(id, name, date, location,
+                numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
         this.idEventMap.put(id, newEvent);
         return id;
@@ -98,27 +94,16 @@ public class EventManager {
     }
 
     /**
-     * Return the event at the given index of eventList
-     *
-     * @param index     The index of the required event
-     * @return          Return the required event
-     */
-    public Event getEventByIndex(int index){
-        return this.eventList.get(index);
-    }
-
-
-    /**
      * Return the event that has the given id. Throws exceptions.EventNotFoundError
      * if the event cannot be found
      *
      * @param id        The required event's id
      * @return          Return the required event
      */
-    public Event getEventByIDWithException(int id) throws EventNotFoundError {
+    public Event getEventByIDWithException(int id) throws EventNotFoundException {
         Event result = this.idEventMap.get(id);
         if (result == null){
-            throw new EventNotFoundError("The event with the given id is not found");
+            throw new EventNotFoundException("The event with the given id is not found");
         }
         return result;
     }
@@ -126,7 +111,7 @@ public class EventManager {
     public Event getEventByID(int id){
         try {
             return getEventByIDWithException(id);
-        } catch (EventNotFoundError notFoundError) {
+        } catch (EventNotFoundException e) {
             return null;
         }
     }
@@ -164,14 +149,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event name
      *      *                  not found." if there is not such event
      */
-    public Event getEventByName(String name) throws EventNotFoundError{
+    public Event getEventByName(String name) throws EventNotFoundException {
         for (Event e : this.eventList) {
             if (e.getName().equals(name)) {
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + name + " not found");
+        throw new EventNotFoundException("Event name " + name + " not found");
     }
 
     /**
@@ -181,14 +166,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event date
      *                  not found." if there is not such event
      */
-    public Object getEventByDate(GregorianCalendar time) throws EventNotFoundError {
+    public Event getEventByDate(GregorianCalendar time) throws EventNotFoundException {
         for (Event e : this.eventList){
             if (e.getDate().equals(time)){
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + time + " not found");
+        throw new EventNotFoundException("Event name " + time + " not found");
     }
 
     /**
@@ -198,14 +183,14 @@ public class EventManager {
      * @return          Return the required event. Return "Event location
      *                  not found." if there is not such event
      */
-    public Object getEventByLocation(String location) throws EventNotFoundError {
+    public Event getEventByLocation(String location) throws EventNotFoundException {
         for (Event e : this.eventList){
             if (e.getLocation().equals(location)){
                 return e;
             }
         }
 
-        throw new EventNotFoundError("Event name " + location + " not found");
+        throw new EventNotFoundException("Event name " + location + " not found");
     }
 
     /**
@@ -246,12 +231,19 @@ public class EventManager {
     }
 
     /**
-     * Set the status of the event by id and given status.
-     * @param id        The id of the Event
-     * @param status    The new status of the Event
+     * Set the status of the event from "Created" to "Completed" or "Under Preparation" for all the events
+     * in eventList.
+     * @param current current time when the program run.
      */
-    public void setEventStatus(int id, String status){
-        getEventByID(id).setStatus(status);
+    public void updateEventStatus(GregorianCalendar current){
+        for (Event e: eventList) {
+            if (e.getDate().compareTo(current) <= 0) {
+                e.setStatus("Completed");
+            }
+            else if (e.getDate().compareTo(current) > 0){
+                e.setStatus("Under Preparation");
+            }
+        }
     }
 
     /**
@@ -266,10 +258,10 @@ public class EventManager {
     /**
      * Set the mealType of the event with the given id to the given new mealType
      * @param id        The id of the Event
-     * @param meal      The new Meal of the Event
+     * @param mealType  The new Meal of the Event
      */
-    public void setEventMeal(int id, Meal meal){
-        getEventByID(id).setMealType(meal);
+    public void setEventMeal(int id, String mealType){
+        getEventByID(id).setMealType(setMeal.getMeal(mealType));
     }
 
     /**
@@ -282,25 +274,11 @@ public class EventManager {
     }
 
     /**
-     * If there are enough employees for change that set number of attendees
-     * of the event with the given id to the given new one.
-     * Return True iff such change was able to carry out.
-     *
+     * Set number of attendees of the event with the given id to the new number
      * @param id        The id of the Event
      * @param newNum    The new number of attendees
-     * @param empM      The employeeManager, which has the data of the employees
-     * @return          True iff such change was able to carry out, false otherwise
      */
-    public boolean setEventNumAttendees(int id, int newNum, EmployeeManager empM){
-        Event currEvent = getEventByID(id);
-        int numBefore = currEvent.getNumAttendees();
-        currEvent.setNumAttendees(newNum);
-        if (!empM.enoughEmployees(currEvent.getEmployeesNeeded(), currEvent.getDate())){
-            currEvent.setNumAttendees(numBefore);
-            return false;
-        }
-        return true;
-    }
+    public void setEventNumAttendees(int id, int newNum){ getEventByID(id).setNumAttendees(newNum); }
 
     /**
      * If there are enough employees for change that set date
@@ -325,15 +303,6 @@ public class EventManager {
      * Serializes events_list to "_checkout.ser" file.
      */
     public void checkout(){
-        try {
-            FileOutputStream fileOut = new FileOutputStream("src/main/java/data_files/users/_checkout.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this.eventList);
-            out.close();
-            fileOut.close();
-        }
-        catch(IOException i){
-            i.printStackTrace();
-        }
+        RW.update(this.eventList);
     }
 }

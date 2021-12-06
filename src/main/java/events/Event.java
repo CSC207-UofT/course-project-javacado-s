@@ -13,7 +13,6 @@ import java.util.GregorianCalendar;
  */
 
 public class Event implements Serializable{
-
     private static final long serialVersionUID = -8284274845871161279L;
     private final int id;
     private String name;
@@ -21,10 +20,10 @@ public class Event implements Serializable{
     private String location;
     private int numAttendees;
     private Meal mealType;
-    private ArrayList<String> employees;
+    private ArrayList<Integer> employees;
     private float price;
     private String status;
-    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed", "Cancelled"};
+    private final String [] possibleStatus = {"Created", "Under Preparation", "Completed"};
 
     /**
      Constructs an Event with a given event name, date, location, number of attendees, meal type requested, and a list
@@ -47,7 +46,6 @@ public class Event implements Serializable{
         // Edit depending on what the meal price getter method is
         this.price = mealType.getMealPrice() * numAttendees;
         this.status = possibleStatus[0];
-
     }
 
     /**
@@ -98,7 +96,7 @@ public class Event implements Serializable{
      * Event getter for list of employees assigned.
      * @return Arraylist of employees assigned to this event.
      */
-    public ArrayList<String> getEmployees() {
+    public ArrayList<Integer> getEmployees() {
         return employees;
     }
 
@@ -115,7 +113,12 @@ public class Event implements Serializable{
      * @return int for total employees needed.
      */
     public int getEmployeesNeeded() {
-        return (int) Math.ceil(mealType.getNumEmployee() * numAttendees);
+        int numEmployees = 0;
+        String[] employeeType = {"Chef", "Cleaner", "Server", "Supervisor"};
+        for(String employee: employeeType){
+            numEmployees += Math.ceil(mealType.getNumEmployee(employee) * numAttendees);
+        }
+        return numEmployees;
     }
 
     /**
@@ -161,7 +164,7 @@ public class Event implements Serializable{
     /**
      * Event setter for employees assigned to this event.
      */
-    public void setEmployees(ArrayList<String> newEmployees) {
+    public void setEmployees(ArrayList<Integer> newEmployees) {
         employees = newEmployees;
     }
 

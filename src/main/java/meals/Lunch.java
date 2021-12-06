@@ -18,8 +18,8 @@ public class Lunch extends Meal implements Serializable {
         return super.getMealPrice();
     }
 
-    public float getNumEmployee(){
-        return super.getNumEmployee();
+    public float getNumEmployee(String employee){
+        return super.getNumEmployee(employee);
     }
 
     public String getMealName(){

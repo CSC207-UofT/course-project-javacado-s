@@ -14,10 +14,9 @@ public class MealSetter implements Serializable {
     private Meal newMeal;
 
     /**
-     Constructs a Meal according to designated meal type provided by the user.
-     @param selectedMeal given meal type requested
+     * @return the Meal constructed by the Class
      */
-    public MealSetter(String selectedMeal) throws MealNotFoundException {
+    public Meal getMeal(String selectedMeal) throws MealNotFoundException {
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
                 newMeal = new Breakfast(selectedMeal);
@@ -35,14 +34,6 @@ public class MealSetter implements Serializable {
                 throw new MealNotFoundException("Given meal type does not exist");
             }
         }
-
-    }
-
-    /**
-     * @return the Meal constructed by the Class
-     */
-    public Meal getMeal(){
         return this.newMeal;
     }
-
 }
