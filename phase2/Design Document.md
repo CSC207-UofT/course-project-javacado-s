@@ -174,12 +174,16 @@ CateringSystem don't have to know about how these commands work. We also impleme
 a generic ICommand interface. The benefit of this is that each of the Command classes can implement the interface cast 
 to a different type, allowing the return type of their execute() methods to be different.
 
+### Factory Design pattern
 We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
 meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
-EventManager). We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have 
-different subclasses of meal types, each with a different menu of dishes, where each dish is made with different 
-ingredients. In the future we hope to determine meal prices based on ingredients, so implementing this tree structure 
-using this design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
+EventManager).
+
+### Composite Design Pattern
+We are also exploring using the Composite design pattern for our Meal class. In our Meal class, we have different 
+subclasses of meal types, each with a different menu of dishes, where each dish is made with different ingredients. 
+In the future we hope to determine meal prices based on ingredients, so implementing this tree structure using this
+design pattern seems suitable. Additionally, it would make extending our Meal classes easier.
 
 ---
 ## Accessibility Report
@@ -196,15 +200,21 @@ those with visual impairments to use our program. Translation services would all
 are not fluent in English, to use our program with more ease.
 
 #### Principle 2: Flexibility in Use
-Our program adheres to this principle because takes in user input through the keyboard, so that it accommodates both 
+Our program adheres to this principle because it takes in user input through the keyboard, so that it accommodates both 
 left- and right-handed users. In the future, we can implement a feature that allows users to change the size of text. 
 This way the user interface can adapt to each users’ specific needs. We can also implement a text-to-speech feature, so 
 that users have the option to read prompts and other textual information displayed on the screen, or to listen to them. 
 All of these features make the use of our program more flexible, accommodating a wider range of user preferences and 
 abilities.
 
-#### Principle 3: Simple and Intuitive Use
 
+#### Principle 3: Simple and Intuitive Use
+Our program provides simple prompts for actions from the user. We provide them with a list of actions, and to perform
+an action, the user enters the number associated with the action. To avoid confusion, we prompt the user for each piece 
+of information needed to perform an action. For instance, when creating an event, we prompt for each detail separately 
+(e.g name, date, number of attendees, etc.). When an error occurs we tell our user which input is invalid. This adheres 
+to the principle of simple and intuitive design. A young child would be able to use our program without any 
+issues.
 #### Principle 4: Perceptible Information
 Currently, the fourth principle, perceptible information, can not be satisfied by our program. The only way that user can
 interact with the program is through a keyboard and reading prompts from the commandline. There are no visual or audio
@@ -227,6 +237,12 @@ adding a GUI to the program, so that the user do not have to input command by ty
 the buttons.
 
 #### Principle 7: Size and Space for Approach and Use
+Unfortunately, most part of this principle cannot be adhered by our program, since most of this principle applied more 
+to hardware than software side, and since our program so far only provide a simple UI form (text-UI); 
+However, In the future program expansions, it is possible to provide some forms of the features, such as integrated 
+together with the Principle 2, like to create High contrast mode so that our text-UI is easier to see when viewing the 
+screen from different positions, and also adjust the level of detailed information on screen so that it does not 
+require the User to have to look closer to the screen.
 
 <br/>
 
@@ -258,7 +274,7 @@ future to take this into account.
 ---
 ## Progress Report
 
-**We have provided a summary of what each group member worked on, as well as one (or two) significant pull request(s)
+**We have provided a summary of what each group member worked on during the Phases 2, as well as one (or two) significant pull request(s)
 that they made throughout the term:**
 
 **Rose:**
@@ -270,7 +286,14 @@ the Command design pattern by creating the ICommand interface and CreateEventCom
 significant contribution to our team because it laid the foundation for how we were to incorporate this design pattern 
 into our program.
 
-**Zx:**
+**Zi Xuan:**
+Handled assigning and reassigning specific Employees to Events. Updated EmployeeManager to properly handle Employee 
+unavailability. Created Exceptions to provide more specific try-catch scenarios. Slight refactoring. 
+
+Significant pull requests:\
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with 
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
+Implemented the user "branch" of our catering system.
 
 **Maggie:**
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
@@ -280,8 +303,20 @@ one testing file:
 https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
 
 **Faith:**
+Integrated Employee subtypes in the code -- modified meal class and its subclasses(Breakfast, Lunch, Dinner), event class, and meal tests, to include different types of Employees (Chef, Supervisor, Server, Cleaner) (https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Implemented employee subclasses in EmployeeManager for initialization(https://github.com/CSC207-UofT/course-project-javacado-s/pull/92)
 
 **Yifang:**
 Worked on the design document a bit, improved the MealSetter.
 
 **Zhengdong:**
+During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
+so that it follows more on the Composite Design pattern, move some roles originally in the Meal class to its Subclasses.
+
+one significant Pull Requests:
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/46/files
+In this Pull request, I implement the basic framework of the Composite Design Pattern in my Meal Classes, 
+by creating 3 direct subclasses (Breakfast, Lunch and Dinner), a "lowest common denominator" interface Ingredient,
+A primitive Dish class.
+Doing so we have successfully implement one of the design pattern (develop from 0 to 1) inside one of the key part of 
+our catering system, since we need meals to be served in the Event and this design pattern help us consider 
+individual Ingredients/MealTypes/Dishes and General Meal (Composition) uniformly.
