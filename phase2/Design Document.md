@@ -223,6 +223,10 @@ that they made throughout the term:**
 
 **Maggie:**
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
+Update status feature so that event status are automatically updated each time the program is run: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48
+one testing file: 
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
 
 **Faith:**
 
