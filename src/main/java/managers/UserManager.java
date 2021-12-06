@@ -42,14 +42,19 @@ public class UserManager {
      * @param password password
      * No limitations on username and password for now.
      */
-    public void createUser(String username, String password) throws Exception {
+    public boolean createUser(String username, String password) throws Exception {
         for(File f: users){
             if(f.getName().equals(username)){
                 /*
                  I may invest time into writing new Exception classes later, for now I'll throw generic Exceptions
                  with descriptions.
                  */
-                throw new Exception("Username already exists. Please choose another username.");
+
+                /*
+                This part was changed by Yifang. Since a duplicated username should not be an Exception, but
+                a situation that needs to be handled.
+                 */
+                return false;
             }
         }
         File folder = new File(USER_DIRECTORY_PATH + username);
@@ -75,6 +80,7 @@ public class UserManager {
          * the list of users has to be updated again after creating a new account; login is separate from account
          * creation.
          */
+        return true;
     }
 
     /**

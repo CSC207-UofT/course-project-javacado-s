@@ -97,11 +97,21 @@ public class Main {
                 return tuple;
         }
         else if (action.equals("2"))  {
+            /* The changes here were made by Yifang, as to avoid the program being killed by an exception
+             */
             System.out.println("\nNew username: ");
             String username = input.nextLine();
             System.out.println("New password: ");
             String password = input.nextLine();
-            userManager.createUser(username, password);
+            boolean result = userManager.createUser(username, password);
+            while (!result){
+                System.out.println("\nUsername already exists. Please choose another username.: ");
+                System.out.println("\nNew username: ");
+                username = input.nextLine();
+                System.out.println("New password: ");
+                password = input.nextLine();
+                result = userManager.createUser(username, password);
+            }
             System.out.println("\nSuccess! You may now log in with your new account.");
         }
         tuple = new Tuple<>(null, false);
