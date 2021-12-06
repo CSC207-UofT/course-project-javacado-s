@@ -58,6 +58,9 @@ public class EventManager {
         Event newEvent = new Event(this.newId, name, date, location,
                 numAttendees, setMeal.getMeal(selectedMeal));
         this.eventList.add(newEvent);
+        while (this.idEventMap.containsKey(this.newId)){
+            this.newId += 1;
+        }
         this.idEventMap.put(this.newId, newEvent);
         this.newId = this.newId + 1;
         return this.newId - 1;
