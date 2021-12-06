@@ -14,7 +14,7 @@ public class CancelEventCommand implements ICommand<String>{
     private final EventManager EVENT_MANAGER;
     private final EmployeeManager EMPLOYEE_MANAGER;
     /**
-     * Contructor for CancelEventCommand
+     * Constructor for CancelEventCommand
      * @param eventManager Event manager that'll cancel the event
      * @param id ID of event to cancel
      */

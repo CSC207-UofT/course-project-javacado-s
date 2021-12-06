@@ -1,5 +1,7 @@
 package meals;
 
+import exceptions.MealNotFoundException;
+
 import java.io.Serializable;
 
 /**
@@ -9,13 +11,12 @@ import java.io.Serializable;
 public class MealSetter implements Serializable {
 
     private static final long serialVersionUID = -3590348619976786670L;
-    private Meal newMeal = null;
-
+    private Meal newMeal;
 
     /**
      * @return the Meal constructed by the Class
      */
-    public Meal getMeal(String selectedMeal){
+    public Meal getMeal(String selectedMeal) throws MealNotFoundException {
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
                 newMeal = new Breakfast(selectedMeal);
@@ -29,9 +30,10 @@ public class MealSetter implements Serializable {
                 newMeal = new Dinner(selectedMeal);
                 break;
             }
+            default: {
+                throw new MealNotFoundException("Given meal type does not exist");
+            }
         }
-
         return this.newMeal;
     }
-
 }
