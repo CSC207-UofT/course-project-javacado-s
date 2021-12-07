@@ -21,7 +21,7 @@ public class EmployeeManagerReadWriter implements
     }
 
     /**
-     * Read the employees.txt file and parse contents for EmployeeManager to initialize employees.
+     * Reads the employees.txt file and parse contents for EmployeeManager to initialize employees.
      * @return Hashmap containing information on an employee's id, name, and unavailable dates
      */
     @Override
@@ -68,6 +68,10 @@ public class EmployeeManagerReadWriter implements
         return null;
     }
 
+    /**
+     * Updates the employees.txt file with new (un)availabilities of employees.
+     * @param eList A list of employees.
+     */
     @Override
     public void update(ArrayList<Employee> eList) throws IOException {
         FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");
