@@ -4,7 +4,9 @@ Command line interface that takes in user input
  */
 
 import exceptions.InvalidPasswordException;
+import exceptions.PasswordTooShortException;
 import exceptions.UserNotFoundException;
+import exceptions.UsernameTooShortException;
 import managers.*;
 import users.User;
 
@@ -103,8 +105,14 @@ public class Main {
                 try{
                     System.out.println("\nNew username: ");
                     String username = input.nextLine();
+                    if (username.length() < 1){
+                        throw new UsernameTooShortException("Username must be at least 1 character long.");
+                    }
                     System.out.println("New password: ");
                     String password = input.nextLine();
+                    if (password.length() < 1) {
+                        throw new PasswordTooShortException("Password must be at least 1 character long.");
+                    }
                     userManager.createUser(username, password);
                     finished = true;
                 }
