@@ -253,11 +253,7 @@ together with the Principle 2, like to create High contrast mode so that our tex
 screen from different positions, and also adjust the level of detailed information on screen so that it does not 
 require the User to have to look closer to the screen.
 
-<br/>
-
-**2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
-customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
-give a bit more detail along with the category.**
+## Target Market
 
 Our target market would be English-speaking adults who regularly host large events. For example, we would target HR/
 administrative representatives of businesses and schools, and event planners of community organizations - anyone in
@@ -266,12 +262,6 @@ catering for events and manage several requests at once, we want to consider tho
 rather than it just being a one-time thing. Additionally, since we are a catering company, we want to prioritize
 marketing to those who would host large events as it would be more profitable for us. (Profits of our catering system
 are not reflected in our code at this stage, but this is the general case with catering companies.)
-
-<br/>
-
-**3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
-example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 
-by people who do not read braille.**
 
 Our program is not likely to be used by non-English speakers, as all our user prompts, input, and output are in 
 English. As well, given that our target market consists of large event hosts, it is less likely that children and
