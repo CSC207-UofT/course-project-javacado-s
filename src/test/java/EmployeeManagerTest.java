@@ -68,9 +68,10 @@ public class EmployeeManagerTest {
     @Test
     public void testSetAvailable(){
         Employee testEmployee = new Employee("Freddy James", 10);
+        GregorianCalendar date = new GregorianCalendar(2020, Calendar.JANUARY, 1);
+        testEmployee.setUnavailability(date);
         ArrayList<Integer> employees = new ArrayList<>();
         employees.add(testEmployee.getid());
-        GregorianCalendar date = new GregorianCalendar(2020, Calendar.JANUARY, 1);
         e_manager.setAvailable(employees, date);
         assertTrue(testEmployee.isAvailable(date));
     }
