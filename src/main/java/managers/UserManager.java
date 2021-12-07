@@ -1,7 +1,9 @@
 package managers;
 
 import exceptions.InvalidPasswordException;
+import exceptions.PasswordTooShortException;
 import exceptions.UserNotFoundException;
+import exceptions.UsernameTooShortException;
 import users.User;
 import events.Event;
 
@@ -43,6 +45,12 @@ public class UserManager {
      * No limitations on username and password for now.
      */
     public void createUser(String username, String password) throws Exception {
+        if (username.length() < 1){
+            throw new UsernameTooShortException("Username must be at least 1 character long.");
+        }
+        if (password.length() < 1){
+            throw new PasswordTooShortException("Password must be at least 1 character long.");
+        }
         for(File f: users){
             if(f.getName().equals(username)){
                 /*

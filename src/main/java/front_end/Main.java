@@ -109,7 +109,7 @@ public class Main {
                     finished = true;
                 }
                 catch (Exception e){
-                    System.out.println("\nUsername already exists. Please choose another username.");
+                    System.out.println("\n"+ e.getMessage());
                 }
             }
             System.out.println("\nSuccess! You may now log in with your new account.");
