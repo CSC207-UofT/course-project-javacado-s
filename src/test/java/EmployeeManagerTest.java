@@ -12,17 +12,19 @@ public class EmployeeManagerTest {
 
     @Before
     public void setUp() {
+        e_manager = new EmployeeManager();
     }
 
     @After
     public void tearDown() {
+        e_manager = new EmployeeManager();
     }
 
-    @Test (timeout = 50)
+    @Test
     public void testGetEmployee(){
-        Employee testEmployee = new Employee("Freddy James", 10);
+        Employee testEmployee = new Server("Freddy James", 10);
         testEmployee.setUnavailability(new GregorianCalendar(2020, Calendar.JANUARY, 1));
-        assert(testEmployee.equals(e_manager.getEmployee(10)));
+        assertEquals(testEmployee, e_manager.getEmployee(10));
     }
 
     @Test
@@ -47,9 +49,9 @@ public class EmployeeManagerTest {
     @Test
     public void testEnoughEmployees() {
         assertTrue(e_manager.enoughEmployees(60,
-                new GregorianCalendar(2020, Calendar.JANUARY, 2)));
+                new GregorianCalendar(2020, Calendar.JANUARY, 2, 12, 0, 0)));
         assertFalse(e_manager.enoughEmployees(60,
-                new GregorianCalendar(2020, Calendar.JANUARY, 1)));
+                new GregorianCalendar(2020, Calendar.JANUARY, 1, 12, 0, 0)));
     }
 
     @Test
@@ -68,7 +70,7 @@ public class EmployeeManagerTest {
         Employee testEmployee = new Employee("Freddy James", 10);
         ArrayList<Integer> employees = new ArrayList<>();
         employees.add(testEmployee.getid());
-        GregorianCalendar date = new GregorianCalendar(2021, Calendar.DECEMBER, 1);
+        GregorianCalendar date = new GregorianCalendar(2020, Calendar.JANUARY, 1);
         e_manager.setAvailable(employees, date);
         assertTrue(testEmployee.isAvailable(date));
     }
@@ -89,10 +91,6 @@ public class EmployeeManagerTest {
     }
 
     @Test
-    public void testUpdate(){
-    }
-
-    @Test
     public void testChooseEmployee(){
         Employee e1 = new Employee("Joslyn Riggs", 1);
         Employee e2 = new Employee("Jamarcus Silva", 2);
@@ -104,4 +102,6 @@ public class EmployeeManagerTest {
 //        assertEquals(chosen.get(1), e2);
     }
 }
+
+
 

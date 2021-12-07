@@ -61,8 +61,7 @@ public class Employee {
 
 
         return (Objects.equals(this.name, ((Employee) e).name) &&
-                this.id == ((Employee) e).id &&
-                this.unavailableDates.equals(((Employee) e).unavailableDates));
+                this.id == ((Employee) e).id);
     }
 
 
@@ -71,13 +70,14 @@ public class Employee {
             throw new Exception("Date was not found in " + this.name + "'s list of dates.");
         }
     }
-
+    @Override
     public String toString(){
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
         StringBuilder dates = new StringBuilder();
         for (GregorianCalendar g: this.unavailableDates){
-            String formatted = sdf.format(g.getTime());
-            dates.append(formatted).append("\r\n");
+            Date time = g.getTime();
+            String date = sdf.format(time);
+            dates.append(date).append("\r\n");
         }
         return this.name + " " + this.id + " " + dates;
     }

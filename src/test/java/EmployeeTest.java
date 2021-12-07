@@ -77,5 +77,13 @@ public class EmployeeTest {
         assert(e1.equals(e2));
     }
 
+    @Test(timeout = 50)
+    public void testRemoveUnavailability() throws Exception {
+        Employee e1 = new Employee("Carly", 1234);
+        e1.setUnavailability(new GregorianCalendar(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        e1.removeUnavailability(new GregorianCalendar(2021, Calendar.NOVEMBER, 20, 18, 30, 24));
+        assert(e1.getUnavailableDates().equals(new ArrayList<>()));
+        assert(e1.isAvailable(new GregorianCalendar(2021, Calendar.NOVEMBER, 20, 18, 30, 24)));
+    }
 
 }

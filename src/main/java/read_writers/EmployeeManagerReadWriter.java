@@ -48,6 +48,9 @@ public class EmployeeManagerReadWriter implements
                     date.set(Calendar.YEAR, y);
                     date.set(Calendar.MONTH, m-1);
                     date.set(Calendar.DAY_OF_MONTH, d);
+                    date.set(Calendar.HOUR, 12);
+                    date.set(Calendar.MINUTE, 0);
+                    date.set(Calendar.SECOND, 0);
                     dates.add(date);
                     rawDates = rawDates.substring(1);
                 }
