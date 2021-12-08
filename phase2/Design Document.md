@@ -5,7 +5,7 @@
 ## Specification
 Create a program that manages catering requests for events from users. A **User** can log in to their account with their
 unique username and password, and be able to view and modify all events they have requested in the past, as well as
-request new events. Users are also able to change their password.
+request new events.
 
 Each **Event** has a name, date, location, number of attendees, and type of **Meal** needed. Depending on the type of
 meal and number of attendees, the event will need a certain number of **Employees** assigned.

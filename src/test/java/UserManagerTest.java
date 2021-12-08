@@ -1,6 +1,7 @@
 import events.Event;
 import meals.Breakfast;
 import managers.UserManager;
+import read_writers.UserManagerReadWriter;
 import users.User;
 
 import org.junit.*;
@@ -11,14 +12,16 @@ import java.util.GregorianCalendar;
 
 public class UserManagerTest {
     UserManager u = new UserManager();
+    private UserManagerReadWriter UserRW;
 
     @Before
     public void setUp(){
+        UserRW = new UserManagerReadWriter();
     }
 
     @After
     public void tearDown(){
-        for(File f: Objects.requireNonNull(u.USER_DIRECTORY.listFiles())){
+        for(File f: Objects.requireNonNull(UserRW.USER_DIRECTORY.listFiles())){
             if(f.getName().contains("test")){
                 for(File c: Objects.requireNonNull(f.listFiles())){
                     c.delete();
@@ -31,7 +34,7 @@ public class UserManagerTest {
     @Test(timeout=50)
     public void testInitializer(){
         File expected = new File("src/main/java/data_files/users");
-        assertEquals(expected.listFiles(),u.USER_DIRECTORY.listFiles());
+        assertEquals(expected.listFiles(),UserRW.USER_DIRECTORY.listFiles());
     }
 
     @Test(timeout = 50)
@@ -42,7 +45,7 @@ public class UserManagerTest {
                 new File("src/main/java/data_files/users/john_doe"),
                 new File("src/main/java/data_files/users/testNew"),
                 new File("src/main/java/data_files/users/_checkout.ser")};
-        assertEquals(expected_directory, u.USER_DIRECTORY.listFiles());
+        assertEquals(expected_directory, UserRW.USER_DIRECTORY.listFiles());
         File[] expected_contents = {new File("src/main/java/data_files/users/testNew/events.txt"),
                 new File("src/main/java/data_files/users/testNew/password.txt")};
         assertEquals(expected_contents, test_file.listFiles());
