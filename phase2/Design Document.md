@@ -228,12 +228,10 @@ options. One feature we could implement in the future is to include audio, and v
 implementing a GUI and presenter in our program to allow users to choose how the information is presented to them.
 
 #### Principle 5: Tolerance for Error
-To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
-that minimizes accidental actions. In order to exit the program, users need to manually type out the word “exit” to
-exit the program. By requiring this step, we manage to minimize the chance that the user accidentally exits the program
-(i.e. by pressing the enter button). One potential feature for a GUI for this program is to have the exit button
-isolated from the main page, for example at the bottom of the screen or having it only accessible via a menu button.
-Once again, this would prevent accidental commands and actions that may lead to the user unintentionally exiting
+Since our user interface is fairly simple, there are not many accidental actions or commands that a user can do, 
+therefore our program adheres to this principle of tolerance for error. One potential feature for a GUI for this program 
+is to have the exit button isolated from the main page, for example at the bottom of the screen or having it only accessible 
+via a menu button. This would prevent accidental commands and actions that may lead to the user unintentionally exiting 
 the program.
 
 #### Principle 6: Low Physical Effort
@@ -312,7 +310,8 @@ Integrated Employee subtypes in the code -- modified meal class and its subclass
 event class, and meal tests, to include different types of Employees (Chef, Supervisor, Server, Cleaner) 
 (https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Worked on implementing employee subclasses in 
 EmployeeManager for initialization. This demonstrates a significant contribution to the team as it added complexity to the design of our program, 
-specifically on the employee side, by extending one of its core entity classes. 
+specifically on the employee side, by extending one of its core entity classes. Also worked on invalid inputs for password
+and username input. 
 
 ### Yifang
 Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
