@@ -164,26 +164,31 @@ public class Main {
 
         System.out.println("\nPlease enter the ID of the event you would like to modify: ");
         String str_id = input.nextLine();
-        int id = Integer.parseInt(str_id);
+        try {
+            int id = Integer.parseInt(str_id);
 
-        while (!system.eventIDExists(id)) {
-            System.out.println("\nThe ID you entered cannot be found. Please enter the ID of the event you would " +
-                    "like to modify (Enter -1 to cancel change): ");
-            str_id = input.nextLine();
+            while (!system.eventIDExists(id)) {
+                System.out.println("\nThe ID you entered cannot be found. Please enter the ID of the event you would " +
+                        "like to modify (Enter -1 to cancel change): ");
+                str_id = input.nextLine();
 
-            if (str_id.equals("-1")) {
-                return;
+                if (str_id.equals("-1")) {
+                    return;
+                }
+
+                id = Integer.parseInt(str_id);
             }
 
-            id = Integer.parseInt(str_id);
-        }
-
-        cont = modifyEventHelper(input, system, id);
-
-        while (cont.equalsIgnoreCase("yes")) {
             cont = modifyEventHelper(input, system, id);
+
+            while (cont.equalsIgnoreCase("yes")) {
+                cont = modifyEventHelper(input, system, id);
+            }
+            System.out.println("Exited Event Modifying");
         }
-        System.out.println("Exited Event Modifying");
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a number.");
+        }
     }
 
     /**
@@ -259,35 +264,38 @@ public class Main {
         }
     }
 
-    // TODO: handle non int input
     /**
      * Prompt user for event ID to view event and print event details.
      * @param input Scanner object
      * @param system CateringSystem object
      */
     private static void viewEventsPrompt(Scanner input, CateringSystem system) {
-        System.out.println(system.viewAllEvents());
-        System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
-        String str_id = input.nextLine();
-        if(str_id.equals("-1")){
-            System.out.println("Exited Event Viewing");
-            return;
-        }
-        int id = Integer.parseInt(str_id);
-
-        String result = system.viewEvent(id);
-
-        while (result.equals("null")) {
-            if(str_id.equals("-1")){
+        try {
+            System.out.println(system.viewAllEvents());
+            System.out.println("\nPlease enter the ID of the event you would like to view: (Enter -1 to exit)");
+            String str_id = input.nextLine();
+            if (str_id.equals("-1")) {
                 System.out.println("Exited Event Viewing");
                 return;
             }
-            System.out.println("\nThe ID you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
-            str_id = input.nextLine();
-            id = Integer.parseInt(str_id);
-            result = system.viewEvent(id);
-        }
-        System.out.println("\n" + system.viewEvent(id));
+            int id = Integer.parseInt(str_id);
 
+            String result = system.viewEvent(id);
+
+            while (result.equals("null")) {
+                if (str_id.equals("-1")) {
+                    System.out.println("Exited Event Viewing");
+                    return;
+                }
+                System.out.println("\nThe ID you entered cannot be found. Please enter a different one. (Enter -1 to exit)");
+                str_id = input.nextLine();
+                id = Integer.parseInt(str_id);
+                result = system.viewEvent(id);
+            }
+            System.out.println("\n" + system.viewEvent(id));
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a number.");
+        }
     }
 }
