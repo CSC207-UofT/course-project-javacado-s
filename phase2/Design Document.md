@@ -196,11 +196,8 @@ using this design pattern seems suitable. Additionally, it helps manipulate our 
 
 ---
 ## Accessibility Report
-**1. For each Principle of Universal Design, write 2-5 sentences or point form notes explaining which features your 
-program adhere to that principle. If you do not have any such features you can either:** 
-* Describe features that you could implement in the future that would adhere to principle; or
-* Explain why the principle does not apply to a program like yours.
 
+### Principles of Universal Design
 #### Principle 1: Equitable Use
 Currently, our program does not have many features that adhere to this principle as we have a very simple, text-based
 user interface. Features we could implement in the future include (1) text-to-speech and speech-to-text services, and
