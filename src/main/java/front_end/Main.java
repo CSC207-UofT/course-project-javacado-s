@@ -133,6 +133,7 @@ public class Main {
         System.out.println("\nPlease enter the action (Press \"enter\" if you do not wish to perform an action):");
         String action = input.nextLine();
 
+        // enhanced switch causes program to crash, so we decided to ignore the warning
         switch (action) {
             case "1" : {
                 newEventPrompt(input, system);
