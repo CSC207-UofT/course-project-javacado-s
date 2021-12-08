@@ -3,12 +3,16 @@ package front_end;
 Command line interface that takes in user input
  */
 
+import exceptions.PasswordTooShortException;
+import exceptions.UsernameTooShortException;
 import managers.*;
+import read_writers.UserManagerReadWriter;
 import users.User;
 
 import java.io.FileInputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -101,13 +105,19 @@ public class Main {
                 try{
                     System.out.println("\nNew username: ");
                     String username = input.nextLine();
+                    if (username.length() < 1){
+                        throw new UsernameTooShortException("Username must be at least 1 character long.");
+                    }
                     System.out.println("New password: ");
                     String password = input.nextLine();
+                    if (password.length() < 1) {
+                        throw new PasswordTooShortException("Password must be at least 1 character long.");
+                    }
                     userManager.createUser(username, password);
                     finished = true;
                 }
                 catch (Exception e){
-                    System.out.println("\nUsername already exists. Please choose another username.");
+                    System.out.println("\n"+ e.getMessage());
                 }
             }
             System.out.println("\nSuccess! You may now log in with your new account.");

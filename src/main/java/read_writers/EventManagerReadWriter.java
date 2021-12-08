@@ -4,7 +4,6 @@ import events.Event;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This class performs text/database parsing and updating to be used in class EventManager.
@@ -18,7 +17,9 @@ public class EventManagerReadWriter implements IEventReadWriter<ArrayList<Event>
     @Override
     public ArrayList<Event> read(FileInputStream eventsFile) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(eventsFile);
-        return (ArrayList<Event>) in.readObject();
+        ArrayList<Event> eventList = (ArrayList<Event>) in.readObject();
+        eventsFile.close();
+        return eventList;
     }
 
     /**

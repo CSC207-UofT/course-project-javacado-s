@@ -5,7 +5,7 @@
 ## Specification
 Create a program that manages catering requests for events from users. A **User** can log in to their account with their
 unique username and password, and be able to view and modify all events they have requested in the past, as well as
-request new events. Users are also able to change their password.
+request new events.
 
 Each **Event** has a name, date, location, number of attendees, and type of **Meal** needed. Depending on the type of
 meal and number of attendees, the event will need a certain number of **Employees** assigned.
@@ -196,11 +196,8 @@ using this design pattern seems suitable. Additionally, it helps manipulate our 
 
 ---
 ## Accessibility Report
-**1. For each Principle of Universal Design, write 2-5 sentences or point form notes explaining which features your 
-program adhere to that principle. If you do not have any such features you can either:** 
-* Describe features that you could implement in the future that would adhere to principle; or
-* Explain why the principle does not apply to a program like yours.
 
+### Principles of Universal Design
 #### Principle 1: Equitable Use
 Currently, our program does not have many features that adhere to this principle as we have a very simple, text-based
 user interface. Features we could implement in the future include (1) text-to-speech and speech-to-text services, and
@@ -231,12 +228,10 @@ options. One feature we could implement in the future is to include audio, and v
 implementing a GUI and presenter in our program to allow users to choose how the information is presented to them.
 
 #### Principle 5: Tolerance for Error
-To satisfy the fifth principle, tolerance for error, we have designed the “exit” pathway from the program in a way
-that minimizes accidental actions. In order to exit the program, users need to manually type out the word “exit” to
-exit the program. By requiring this step, we manage to minimize the chance that the user accidentally exits the program
-(i.e. by pressing the enter button). One potential feature for a GUI for this program is to have the exit button
-isolated from the main page, for example at the bottom of the screen or having it only accessible via a menu button.
-Once again, this would prevent accidental commands and actions that may lead to the user unintentionally exiting
+Since our user interface is fairly simple, there are not many accidental actions or commands that a user can do, 
+therefore our program adheres to this principle of tolerance for error. One potential feature for a GUI for this program 
+is to have the exit button isolated from the main page, for example at the bottom of the screen or having it only accessible 
+via a menu button. This would prevent accidental commands and actions that may lead to the user unintentionally exiting 
 the program.
 
 #### Principle 6: Low Physical Effort
@@ -253,11 +248,7 @@ together with the Principle 2, like to create High contrast mode so that our tex
 screen from different positions, and also adjust the level of detailed information on screen so that it does not 
 require the User to have to look closer to the screen.
 
-<br/>
-
-**2. Write a paragraph about who you would market your program towards, if you were to sell or license your program to 
-customers. This could be a specific category such as "students" or more vague, such as "people who like games". Try to
-give a bit more detail along with the category.**
+## Target Market
 
 Our target market would be English-speaking adults who regularly host large events. For example, we would target HR/
 administrative representatives of businesses and schools, and event planners of community organizations - anyone in
@@ -266,12 +257,6 @@ catering for events and manage several requests at once, we want to consider tho
 rather than it just being a one-time thing. Additionally, since we are a catering company, we want to prioritize
 marketing to those who would host large events as it would be more profitable for us. (Profits of our catering system
 are not reflected in our code at this stage, but this is the general case with catering companies.)
-
-<br/>
-
-**3. Write a paragraph about whether or not your program is less likely to be used by certain demographics. For 
-example, a program that converts txt files to files that can be printed by a braille printer are less likely to be used 
-by people who do not read braille.**
 
 Our program is not likely to be used by non-English speakers, as all our user prompts, input, and output are in 
 English. As well, given that our target market consists of large event hosts, it is less likely that children and
@@ -323,12 +308,19 @@ https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c
 ### Faith
 Integrated Employee subtypes in the code -- modified meal class and its subclasses(Breakfast, Lunch, Dinner), 
 event class, and meal tests, to include different types of Employees (Chef, Supervisor, Server, Cleaner) 
-(https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Implemented employee subclasses in EmployeeManager 
-for initialization (https://github.com/CSC207-UofT/course-project-javacado-s/pull/104/commits/3b11d1151e66354b031357d0f911693f55e8ecf0).
-This demonstrates a significant contribution to the team as it added complexity to the design of our program, specifically on the employee side, by extending one of its core entity classes. 
+(https://github.com/CSC207-UofT/course-project-javacado-s/pull/89). Worked on implementing employee subclasses in 
+EmployeeManager for initialization. This demonstrates a significant contribution to the team as it added complexity to the design of our program, 
+specifically on the employee side, by extending one of its core entity classes. Also worked on invalid inputs for password
+and username input. 
 
 ### Yifang
-Worked on the design document a bit, improved the MealSetter.
+Worked on the design document a bit, improved the MealSetter. Fixed the bugs related to EventManager, and problems related
+to creating new users.
+
+Significant pull requests: \
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/67/files \
+https://github.com/CSC207-UofT/course-project-javacado-s/pull/86/files
+
 
 ### Zhengdong
 During the phase 2: Remove (Delete) the older (outdated) codes remained in the Meal Class, modify the Mead Class 
