@@ -21,7 +21,7 @@ public class EmployeeManagerReadWriter implements
     }
 
     /**
-     * Read the employees.txt file and parse contents for EmployeeManager to initialize employees.
+     * Reads the employees.txt file and parse contents for EmployeeManager to initialize employees.
      * @return Hashmap containing information on an employee's id, name, and unavailable dates
      */
     @Override
@@ -47,7 +47,10 @@ public class EmployeeManagerReadWriter implements
                     GregorianCalendar date = new GregorianCalendar();
                     date.set(Calendar.YEAR, y);
                     date.set(Calendar.MONTH, m-1);
-                    date.set(Calendar.DAY_OF_MONTH, d);
+                    date.set(Calendar.DAY_OF_MONTH, d-1);
+                    date.set(Calendar.HOUR, 12);
+                    date.set(Calendar.MINUTE, 0);
+                    date.set(Calendar.SECOND, 0);
                     dates.add(date);
                     rawDates = rawDates.substring(1);
                 }
@@ -68,6 +71,10 @@ public class EmployeeManagerReadWriter implements
         return null;
     }
 
+    /**
+     * Updates the employees.txt file with new (un)availabilities of employees.
+     * @param eList A list of employees.
+     */
     @Override
     public void update(ArrayList<Employee> eList) throws IOException {
         FileWriter fw = new FileWriter("src/main/java/data_files/employees.txt");

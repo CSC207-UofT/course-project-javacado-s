@@ -4,6 +4,7 @@ import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
+import read_writers.UserManagerReadWriter;
 import meals.Meal;
 import meals.Dinner;
 import meals.Lunch;
@@ -21,6 +22,7 @@ public class EventManagerTest {
     EventManager em;
     UserManager um;
     EmployeeManager employeeManager;
+    UserManagerReadWriter UserRW;
 
     @Before
     public void setUp() throws Exception {
@@ -29,11 +31,12 @@ public class EventManagerTest {
         um.createUser(user, "1234");
         em = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
         employeeManager = new EmployeeManager();
+        UserRW = new UserManagerReadWriter();
     }
 
     @After
     public void tearDown(){
-        for(File f: Objects.requireNonNull(um.USER_DIRECTORY.listFiles())){
+        for(File f: Objects.requireNonNull(UserRW.USER_DIRECTORY.listFiles())){
             if(f.getName().contains("Tester")){
                 for(File c: Objects.requireNonNull(f.listFiles())){
                     c.delete();

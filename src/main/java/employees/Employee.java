@@ -1,6 +1,8 @@
 package employees;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
@@ -45,7 +47,14 @@ public class Employee {
      * @return boolean, True if Employee is available on that date
      */
     public boolean isAvailable(GregorianCalendar date){
-        return !(this.unavailableDates.contains(date));
+        for (GregorianCalendar g: this.unavailableDates){
+            if (g.get(GregorianCalendar.YEAR) == (date.get(GregorianCalendar.YEAR)) &&
+            g.get(GregorianCalendar.MONTH) == date.get(GregorianCalendar.MONTH) &&
+            g.get(GregorianCalendar.DAY_OF_MONTH) == date.get(GregorianCalendar.DAY_OF_MONTH)) {
+                return false;
+            }
+        }
+        return true;
     }
     public void setUnavailability(GregorianCalendar unavailableDate){
         unavailableDates.add(unavailableDate);
@@ -59,15 +68,34 @@ public class Employee {
 
 
         return (Objects.equals(this.name, ((Employee) e).name) &&
-                this.id == ((Employee) e).id &&
-                this.unavailableDates == ((Employee) e).unavailableDates);
+                this.id == ((Employee) e).id);
     }
 
 
     public void removeUnavailability(GregorianCalendar d) throws Exception {
-        if(!unavailableDates.remove(d)){
-            throw new Exception("Date was not found in " + this.name + "'s list of dates.");
+        GregorianCalendar temp = new GregorianCalendar();
+        for (GregorianCalendar g: unavailableDates){
+            if (g.get(GregorianCalendar.YEAR) == (d.get(GregorianCalendar.YEAR)) &&
+                    g.get(GregorianCalendar.MONTH) == d.get(GregorianCalendar.MONTH) &&
+                    g.get(GregorianCalendar.DAY_OF_MONTH) == d.get(GregorianCalendar.DAY_OF_MONTH)){
+                unavailableDates.remove(g);
+                return;
+            }
         }
+        throw new Exception("Date was not found in " + this.name + "'s list of dates.");
+//        if(!unavailableDates.remove(d)){
+//        }
+    }
+    @Override
+    public String toString(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        StringBuilder dates = new StringBuilder();
+        for (GregorianCalendar g: this.unavailableDates){
+            Date time = g.getTime();
+            String date = sdf.format(time);
+            dates.append(date).append("\r\n");
+        }
+        return this.name + " " + this.id + " " + dates;
     }
 }
 

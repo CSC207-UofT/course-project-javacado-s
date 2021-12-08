@@ -4,10 +4,12 @@ import front_end.CateringSystem;
 import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
+import read_writers.UserManagerReadWriter;
 import meals.Dinner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import users.User;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +22,7 @@ public class CateringSystemTest {
     EventManager EventM;
     UserManager UserM;
     EmployeeManager EmployeeM;
-
+    UserManagerReadWriter UserRW;
 
     @Before
     public void setUp() throws Exception {
@@ -29,13 +31,15 @@ public class CateringSystemTest {
         UserM.createUser(user, "1234");
         EventM = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
         EmployeeM = new EmployeeManager();
+        UserRW = new UserManagerReadWriter();
+
         c = new CateringSystem(EmployeeM);
         c.setEventManager(EventM);
     }
 
     @After
     public void tearDown(){
-        for(File f: Objects.requireNonNull(UserM.USER_DIRECTORY.listFiles())){
+        for(File f: Objects.requireNonNull(UserRW.USER_DIRECTORY.listFiles())){
             if(f.getName().contains("Tester1")){
                 for(File c: Objects.requireNonNull(f.listFiles())){
                     c.delete();
