@@ -3,8 +3,6 @@ package front_end;
 Command line interface that takes in user input
  */
 
-import exceptions.InvalidPasswordException;
-import exceptions.UserNotFoundException;
 import managers.*;
 import users.User;
 
