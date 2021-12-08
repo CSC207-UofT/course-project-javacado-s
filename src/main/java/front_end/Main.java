@@ -246,11 +246,16 @@ public class Main {
      * @param system CateringSystem object
      */
     private static void cancelEventPrompt(Scanner input, CateringSystem system) {
-        System.out.println("\nPlease enter the ID of the event you would like to cancel: ");
-        String str_id = input.nextLine();
-        int id = Integer.parseInt(str_id);
+        try {
+            System.out.println("\nPlease enter the ID of the event you would like to cancel: ");
+            String str_id = input.nextLine();
+            int id = Integer.parseInt(str_id);
 
-        System.out.println("\n"+system.cancelEvent(id));
+            System.out.println("\n" + system.cancelEvent(id));
+        }
+        catch(NumberFormatException e) {
+            System.out.println("Please enter a number.");
+        }
     }
 
     // TODO: handle non int input
