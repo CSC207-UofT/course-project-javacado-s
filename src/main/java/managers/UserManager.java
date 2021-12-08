@@ -1,7 +1,9 @@
 package managers;
 
 import exceptions.InvalidPasswordException;
+import exceptions.PasswordTooShortException;
 import exceptions.UserNotFoundException;
+import exceptions.UsernameTooShortException;
 import read_writers.UserManagerReadWriter;
 import users.User;
 
