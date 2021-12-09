@@ -3,8 +3,6 @@ package commands;
 import managers.EventManager;
 import managers.EmployeeManager;
 
-import java.util.ArrayList;
-
 /*
 Command class that cancels an event
  */
