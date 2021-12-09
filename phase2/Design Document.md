@@ -148,6 +148,8 @@ for manipulating _one_ entity class (and their respective subclasses). Each gate
 as a gateway for one manager class. Our controller class delegates tasks to our use case classes. And our user 
 interface class only interacts with the user, inputting and outputting information, while it passes on the execution 
 of user commands to the controller class. In other words, all our classes each only have one reason to change.
+Further, by adding a gateway class in phase 2, we ensure that serialization and setup of managers are done by the
+gateway class, so that managers only manipulate the entities and do not take care of serialization.
 
 
 #### Open/Closed Principle
@@ -302,6 +304,13 @@ See our discussion above about the principles of universal design for some featu
 future to take this into account.
 
 ---
+## Testing and testing coverage 
+We wrote test files for all of our entities, use case, and controller classes in addition to testing from the front_end 
+by running main. Our testing coverage is quite high when looking at % of method coverage for most files (ex. for managers 
+folder that contain all our use case classes we have 94% coverage). Testing our code from the backend and testing 
+from the user's perspective by running **Main** class ensures correctness of our code.
+
+---
 ## Progress Report
 
 **We have provided a summary of what each group member worked on during Phase 2, as well as one (or two) significant 
@@ -336,10 +345,13 @@ Implemented the user "branch" of our catering system.
 
 ### Maggie
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
-Update status feature so that event status are automatically updated each time the program is run: 
-https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48
-one testing file: 
-https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271
+Update status feature so that event status are automatically updated each time the program is run: \
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/7e05225028cfdc1decf7b3bdd4d29024f7a2ae48\
+one testing file:
+https://github.com/CSC207-UofT/course-project-javacado-s/commit/4dab0290152aa16c1386c58cf95607f058939271\
+These demonstrate a significant contribution to the group because update event status feature allow user to know
+event details better and incorporated dates into our program. Testing catches bugs of different files that are cruical
+for program to run correctly.
 
 ### Faith
 Integrated Employee subtypes in the code -- modified meal class and its subclasses(Breakfast, Lunch, Dinner), 
