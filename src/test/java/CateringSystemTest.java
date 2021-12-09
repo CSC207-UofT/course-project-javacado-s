@@ -1,5 +1,4 @@
 import events.Event;
-import exceptions.EventNotFoundException;
 import front_end.CateringSystem;
 import managers.EmployeeManager;
 import managers.EventManager;
@@ -9,10 +8,14 @@ import meals.Dinner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import users.User;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -47,6 +50,15 @@ public class CateringSystemTest {
                 f.delete();
             }
         }
+        try{
+            FileInputStream employees = new FileInputStream("src/main/java/data_files/original_employees.txt");
+            Path file_path = Paths.get("src/main/java/data_files/employees.txt");
+            Files.copy(employees, file_path, StandardCopyOption.REPLACE_EXISTING);
+            employees.close();
+        }
+        catch(IOException io){
+            io.printStackTrace();
+        }
     }
 
     @Test
@@ -73,7 +85,7 @@ public class CateringSystemTest {
     @Test
     public void testModifyEventName() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
-                "BA", 25, "dinner");
+                "BA", 10, "dinner");
         String input = "Reunion";
         Scanner s = new Scanner(input);
         c.modifyEvent(s, 0, "1");
@@ -83,7 +95,7 @@ public class CateringSystemTest {
     @Test
     public void testModifyEventLocation() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
-                "BA", 25, "dinner");
+                "BA", 12, "dinner");
         String input = "MY";
         Scanner s = new Scanner(input);
         c.modifyEvent(s, 0, "2");
@@ -93,18 +105,18 @@ public class CateringSystemTest {
     @Test
     public void testModifyEventAttendees() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
-                "BA", 25, "dinner");
-        String input = "45";
+                "BA", 12, "dinner");
+        String input = "10";
         Scanner s = new Scanner(input);
         c.modifyEvent(s, 0, "3");
         int actual = EventM.getEventByID(0).getNumAttendees();
-        assert(Integer.toString(actual).equals("45"));
+        assert(Integer.toString(actual).equals("10"));
     }
 
     @Test
     public void testModifyEventMeal() {
         c.createEvent("Test Event B", new GregorianCalendar(2021, Calendar.OCTOBER, 29),
-                "BA", 25, "dinner");
+                "BA", 12, "dinner");
         String input = "lunch";
         Scanner s = new Scanner(input);
         c.modifyEvent(s, 0, "4");
@@ -114,10 +126,10 @@ public class CateringSystemTest {
     @Test
     public void testViewEvent() {
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
-                30, "dinner");
+                10, "dinner");
         Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
-                30, new Dinner("dinner"));
-        String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 30 attendees. " + "\r\n" +
+                10, new Dinner("dinner"));
+        String expected = "Event details (ID: 0): Birthday on 10/29/2021 at CN Tower for 10 attendees. " + "\r\n" +
                 "Menu of dinner:" + "\r\n" + "Grilled Steak"+ "\r\n" + "Grilled Salmon" + "\r\n"+ "Large Salad" + "\r\n" +
                 "Shrimp And Corn Chowder Soup" + "\r\n" + "Apple Juice" + "\r\n" + "Price of catering: $" +
                 test_event.getPrice() + "\r\nThe current event status is: "+ test_event.getStatus();
@@ -127,7 +139,7 @@ public class CateringSystemTest {
     @Test
     public void testUpdateEventStatus(){
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
-                30, "dinner");
+                5, "dinner");
         c.updateEventStatus(new GregorianCalendar(2021, Calendar.OCTOBER, 29));
         assert(EventM.getEventByID(0).getStatus().equals("Completed"));
     }
