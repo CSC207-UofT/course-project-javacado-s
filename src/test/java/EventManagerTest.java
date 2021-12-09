@@ -14,6 +14,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.GregorianCalendar;
 
@@ -43,6 +48,15 @@ public class EventManagerTest {
                 }
                 f.delete();
             }
+        }
+        try{
+            FileInputStream employees = new FileInputStream("src/main/java/data_files/original_employees.txt");
+            Path file_path = Paths.get("src/main/java/data_files/employees.txt");
+            Files.copy(employees, file_path, StandardCopyOption.REPLACE_EXISTING);
+            employees.close();
+        }
+        catch(IOException io){
+            io.printStackTrace();
         }
     }
 
