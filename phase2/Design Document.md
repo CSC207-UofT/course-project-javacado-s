@@ -141,11 +141,11 @@ all possible because our program adheres to the dependency rule of clean archite
 While our program is mostly compliant with clean architecture, we had one significant violation of clean architecture. 
 
 - Currently, our Main class, a controller, has a dependency on User, an entity, a clear violation of clean architecture. 
-The problem is due to our implementation of our UserManager and login procedure. Our getUser method in UserManager 
-requires both a username and password, and returns a User, but instead, it should require only a username to return a 
-User, and either UserManager or User should have a separate method to check that the passwords match. Changes to these 
-parts of our program would also invite changes in our login procedures. Instead of using a Tuple of a User and Boolean 
-to check if we have a user logged in, we could add a field to UserManager that holds onto the current active User or
+The problem is due to our implementation of UserManager and the login procedure. Our getUser method in UserManager 
+requires both a username and password, and returns a User, but it should require only a username to return a User, and 
+either UserManager or User should have a separate method to check that the passwords match. Changes to these 
+parts of our program would also invite changes in the login procedure. Instead of using a Tuple of a User and Boolean 
+to check if we have a user logged in, we should add a field to UserManager that holds onto the current active User or
 let the system hold on to the username of the current active User. These changes would eliminate the dependency between
 our controller and entity.
 
