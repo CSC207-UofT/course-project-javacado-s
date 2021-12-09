@@ -3,8 +3,6 @@ package commands;
 import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
-import meals.Meal;
-import meals.MealSetter;
 
 import java.util.Scanner;
 
@@ -35,6 +33,7 @@ public class ModifyEventCommand implements ICommand<String>{
      */
     @Override
     public String execute() {
+        // enhanced switch causes program to crash, so we decided to ignore the warning
         switch (ACTION) {
             case "1": {
                 System.out.println("\nPlease enter the new name of your event: ");
