@@ -73,7 +73,6 @@ public class Employee {
 
 
     public void removeUnavailability(GregorianCalendar d) throws Exception {
-        GregorianCalendar temp = new GregorianCalendar();
         for (GregorianCalendar g: unavailableDates){
             if (g.get(GregorianCalendar.YEAR) == (d.get(GregorianCalendar.YEAR)) &&
                     g.get(GregorianCalendar.MONTH) == d.get(GregorianCalendar.MONTH) &&
@@ -83,9 +82,8 @@ public class Employee {
             }
         }
         throw new Exception("Date was not found in " + this.name + "'s list of dates.");
-//        if(!unavailableDates.remove(d)){
-//        }
     }
+
     @Override
     public String toString(){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");

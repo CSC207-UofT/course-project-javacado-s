@@ -11,12 +11,13 @@ import java.io.Serializable;
 public class MealSetter implements Serializable {
 
     private static final long serialVersionUID = -3590348619976786670L;
-    private Meal newMeal;
 
     /**
      * @return the Meal constructed by the Class
      */
     public Meal getMeal(String selectedMeal) throws MealNotFoundException {
+        Meal newMeal;
+        // enhanced switch causes program to crash, so we decided to ignore the warning
         switch (selectedMeal.toLowerCase()) {
             case "breakfast" : {
                 newMeal = new Breakfast(selectedMeal);
@@ -34,6 +35,6 @@ public class MealSetter implements Serializable {
                 throw new MealNotFoundException("Given meal type does not exist");
             }
         }
-        return this.newMeal;
+        return newMeal;
     }
 }
