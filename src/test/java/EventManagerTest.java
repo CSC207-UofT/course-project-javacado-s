@@ -4,21 +4,16 @@ import exceptions.MealNotFoundException;
 import managers.EmployeeManager;
 import managers.EventManager;
 import managers.UserManager;
+import org.junit.After;
+import org.junit.Before;
 import read_writers.UserManagerReadWriter;
 import meals.Meal;
 import meals.Dinner;
 import meals.Lunch;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.GregorianCalendar;
 
@@ -31,7 +26,7 @@ public class EventManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        String user = "Tester2";
+        String user = "TesterC";
         um = new UserManager();
         um.createUser(user, "1234");
         em = new EventManager(new FileInputStream("src/main/java/data_files/users/" + user + "/events.txt"));
@@ -49,19 +44,10 @@ public class EventManagerTest {
                 f.delete();
             }
         }
-        try{
-            FileInputStream employees = new FileInputStream("src/main/java/data_files/original_employees.txt");
-            Path file_path = Paths.get("src/main/java/data_files/employees.txt");
-            Files.copy(employees, file_path, StandardCopyOption.REPLACE_EXISTING);
-            employees.close();
-        }
-        catch(IOException io){
-            io.printStackTrace();
-        }
     }
 
     @Test
-    public void createEvent() throws MealNotFoundException {
+    public void createEvent() throws Exception {
         int eventID = em.createEvent(108, "Test Event",
                 new GregorianCalendar(2021, Calendar.DECEMBER, 1),
                 "U of T", 20, "dinner");
@@ -88,12 +74,12 @@ public class EventManagerTest {
                 "BA", 25, "dinner");
 
         Event eventA = new Event(108, "Test Event A",
-                                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
-                                "MY", 20, testMeal);
+                new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
+                "MY", 20, testMeal);
 
         Event eventB = new Event(204, "Test Event B",
-                                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
-                                "BA", 25, testMeal);
+                new GregorianCalendar(2021, Calendar.DECEMBER, 21),
+                "BA", 25, testMeal);
 
         ArrayList<Event> expected = new ArrayList<>();
         expected.add(eventA);
@@ -140,12 +126,14 @@ public class EventManagerTest {
         assert (em.getEventByID(200) == null);
     }
 
+
+    // TODO
     @Test
     public void testGetEmployeesNeeded() throws MealNotFoundException {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
-        assert (em.getEmployeesNeeded(108) == 12);
+        assert (em.getEmployeesNeeded(108) == 48);
     }
 
     @Test
@@ -322,11 +310,9 @@ public class EventManagerTest {
         em.createEvent(108, "Test Event A",
                 new GregorianCalendar(2021, Calendar.NOVEMBER, 20),
                 "MY", 20, "dinner");
-        //TODO: fix setEventNumAttendees tests
-        //assert (em.setEventNumAttendees(108, 30, employeeManager));
-        assert (em.getEventByID(108).getNumAttendees() == 30);
-        //TODO: fix setEventNumAttendees tests
-        //assert (!em.setEventNumAttendees(108, 5000, employeeManager));
+        assert (em.getEventByID(108).getNumAttendees() == 20);
+        //TD: This part is fixed
+        em.setEventNumAttendees(108, 30);
         assert (em.getEventByID(108).getNumAttendees() == 30);
     }
 
