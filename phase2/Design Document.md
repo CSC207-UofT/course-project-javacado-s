@@ -3,21 +3,29 @@
 ---
 
 ## Specification
-Create a program that manages catering requests for events from users. A **User** can log in to their account with their
-unique username and password, and be able to view and modify all events they have requested in the past, as well as
-request new events.
+Create a program for a catering company that manages catering requests for events from users. A **User** can create an
+account with a unique username and password, and log in with that information. Once logged in, they can request
+catering for an **event**, including information on its name, date, location, number of attendees, and type of **Meal**
+needed (breakfast, lunch, or dinner). Users should be able to view a list of all events they have requested in the past,
+and view specific event information like the menu and total price of catering (which depends on the meal requested and
+number of attendees) and the status (if the request is in progress or completed). Users should also be able to modify 
+the name, location, number of attendees, and catered meal for their for event. They should also be able to cancel a 
+request.
 
-Each **Event** has a name, date, location, number of attendees, and type of **Meal** needed. Depending on the type of
-meal and number of attendees, the event will need a certain number of **Employees** assigned.
+The program should save a user's events so that if they log out and log back in, they can view changes they have made
+in the past. A user should only have access to their event information.
 
-The **Catering System** employs a set number of different types of **Employees** (Chef, Cleaner, Server, Supervisor)
-who can be assigned to events. Each employee can only work at one event per day. If there are not enough available
-employees on an event date, the system will not allow the user to request catering. If a request is successfully
-submitted, the user will receive a confirmation message with event details, as well as the total price of the catering.
-This price will depend on the meal type requested as well as the number of event attendees.
+On the administrative side (hidden from the user), the **Catering System** employs a predetermined number of 
+**employees** who can be assigned to events. Employees have names and dates in which they are unavailable to work. Each
+employee can only work at one event per day, and each event will need a certain number of employees to work depending 
+on the number of event attendees and meal type requested. If there are not enough available employees on an event date, 
+the system should not allow the user to request catering for that date.
 
-It should be possible for the system to get a list of all events for a user for a particular date, and the number of
-employees available to work for a particular date.
+**Catering Company Information:**
+* Breakfast: $7 per attendee; 1 of each type of employee needed per 5 attendees
+* Lunch: $14 per attendee; 2 of each type of employee needed per 5 attendees
+* Dinner: $22 per attendee; 3 of each type of employee needed per 5 attendees
+* See employees.txt to see the list of employees for the company. All employees currently have January 1st, 2020 off.
 
 ---
 
@@ -89,19 +97,47 @@ IReadWriter that the gateway classes would implement and the manager classes wou
 ---
 ## Clean Architecture
 Throughout our entire working process, we have made sure that our project adheres to Clean Architecture. When we first
-designed our CRC model, and in this phase where we extended our program to include a login system, we determined which
+designed our CRC model, and when we extended our program to include a login system, we determined which
 classes to create according to the different layers of clean architecture. We began with determining our **entity 
 classes**, such as User, Meal, Event, and Employee (along with their respective subclasses). We ensured that these
 classes only store information about the objects, and created **use case classes** to manipulate them: UserManager
-manipulated User, EventManager manipulates Event, and EmployeeManager manipulates Employee. Since all these Manager
+manipulates User, EventManager manipulates Event, and EmployeeManager manipulates Employee. Since all these Manager
 classes need to read information from files and write to them, we have **gateway classes** EventManagerReadWriter
 (for EventManager), EmployeeManagerReadWriter (for EmployeeManager), and UserManagerReadWriter (for UserManager)
 to do these tasks. We then have a **controller class**, CateringSystem, to execute commands from the user and 
-communicate between the different Manager classes. This helped us adhere to the **dependency rule** and only allow for
+communicate between the different Manager classes. This helped us adhere to the **Dependency Rule** and only allow for
 dependence on an adjacent layer, from outer to inner. We also created an interface for our gateway classes that our
-use case classes could depend on to adhere to the dependency rule, as gateways are on a more outer layer compared to
+use case classes could depend on to adhere to the dependency rule, as gateways are on an outer layer compared to
 use cases. We then have our **user interface class** to actually interact with the user and handle both the input 
 and output of information, without affecting any of our classes in the inner layers.
+
+###Scenario-Walkthrough
+Suppose we create a user with username Rose and password 1234. Logging in, we select option "1 Create new event"
+and request an event with name Birthday on 1/19 at the CN Tower for 15 attendees, and request that dinner be catered.
+We will get the confirmation message:
+
+"Thank you for choosing Javacado's! Your catering request was accepted.\
+Event details (ID: 0): Birthday on 01/19/2021 at CN Tower for 15 attendees.\
+Menu of dinner:\
+Grilled Steak\
+Grilled Salmon\
+Large Salad\
+Shrimp And Corn Chowder Soup\
+Apple Juice\
+Price of catering: $330.0\
+The current event status is: Created"
+
+Throughout this entire process, the user is only interacting with the UI of our program and is presented with a
+confirmation message with information generated by internal layers of our program such as our controller, use case,
+and entity classes. Our EventManager created an event, where the Event entity class determined what the total price of
+catering was, EmployeeManager checked that enough employees were available on January 19, 2021 to cater dinner for 15
+people, etc. We could change the way all this information was presented to the user, and only need to change our Main
+(UI) class and none of the classes actually involved in processing this information. Alternatively, we could change the
+dinner menu, or price per attendee for dinner, and would not need to change our UI and only our Dinner class. This is
+all possible because our program adheres to the dependency rule of clean architecture.
+
+###Violations of Clean Architecture
+[Karen/Zi-Xuan please fill this out.]
 
 ---
 ## SOLID Design Principles
@@ -262,7 +298,7 @@ Our program is not likely to be used by non-English speakers, as all our user pr
 English. As well, given that our target market consists of large event hosts, it is less likely that children and
 teenagers would use our program. Finally, taking disabilities into account, are program is less likely to be used by
 those with visual impairments. Our user prompts, input, and output are all text based, with no audio or colour cues.
-See our discussion above under "Principle 1: Equitable Use" (maybe others) for some features we could implement in the
+See our discussion above about the principles of universal design for some features we could implement in the
 future to take this into account.
 
 ---

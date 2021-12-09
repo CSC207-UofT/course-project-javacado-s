@@ -30,12 +30,14 @@ public class UserManagerReadWriter implements IUserReadWriter<HashMap<String,Str
     public HashMap<String,String> read() throws Exception {
         HashMap<String,String> userList = new HashMap<>();
 
-        for (int i = 0; i < users.length - 1 ; i++) {
-            String username = users[i].getName();
-            FileReader fr = new FileReader(USER_DIRECTORY_PATH + username + "/password.txt");
-            BufferedReader br = new BufferedReader(fr);
-            String password = br.readLine().trim();
-            userList.put(username, password);
+        for (File user : users) {
+            String username = user.getName();
+            if(!(username.equals("_checkout.ser"))){
+                FileReader fr = new FileReader(USER_DIRECTORY_PATH + username + "/password.txt");
+                BufferedReader br = new BufferedReader(fr);
+                String password = br.readLine().trim();
+                userList.put(username, password);
+            }
         }
         return userList;
     }
