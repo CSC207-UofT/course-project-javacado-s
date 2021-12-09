@@ -232,7 +232,7 @@ Structure, doing so could help us manage each classes independently while also m
 Thus, in our Meal class, we have different subclasses of meal types (so far Breakfast, Lunch, Dinner),
 each contains different menus (of dishes),
 its own price, and its own number of employees required and other possible information in the future expansions.
-in additional each dish is made with different ingredients, where we consider as the 'lowest common denominator'
+in addition, each dish is made with different ingredients, where we consider as the 'lowest common denominator'
 as it contains all the methods where all classes in meals package shares.
 In the future expansions we hope to determine meal prices based on ingredients, so implementing this tree structure
 using this design pattern seems suitable. Additionally, it helps manipulate our Meal classes easier.
