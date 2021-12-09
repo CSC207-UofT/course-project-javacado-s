@@ -69,7 +69,7 @@ public class UserManagerTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test(timeout = 50)
+    @Test(timeout = 150)
     public void testGetUserExists(){
         String username = "jane_doe";
         String password = "qwertyuiop";
@@ -86,7 +86,7 @@ public class UserManagerTest {
         String username = "userdoesnotexist";
         String password = "userdoesnotexist";
         Exception exception = assertThrows(Exception.class, () -> u.getUser(username, password));
-        String expectedMessage = "No user found.";
+        String expectedMessage = "Username not found in database.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
