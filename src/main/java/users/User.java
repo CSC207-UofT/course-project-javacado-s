@@ -1,9 +1,6 @@
 package users;
 
-import events.Event;
-
 import java.io.FileInputStream;
-import java.util.ArrayList;
 
 /**
  This class represents a User with an account in our system.
@@ -39,13 +36,6 @@ public class User {
      * @return String. Return the password for the User's account.
      */
     public String getPassword() { return password; }
-
-    /**
-     * Change the User's password.
-     */
-    public void changePassword(String newPassword) {
-        password = newPassword;
-    }
 
     public FileInputStream getSerialized_events() {
         return serialized_events;
