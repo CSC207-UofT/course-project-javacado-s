@@ -2,6 +2,10 @@ package meals;
 
 import java.io.Serializable;
 
+/**
+ This class represents the primitive (in the tree diagram).
+ */
+
 public class Dish implements Ingredient, Serializable {
 
         private static final long serialVersionUID = 3892680574828196248L;

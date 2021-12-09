@@ -137,6 +137,29 @@ public class CateringSystemTest {
     }
 
     @Test
+    public void testViewAllEvent(){
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                10, "dinner");
+        c.createEvent("Party", new GregorianCalendar(2021, Calendar.OCTOBER, 30), "CN Tower",
+                10, "dinner");
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                10, new Dinner("dinner"));
+        Event e2 = new Event(1, "Party", new GregorianCalendar(2021, Calendar.OCTOBER, 30), "CN Tower",
+                10, new Dinner("dinner"));
+        String expected = "Below are a list of all your events with their IDs:" + "\r\n" + "0. Birthday" + "\r\n" +
+                "1. Party";
+        assertEquals(expected, c.viewAllEvents());
+    }
+    @Test
+    public void testEventIDExist(){
+        c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                10, "dinner");
+        Event test_event = new Event(0, "Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
+                10, new Dinner("dinner"));
+        assert(c.eventIDExists(test_event.getID()));
+    }
+
+    @Test
     public void testUpdateEventStatus(){
         c.createEvent("Birthday", new GregorianCalendar(2021, Calendar.OCTOBER, 29), "CN Tower",
                 5, "dinner");

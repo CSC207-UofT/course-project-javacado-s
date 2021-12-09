@@ -6,13 +6,11 @@ Command line interface that takes in user input
 import exceptions.PasswordTooShortException;
 import exceptions.UsernameTooShortException;
 import managers.*;
-import read_writers.UserManagerReadWriter;
 import users.User;
 
 import java.io.FileInputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
