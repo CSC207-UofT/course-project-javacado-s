@@ -7,13 +7,10 @@ import exceptions.PasswordTooShortException;
 import exceptions.UsernameTooShortException;
 import managers.*;
 import read_writers.UserManagerReadWriter;
-import users.User;
 
 import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 public class Main {
 
@@ -22,12 +19,11 @@ public class Main {
         EmployeeManager employeeManager = new EmployeeManager();
         CateringSystem system = new CateringSystem(employeeManager);
         Scanner input = new Scanner(System.in);
-        Tuple<User, Boolean> logInResult = new Tuple<>(null, false);
+        Tuple<List<String>, Boolean> logInResult = new Tuple<>(null, false);
         boolean loggedIn = false;
         String logout = "";
         String exit = "";
         GregorianCalendar current = (GregorianCalendar) Calendar.getInstance();
-
 
         System.out.println("********************************************" +
                 "********************************************");
@@ -37,10 +33,12 @@ public class Main {
             while (!logout.equals("x")) {
                 while (!loggedIn) {
                     logInResult = loginPrompt(input, userManager);
+                    List<String> userString = logInResult.getFirst();
                     loggedIn = logInResult.getSecond();
 
                     if (loggedIn) {
-                        FileInputStream loggedInFile = logInResult.getFirst().getSerialized_events();
+                        FileInputStream loggedInFile = userManager.getUser(userString.get(0), userString.get(1)).
+                                getSerialized_events();
                         EventManager eventManager = new EventManager(loggedInFile);
                         system.setEventManager(eventManager);
                         system.updateEventStatus(current);
@@ -55,8 +53,9 @@ public class Main {
             loggedIn = false;
 
             /* EXTREMELY BAND-AID FIX HERE; CHANGE LATER */
+            List<String> userString = logInResult.getFirst();
             system.getEventManager().checkout();
-            userManager.updateUser(logInResult.getFirst());
+            userManager.updateUser(userManager.getUser(userString.get(0), userString.get(1)));
 
             System.out.println("\nIf you would like to exit, please enter \"exit\", otherwise, press \"enter\": ");
             exit = input.nextLine().toLowerCase();
@@ -73,8 +72,8 @@ public class Main {
      * @param userManager UserManager object
      * @return FileInputStream of User's existing Events in serialized form
      */
-    private static Tuple<User, Boolean> loginPrompt(Scanner input, UserManager userManager){
-        Tuple<User, Boolean> tuple;
+    private static Tuple<List<String>, Boolean> loginPrompt(Scanner input, UserManager userManager){
+        Tuple<List<String>, Boolean> tuple;
 
         System.out.println("****************************************************************************************");
         System.out.println("\nWhich action would you like to perform?");
@@ -89,9 +88,9 @@ public class Main {
                 System.out.println("Password: ");
                 String password = input.nextLine();
                 try {
-                    User user = userManager.getUser(username, password);
+                    List<String> userString = Arrays.asList(username, password);
                     System.out.println("\nWelcome, " + username + "!");
-                    tuple = new Tuple<>(user, true);
+                    tuple = new Tuple<>(userString, true);
                 }
                 catch (Exception e) {
                     System.out.println(e.getMessage());

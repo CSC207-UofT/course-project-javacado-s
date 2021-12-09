@@ -5,6 +5,7 @@ import exceptions.PasswordTooShortException;
 import exceptions.UserNotFoundException;
 import exceptions.UsernameTooShortException;
 import read_writers.UserManagerReadWriter;
+import users.Account;
 import users.User;
 
 import java.io.*;
@@ -81,7 +82,7 @@ public class UserManager {
      * Included comments on how code works for easier checking.
      * @param u active User
      */
-    public void updateUser(User u){
+    public void updateUser(Account u){
         RW.update(u.getUsername());
     }
 }

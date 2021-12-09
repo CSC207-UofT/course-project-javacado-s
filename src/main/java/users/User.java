@@ -9,7 +9,7 @@ import java.util.ArrayList;
  This class represents a User with an account in our system.
  */
 
-public class User {
+public class User implements Account{
     private final String username;
     private String password;
     private FileInputStream serialized_events;
