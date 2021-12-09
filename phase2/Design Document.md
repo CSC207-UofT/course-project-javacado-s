@@ -138,6 +138,16 @@ all possible because our program adheres to the dependency rule of clean archite
 
 ###Violations of Clean Architecture
 [Karen/Zi-Xuan please fill this out.]
+While our program is mostly compliant with clean architecture, we had one significant violation of clean architecture. 
+
+- Currently, our Main class, a controller, has a dependency on User, an entity, a clear violation of clean architecture. 
+The problem is due to our implementation of our UserManager and login procedure. Our getUser method in UserManager 
+requires both a username and password, and returns a User, but instead, it should require only a username to return a 
+User, and either UserManager or User should have a separate method to check that the passwords match. Changes to these 
+parts of our program would also invite changes in our login procedures. Instead of using a Tuple of a User and Boolean 
+to check if we have a user logged in, we could add a field to UserManager that holds onto the current active User or
+let the system hold on to the username of the current active User. These changes would eliminate the dependency between
+our controller and entity.
 
 ---
 ## SOLID Design Principles
@@ -332,7 +342,9 @@ unavailability. Created Exceptions to provide more specific try-catch scenarios.
 Significant pull requests:\
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/53 (together with 
 https://github.com/CSC207-UofT/course-project-javacado-s/pull/64 split apart by accident)\
-Implemented the user "branch" of our catering system.
+I designed and programmed the prototype implementation of the User branch of our system. Admittedly the system didn't 
+work properly because we weren't very familiar with serialization or file operations at the time, but the base of the 
+system was here.
 
 ### Maggie
 Event status update, converting deprecated Date to Gregorian Calendar, and update test files.
