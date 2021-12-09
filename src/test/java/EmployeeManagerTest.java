@@ -3,6 +3,12 @@ import static org.junit.Assert.*;
 import managers.EmployeeManager;
 import employees.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +24,15 @@ public class EmployeeManagerTest {
 
     @After
     public void tearDown() {
+        try{
+            FileInputStream employees = new FileInputStream("src/main/java/data_files/original_employees.txt");
+            Path file_path = Paths.get("src/main/java/data_files/employees.txt");
+            Files.copy(employees, file_path, StandardCopyOption.REPLACE_EXISTING);
+            employees.close();
+        }
+        catch(IOException io){
+            io.printStackTrace();
+        }
     }
 
     @Test
@@ -69,10 +84,10 @@ public class EmployeeManagerTest {
         assert (testEmployee.getUnavailableDates().equals(unavailable));
     }
 
-    @Test
     /**
      * when running this method, it changes the txt file for employee 10. Remember to rollback change
      */
+    @Test
     public void testSetAvailable() {
         Employee testEmployee = new Employee("Freddy James", 10);
         GregorianCalendar date = new GregorianCalendar(2020, Calendar.JANUARY, 1, 0, 0, 0);

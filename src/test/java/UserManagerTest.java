@@ -37,7 +37,7 @@ public class UserManagerTest {
         assertEquals(expected.listFiles(),UserRW.USER_DIRECTORY.listFiles());
     }
 
-    @Test(timeout = 50)
+    @Test(timeout = 100)
     public void testCreateUserNew() throws Exception {
         u.createUser("testNew", "testpassword");
         File test_file = new File("src/main/java/data_files/users/testNew");
@@ -72,7 +72,7 @@ public class UserManagerTest {
     @Test(timeout = 150)
     public void testGetUserExists(){
         String username = "jane_doe";
-        String password = "qwertyuiop";
+        String password = "123";
         User expected = new User(username, password, null);
         try {
             assertEquals(expected, u.getUser(username, password));
