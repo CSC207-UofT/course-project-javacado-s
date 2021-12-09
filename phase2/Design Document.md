@@ -227,15 +227,15 @@ a generic ICommand interface. The benefit of this is that each of the Command cl
 to a different type, allowing the return type of their execute() methods to be different.
 
 ### Factory Design pattern
-We decide to implement Composite design pattern for our Meal class, because we found it could be represented as a Tree
-Structure, doing so could help us manage each classes independently while also maintain the overall hierarchy.
-Thus, in our Meal class, we have different subclasses of meal types (so far Breakfast, Lunch, Dinner),
-each contains different menus (of dishes),
-its own price, and its own number of employees required and other possible information in the future expansions.
-in addition, each dish is made with different ingredients, where we consider as the 'lowest common denominator'
-as it contains all the methods where all classes in meals package shares.
-In the future expansions we hope to determine meal prices based on ingredients, so implementing this tree structure
-using this design pattern seems suitable. Additionally, it helps manipulate our Meal classes easier.
+We also used a simple factory design pattern. The MealSetter in the meals package is used for other classes to create
+meals, while at the same time, those classes do not have to have strong dependency on meal class (for example, the
+EventManager).
+This allows us to create meal types according to the user's input. Event manager is able to create the requested meal
+type without need to know which meal types (subclasses of Meal) it has, it will simply call the MealSetter,
+and it will take the role to create the meal which the user desired, and if the requested meal type not exist,
+it will throw the exceptions.
+This helps us in the future program expansion, if we want to add more meal types, we do not need to modify the
+EventManager class each time, just to modify the MealSetter to include more options.
 
 ### Composite Design Pattern
 We decide to implement Composite design pattern for our Meal class, because we found it could be represented as a Tree
